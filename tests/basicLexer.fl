@@ -1,0 +1,5 @@
+async module Foo(){
+    //A comment
+    a = b & c;
+    a=b&c;
+}
