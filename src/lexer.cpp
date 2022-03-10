@@ -110,7 +110,7 @@ bool Token::isSingleCharToken(const char c){
                         "="     
                         "~!"    
                         "&|"    
-                        "+-*/"  
+                        "+-*/%^"  
                         "<>";
     
     for(size_t i=0; i<sizeof(SCTs); i++)
