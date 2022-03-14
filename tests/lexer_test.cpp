@@ -13,7 +13,7 @@
 #include "lexer.h"
 #include <sstream>
 
-void testLexer(){
+void lexer_test(){
     TEST(Lexer, BasicRead){
         std::ifstream in("tests/basicLexer.fl");
         EXPECT_TRUE(in.is_open());
@@ -51,9 +51,4 @@ void testLexer(){
 
         EXPECT_STREQ("Foo#(#clk#clk#,#s1#,#s2#,#o#)#;#", out.str().c_str());
     }END;
-}
-
-int main(){
-    testLexer();
-    return 0;
 }

@@ -3,6 +3,8 @@
 
 #include <limits>
 
+bool isSingleCharToken(const char c);
+
 Lexer::Lexer(istream& _is): is(_is){}
 
 Lexer::Lexer(std::ifstream& _is): is(_is){
@@ -66,6 +68,9 @@ void Lexer::operator()(){
         lexLine(line);
     }
 
+    currentToken = tokens.begin();
+    nextToken = currentToken+1;
+
 }
 
 void Lexer::lexLine(string line){
@@ -73,7 +78,7 @@ void Lexer::lexLine(string line){
 
     for(string::iterator it = line.begin(); it != line.end(); it++){
         //Check if single token
-        if(Token::isSingleCharToken(*it)){
+        if(isSingleCharToken(*it)){
             //Char is single token, save prev as token
             if(!current.empty()){
                 tokens.push_back(current);
@@ -99,16 +104,26 @@ void Lexer::lexLine(string line){
         tokens.push_back(current);
 }
 
+Token& Lexer::current() const {
+    return *currentToken;
+}
+
+void Lexer::consume(){
+    currentToken = nextToken;
+    if(nextToken != tokens.end())
+        nextToken++;
+}
+
 std::ostream& operator<<(std::ostream& os, const Lexer& l){
     for(unsigned int i=0;i<l.getTokens().size(); i++){
         os << l.getTokens()[i] << "#";
     }
     return os;
 }
-bool Token::isSingleCharToken(const char c){
+bool isSingleCharToken(const char c){
     const char SCTs[] = "(){};," 
                         "="     
-                        "~!"    
+                        "!"    
                         "&|"    
                         "+-*/%^"  
                         "<>";
