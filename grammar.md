@@ -9,15 +9,20 @@
 
     var_declaration := "var" identifier (, identifier)* ";"
     module_connection := identifier "(" parameter_list ");"
-    assignment := identifier "=" value ";"
+    assignment := identifier "=" value_exp ";"
 
     parameter_list_declaration := direction identifier (, direction identifier)*;
 
     parameter_list := value (, value)*
 
-    value := \num | (value binary_operator value) |identifier  
+
+    value_exp := value | "(" value_exp ")" | value binary_operator value_exp | unary_operator value_exp
+
+    value := \num | identifier
 
     binary_operator := "+" | "-" | "*" | "/" | "%" | "<<" | ">>" | "&" | "|" | "^"
+
+    unary_operator := "!" | "-" | "+"
 
 
 
