@@ -6,4 +6,5 @@ factoTest
 include/gtest_lite*
 include/memtrace*
 src/memtrace*
+*.cc
 .vscode

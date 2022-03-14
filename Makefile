@@ -13,9 +13,9 @@ MAKEDEPEND_TEST = g++ -MM -MF deps/$*_test.d -I include $<
 
 # Package for submission
 .PHONY: package
-package: NeuralNetwork.zip
+package: Factolog.zip
 
-NeuralNetwork.zip: doc
+Factolog.zip: doc
 
 # Folder for object files
 obj:
@@ -31,7 +31,8 @@ clean:
 	-rm -rf obj
 	-rm -rf deps
 	-rm -rf doc
-	-rm neural
+	-rm factolog
+	-rm factoTest
 
 # Rules for object files
 obj/%.o: src/%.cpp deps/%.d | obj
@@ -39,7 +40,7 @@ obj/%.o: src/%.cpp deps/%.d | obj
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 # Rule for final executable
-neural: $(OBJS)
+factolog: $(OBJS)
 	$(CXX) $(LDFLAGS) $(OBJS) -o $@ $(LIBS)
 
 # Folder for documentation
@@ -65,10 +66,18 @@ doc/latex/refman.pdf: doc/html
 
 # Rule for test compilation
 .PHONY: tests
-factoTest: $(TEST_OBJS) $(OBJS)
-	$(CXX) $(LDFLAGS) $(TEST_OBJS) $(OBJS) -o factoTest $(LIBS)
+tests : factoTest
 
-$(warn $(TEST_OBJS))
+factoTest: $(TEST_OBJS) $(OBJS) tests/testMain.cc
+	$(CXX) $(LDFLAGS) $(TEST_OBJS) $(OBJS) tests/testMain.cc -o factoTest $(LIBS)
+
+# Using .cc extention to not be included in TEST_SRCS
+tests/testMain.cc:
+	echo $(TEST_SRCS) | tr ' ' '\n' | sed 's/tests\//void /;s/\.cpp/()\;/' > $@
+	echo 'int main(){' >> $@
+	echo $(TEST_SRCS) | tr ' ' '\n' | sed 's/tests\///;s/\.cpp/()\;/;' >> $@
+	echo "return 0;}" >> $@
+
 
 obj/%_test.o: tests/%_test.cpp deps/%_test.d | obj
 	@$(MAKEDEPEND_TEST)
