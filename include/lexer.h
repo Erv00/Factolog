@@ -14,10 +14,6 @@
 #include <iostream>
 #include <fstream>
 
-using std::vector;
-using std::string;
-using std::istream;
-
 //TODO: DELETE THIS
 //THIS IS TEMPORARY
 typedef std::string Token;
@@ -54,17 +50,17 @@ typedef std::string Token;
 //};*/
 
 class Lexer {
-    vector<Token> tokens;
-    istream& is;
-    vector<Token>::iterator currentToken;   ///<A jelenlegi tokenre mutató iterator
-    vector<Token>::iterator nextToken;      ///<A következő tokenre mutató iterator
+    std::vector<Token> tokens;
+    std::istream& is;
+    std::vector<Token>::iterator currentToken;   ///<A jelenlegi tokenre mutató iterator
+    std::vector<Token>::iterator nextToken;      ///<A következő tokenre mutató iterator
 
 
 public:
-    Lexer(istream& _is);
+    Lexer(std::istream& _is);
     Lexer(std::ifstream& _is);
 
-    const vector<Token>& getTokens() const {return tokens;};
+    const std::vector<Token>& getTokens() const {return tokens;};
 
     /**
      * @brief Tokenizálást végez a megadott stream-en

@@ -5,7 +5,7 @@
 
 bool isSingleCharToken(const char c);
 
-Lexer::Lexer(istream& _is): is(_is){}
+Lexer::Lexer(std::istream& _is): is(_is){}
 
 Lexer::Lexer(std::ifstream& _is): is(_is){
     if(!_is.is_open())
@@ -37,8 +37,8 @@ Lexer::Lexer(std::ifstream& _is): is(_is){
 }*/
 
 void Lexer::operator()(){
-    string current;
-    string line;
+    std::string current;
+    std::string line;
 
     //std::noskipws(is);
 
@@ -73,10 +73,10 @@ void Lexer::operator()(){
 
 }
 
-void Lexer::lexLine(string line){
-    string current;
+void Lexer::lexLine(std::string line){
+    std::string current;
 
-    for(string::iterator it = line.begin(); it != line.end(); it++){
+    for(std::string::iterator it = line.begin(); it != line.end(); it++){
         //Check if single token
         if(isSingleCharToken(*it)){
             //Char is single token, save prev as token
@@ -86,7 +86,7 @@ void Lexer::lexLine(string line){
             }
 
             //Also save SCT
-            tokens.push_back(string(1,*it));
+            tokens.push_back(std::string(1,*it));
         }else if(*it != ' '){
             //Char is not a SCT, and not a space => add to current token
             current += *it;
