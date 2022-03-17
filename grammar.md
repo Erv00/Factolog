@@ -12,17 +12,23 @@
     assignment := identifier "=" value_exp ";"
 
     parameter_list_declaration := direction identifier (, direction identifier)*;
+    direction := "in" | "out"
 
     parameter_list := value (, value)*
 
 
     value_exp := value | "(" value_exp ")" | value binary_operator value_exp | unary_operator value_exp
 
+    value_exp := term ( ("+" | "-" | "&" | "|" | "^") term )*
+    term := factor ( ("*" | "/" | "%" | "<<" | ">>") factor )*
+    factor := exponent ( "**" exponent )*
+    exponent := unary_operator? ( "(" value_exp ")" | value )
+
     value := \num | identifier
 
     binary_operator := "+" | "-" | "*" | "/" | "%" | "<<" | ">>" | "&" | "|" | "^"
 
-    unary_operator := "!" | "-" | "+"
+    unary_operator := "~" | "-" | "+"
 
 
 

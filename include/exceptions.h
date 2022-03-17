@@ -11,6 +11,9 @@ class TokenExpectedError : ParserError {
     }
 };
 
-class UnexpectedSymbolError : ParserError {};
+class UnexpectedSymbolError : ParserError {
+    public:
+    UnexpectedSymbolError(Token);
+};
 
 #endif //exceptions_H

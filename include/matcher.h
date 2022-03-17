@@ -12,7 +12,17 @@ class Matcher {
      * 
      * @param l A használt lexer
      */
-    Matcher(Lexer& l): lex(l){}    
+    Matcher(Lexer& l): lex(l){}
+
+    /**
+     * @brief Megpóbálja a lexertől érkező input streamet matchelni
+     * 
+     * Előrébb lépteti a lexer tokenstreamjét ha sikeres a match
+     * 
+     * @return true ha sikeres volt a match
+     * @return false ha sikertelen volt a match
+     */
+    virtual bool match() = 0;  
 };
 
 #endif //matcher_H

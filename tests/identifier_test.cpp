@@ -1,16 +1,16 @@
 #include "gtest_lite.h"
-#include "identifierT.h"
+#include "lexemes.h"
+#include "exceptions.h"
 
 #include <sstream>
 
-void identifierT_test(){
+void identifier_test(){
     TEST(Identifier, ValidTest){
         std::stringstream in("foo");
         Lexer l(in);
         l();
 
-        Identifier i(l);
-        EXPECT_TRUE(i.match());
+        EXPECT_NO_THROW(Identifier i(l));
     }END;
     
     TEST(Identifier, ValidTest2){
@@ -18,8 +18,7 @@ void identifierT_test(){
         Lexer l(in);
         l();
 
-        Identifier i(l);
-        EXPECT_TRUE(i.match());
+        EXPECT_NO_THROW(Identifier i(l));
     }END;
     
     TEST(Identifier, InvalidTest){
@@ -27,7 +26,6 @@ void identifierT_test(){
         Lexer l(in);
         l();
 
-        Identifier i(l);
-        EXPECT_FALSE(i.match());
+        EXPECT_THROW(Identifier i(l), UnexpectedSymbolError&);
     }END;
 }

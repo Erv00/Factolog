@@ -72,7 +72,7 @@ factoTest: $(TEST_OBJS) $(OBJS) tests/testMain.cc
 	$(CXX) $(LDFLAGS) $(TEST_OBJS) $(OBJS) tests/testMain.cc -o factoTest $(LIBS)
 
 # Using .cc extention to not be included in TEST_SRCS
-tests/testMain.cc:
+tests/testMain.cc: $(TEST_SRCS)
 	echo $(TEST_SRCS) | tr ' ' '\n' | sed 's/tests\//void /;s/\.cpp/()\;/' > $@
 	echo 'int main(){' >> $@
 	echo $(TEST_SRCS) | tr ' ' '\n' | sed 's/tests\///;s/\.cpp/()\;/;' >> $@
