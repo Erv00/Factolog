@@ -1,0 +1,41 @@
+#include "lexemes.h"
+
+Term* Term::parse(Lexer& lex){
+    Term *res = new Term;
+    res->left = Factor::parse(lex);
+
+    Token& curr = lex.current();
+    
+    //Have we reached the end of the stream?
+    if(curr.isEOF()){
+        //Eof reached, return
+        /*Term *opt = res->left;
+        res->left = NULL;
+        delete res;
+        return opt;*/
+        return res;
+    }
+
+    if(curr == '*')
+        res->op = MUL;
+    else if(curr == '/')
+        res->op = DIV;
+    else if(curr == '%')
+        res->op = MOD;
+    else if(curr == "<<")
+        res->op = LSHIFT;
+    else if(curr == ">>")
+        res->op = RSHIFT;
+    else{
+        //We may have reached a higher order operator, or invalid syntax
+        /*Term *opt = res->left;
+        res->left = NULL;
+        delete res;
+        return opt;*/
+        return res;
+    }
+
+    res->right = Term::parse(lex);
+
+    return res;
+}

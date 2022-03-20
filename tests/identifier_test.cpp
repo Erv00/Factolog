@@ -10,7 +10,11 @@ void identifier_test(){
         Lexer l(in);
         l();
 
-        EXPECT_NO_THROW(Identifier i(l));
+        Identifier *i;
+        EXPECT_NO_THROW(i = Identifier::parse(l));
+
+        delete i;
+
     }END;
     
     TEST(Identifier, ValidTest2){
@@ -18,7 +22,10 @@ void identifier_test(){
         Lexer l(in);
         l();
 
-        EXPECT_NO_THROW(Identifier i(l));
+        Identifier *i;
+        EXPECT_NO_THROW(i = Identifier::parse(l));
+
+        delete i;
     }END;
     
     TEST(Identifier, InvalidTest){
@@ -26,6 +33,6 @@ void identifier_test(){
         Lexer l(in);
         l();
 
-        EXPECT_THROW(Identifier i(l), UnexpectedSymbolError&);
+        EXPECT_THROW(Identifier::parse(l), UnexpectedSymbolError&);
     }END;
 }

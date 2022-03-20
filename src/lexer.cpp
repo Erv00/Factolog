@@ -1,6 +1,8 @@
 #include "memtrace.h"
 #include "lexer.h"
 
+#include "exceptions.h"
+
 #include <limits>
 
 bool isSingleCharToken(const char c);
@@ -11,30 +13,6 @@ Lexer::Lexer(std::ifstream& _is): is(_is){
     if(!_is.is_open())
         throw "Unable to open file";
 }
-
-/*void Lexer::operator()(){
-    //Read whole file and strip comments
-    string content;
-    std::noskipws(is);
-    char prev = 'A';
-    char c;
-    
-    while(is >> c){
-        if(c == '#'){
-            //Comment, skip to end of line
-            is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }else if(c == '\n'){
-            //Skip
-        }else if(c == ' ' && prev == ' '){
-            //Skip
-        }else{
-            content += c;
-        }
-        prev = c;
-    }
-
-    tokens.push_back(content);
-}*/
 
 void Lexer::operator()(){
     std::string current;
@@ -108,6 +86,12 @@ Token& Lexer::current() const {
     return *currentToken;
 }
 
+void Lexer::except(Token t){
+    if(t != current())
+        throw UnexpectedSymbolError(t, current());
+    consume();
+}
+
 void Lexer::consume(){
     currentToken = nextToken;
     if(nextToken != tokens.end())
@@ -126,7 +110,7 @@ bool isSingleCharToken(const char c){
                         "!"    
                         "&|"    
                         "+-*/%^"  
-                        "<>";
+                        "~";
     
     for(size_t i=0; i<sizeof(SCTs); i++)
         if(SCTs[i] == c) return true;

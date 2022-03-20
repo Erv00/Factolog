@@ -6,12 +6,13 @@
 
 #include "exceptions.h"
 
-Value::Value(Lexer& l):Matcher(l){
+Value* Value::parse(Lexer& lex){
     Token& curr = lex.current();
-    if(isdigit(curr[0])){
+    if(isdigit(curr[0]))
         //Token is number
-        return Number(l);
-    }
-
+        return Number::parse(lex);
+    else
+        //Token must be identifier
+        return Identifier::parse(lex);
 
 }

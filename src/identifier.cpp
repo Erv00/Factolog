@@ -2,35 +2,21 @@
 
 #include "exceptions.h"
 
-Identifier::Identifier(Lexer& l):Matcher(l){
+Identifier* Identifier::parse(Lexer& lex){
     Token tok = lex.current();
 
     //TODO: CHEKC FOR END
 
     if(tok[0] != '_' && !isalpha(tok[0]))
-        throw UnexpectedSymbolError();
+        throw UnexpectedSymbolError(tok);
     
     for(size_t i=1;i<tok.length();i++)
         if(!isalnum(tok[i]) && tok[i] != '_')
-            throw UnexpectedSymbolError();
+            throw UnexpectedSymbolError(tok);
     
     //Token is valid identifier
     lex.consume();
-}
 
-bool Identifier::match(){
-    Token tok = lex.current();
-
-    //TODO: CHEKC FOR END
-
-    if(tok[0] != '_' && !isalpha(tok[0]))
-        return false;
+    return new Identifier(tok);
     
-    for(size_t i=1;i<tok.length();i++)
-        if(!isalnum(tok[i]) && tok[i] != '_')
-            return false;
-    
-    //Token is valid identifier
-    lex.consume();
-    return true;
 }

@@ -3,48 +3,69 @@
 
 #include "matcher.h"
 
+#include "treenode.h"
+
 class Lexer;
 
-class Identifier : Matcher{
+
+class Expression : public TreeNode {
     public:
-    Identifier(Lexer&);
-    bool match();
+    enum BinaryOperator {
+        PLUS, MINUS, AND, OR, XOR, 
+        MUL, DIV, MOD, LSHIFT, RSHIFT,
+        EXPONENT
+    };
+
+    protected:
+    Expression* left;
+    Expression* right;
+    
+    public:
+    enum BinaryOperator op;
+    static Expression* parse(Lexer&);
 };
 
-class ValueExpression : Matcher {
+class Term : public Expression {
+    /*private:
+    Term* left;
+    Term* right;*/
     public:
-    ValueExpression(Lexer&);
+    static Term* parse(Lexer&);
 };
 
-class Term : Matcher {
+class Factor : public Expression {
+    /*private:
+    Factor* left;
+    Factor* right;*/
     public:
-    Term(Lexer&);
+    static Factor* parse(Lexer&);
 };
 
-class Factor : Matcher {
+class UnaryExpression : public Expression {
     public:
-    Factor(Lexer&);
+    enum Operator {PLUS, MINUS, NOT};
+    static UnaryExpression* parse(Lexer&);
+    enum Operator op;
+    TreeNode *expr;   ///< Kifejezés, amire alkalmazni kell az operátort
+    UnaryExpression():Expression(){op=PLUS;};
 };
 
-class Exponent : Matcher {
+class Value : public TreeNode {
     public:
-    Exponent(Lexer&);
+    static Value* parse(Lexer& l);
 };
 
-class UnaryOperator : Matcher {
-    public:
-    UnaryOperator(Lexer&);
-};
-
-class Value : protected Matcher {
-    public:
-    Value(Lexer&);
-};
-
-class Number : protected Value {
+class Number : public Value {
     int value;
+    Number(int val):value(val){};
     public:
-    Number(Lexer&);
+    static Number* parse(Lexer &l);
 };
 
+class Identifier : public Value{
+    std::string name;
+    Identifier(std::string name):name(name){};
+    public:
+    static Identifier* parse(Lexer& l);
+};
 #endif //lexemes_H
