@@ -2,6 +2,7 @@
 #define exceptions_H
 
 #include <exception>
+#include "lexer.h"
 
 class ParserError : std::exception::exception {};
 
@@ -11,9 +12,17 @@ class TokenExpectedError : ParserError {
     }
 };
 
-class UnexpectedSymbolError : ParserError {
+
+class UnexpectedSymbolError : public ParserError {
     public:
-    UnexpectedSymbolError(Token);
+    UnexpectedSymbolError(Token a):ParserError(){
+        a.length();
+    }
+    UnexpectedSymbolError(Token expected, Token got){
+        expected.isEOF();
+        got.isEOF();
+    }
 };
 
+class UnableToRepresentError : ParserError {};
 #endif //exceptions_H

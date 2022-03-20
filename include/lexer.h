@@ -14,40 +14,7 @@
 #include <iostream>
 #include <fstream>
 
-//TODO: DELETE THIS
-//THIS IS TEMPORARY
-typedef std::string Token;
-
-/**
- * @brief Egy lexikai token
- */
-//class Token {
-//private:
-//    const char *token;  ///<A token szöveges megjelenése
-//public:
-//    /**
-//     * @brief Új Token létrehozása
-//     * 
-//     * A megadott karaktertömb másolásra kerül
-//     * 
-//     * @param _token A token szöveges megjelenése
-//     */
-//    Token(const char *_token);
-//    /**
-//     * @brief Új Token létrehozása
-//     * @sa Token::Token(const char*)
-//     * @param t 
-//     */
-//    Token(const Token& t);
-//
-//    Token operator=(const Token& t);
-//
-//    bool operator==(const Token& t) const;
-//    bool operator==(const char *c) const;
-
-//    static bool isValidToken(std::string tok);
-//    static bool isSingleCharToken(const char c);
-//};*/
+#include "token.h"
 
 class Lexer {
     std::vector<Token> tokens;

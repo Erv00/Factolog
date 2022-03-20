@@ -9,7 +9,7 @@
 
     var_declaration := "var" identifier (, identifier)* ";"
     module_connection := identifier "(" parameter_list ");"
-    assignment := identifier "=" value_exp ";"
+    assignment := identifier "=" expression ";"
 
     parameter_list_declaration := direction identifier (, direction identifier)*;
     direction := "in" | "out"
@@ -17,12 +17,10 @@
     parameter_list := value (, value)*
 
 
-    value_exp := value | "(" value_exp ")" | value binary_operator value_exp | unary_operator value_exp
-
-    value_exp := term ( ("+" | "-" | "&" | "|" | "^") term )*
+    expression := term ( ("+" | "-" | "&" | "|" | "^") term )*
     term := factor ( ("*" | "/" | "%" | "<<" | ">>") factor )*
-    factor := exponent ( "**" exponent )*
-    exponent := unary_operator? ( "(" value_exp ")" | value )
+    factor := unary_expression ( "**" unary_expression )*
+    unary_expression := unary_operator? ( "(" expression ")" | value )
 
     value := \num | identifier
 
