@@ -5,8 +5,6 @@
 
 #include <limits>
 
-bool isSingleCharToken(const char c);
-
 Lexer::Lexer(std::istream& _is): is(_is){}
 
 Lexer::Lexer(std::ifstream& _is): is(_is){
@@ -55,8 +53,20 @@ void Lexer::lexLine(std::string line){
     std::string current;
 
     for(std::string::iterator it = line.begin(); it != line.end(); it++){
-        //Check if single token
-        if(isSingleCharToken(*it)){
+        //Check if 2 char token
+        if(isTwoCharToken(it)){
+            //Current and next char form a 2CT, save prev as token
+            if(!current.empty()){
+                tokens.push_back(current);
+                current.clear();
+            }
+
+            //Also save 2CT
+            tokens.push_back(std::string(2,*it));
+
+            //Also consume 2nd char
+            it++;
+        }else if(isSingleCharToken(*it)){     //Check if single token
             //Char is single token, save prev as token
             if(!current.empty()){
                 tokens.push_back(current);
@@ -104,7 +114,7 @@ std::ostream& operator<<(std::ostream& os, const Lexer& l){
     }
     return os;
 }
-bool isSingleCharToken(const char c){
+bool Lexer::isSingleCharToken(char c) const{
     const char SCTs[] = "(){};," 
                         "="     
                         "!"    
@@ -116,4 +126,16 @@ bool isSingleCharToken(const char c){
         if(SCTs[i] == c) return true;
     
     return false;
+}
+
+bool Lexer::isTwoCharToken(std::string::iterator& it) const{
+    if(*it != *(it+1)) return false;
+
+    //The next 2 chars are the same
+    switch(*it){
+        case '*': return true;
+        case '<': return true;
+        case '>': return true;
+        default : return false;
+    }
 }

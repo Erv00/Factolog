@@ -35,7 +35,34 @@ ValueExpression* Term::parse(Lexer& lex){
         return res;
     }
 
+    lex.consume();
+
     res->right = Term::parse(lex);
 
     return res;
+}
+std::ostream& Term::printDot(std::ostream& os) const {
+    os << "\"" << this << "\" [label=\"Binary ";
+    switch(op){
+        case MUL: os << '*'; break;
+        case DIV: os << '/'; break;
+        case MOD: os << '%'; break;
+        case LSHIFT: os << "<<"; break;
+        case RSHIFT: os << ">>"; break;
+    }
+
+    os << "\"];\n";
+    
+    if(left != NULL){
+        left->printDot(os);
+        dotConnection(os, this, left);
+
+        if(right != NULL){
+            right->printDot(os);
+            dotConnection(os, this, right);
+        }
+    }else if(right != NULL)
+        throw "Havbe right but no left";
+    
+    return os;
 }

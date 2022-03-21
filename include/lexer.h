@@ -22,6 +22,9 @@ class Lexer {
     std::vector<Token>::iterator currentToken;   ///<A jelenlegi tokenre mutató iterator
     std::vector<Token>::iterator nextToken;      ///<A következő tokenre mutató iterator
 
+    bool isSingleCharToken(char c) const;
+    bool isTwoCharToken(std::string::iterator& it) const;
+
 
 public:
     Lexer(std::istream& _is);

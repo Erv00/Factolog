@@ -23,3 +23,7 @@ Number* Number::parse(Lexer& lex){
     
     return new Number(value);
 }
+
+std::ostream& Number::printDot(std::ostream& os) const {
+    return os << "\"" << this << "\" [label=\"" << value << "\"];\n";
+}

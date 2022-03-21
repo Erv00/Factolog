@@ -11,10 +11,13 @@ void unaryExpression_test(){
         Lexer l(ss);
         l();
 
-        UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
+        ValueExpression *v;
+        EXPECT_NO_THROW(v = UnaryExpression::parse(l));
 
-        EXPECT_EQ(UnaryExpression::PLUS, unop->op);
+        UnaryExpression *unop;
+        EXPECT_NO_THROW(unop = dynamic_cast<UnaryExpression*>(v));
+        EXPECT_TRUE(unop == NULL);
+
         EXPECT_TRUE(ss.eof());
     }END;
 
@@ -23,10 +26,14 @@ void unaryExpression_test(){
         Lexer l(ss);
         l();
 
-        UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
+        ValueExpression *v;
+        EXPECT_NO_THROW(v = UnaryExpression::parse(l));
 
-        EXPECT_EQ(UnaryExpression::PLUS, unop->op);
+        UnaryExpression *unop;
+        EXPECT_NO_THROW(unop = dynamic_cast<UnaryExpression*>(v));
+        //EXPECT_EQ((UnaryExpression*)NULL, unop);
+        EXPECT_TRUE(unop == NULL);
+
         EXPECT_TRUE(ss.eof());
     }END;
     
@@ -36,7 +43,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
+        EXPECT_NO_THROW(unop = dynamic_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::MINUS, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -48,7 +55,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
+        EXPECT_NO_THROW(unop = dynamic_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::NOT, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -60,7 +67,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)), UnexpectedSymbolError&);
+        EXPECT_THROW(unop = dynamic_cast<UnaryExpression*>(UnaryExpression::parse(l)), UnexpectedSymbolError&);
     }END;
 
     TEST(UnaryExpression, NormalIdentifier){
@@ -68,10 +75,13 @@ void unaryExpression_test(){
         Lexer l(ss);
         l();
 
-        UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
+        ValueExpression *v;
+        EXPECT_NO_THROW(v = UnaryExpression::parse(l));
 
-        EXPECT_EQ(UnaryExpression::PLUS, unop->op);
+        UnaryExpression *unop;
+        EXPECT_NO_THROW(unop = dynamic_cast<UnaryExpression*>(v));
+        EXPECT_TRUE(unop == NULL);
+
         EXPECT_TRUE(ss.eof());
     }END;
 
@@ -80,10 +90,13 @@ void unaryExpression_test(){
         Lexer l(ss);
         l();
 
-        UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
+        ValueExpression *v;
+        EXPECT_NO_THROW(v = UnaryExpression::parse(l));
 
-        EXPECT_EQ(UnaryExpression::PLUS, unop->op);
+        UnaryExpression *unop;
+        EXPECT_NO_THROW(unop = dynamic_cast<UnaryExpression*>(v));
+        EXPECT_TRUE(unop == NULL);
+
         EXPECT_TRUE(ss.eof());
     }END;
     
@@ -93,7 +106,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
+        EXPECT_NO_THROW(unop = dynamic_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::MINUS, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -105,7 +118,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
+        EXPECT_NO_THROW(unop = dynamic_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::NOT, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -117,7 +130,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)), UnexpectedSymbolError&);
+        EXPECT_THROW(unop = dynamic_cast<UnaryExpression*>(UnaryExpression::parse(l)), UnexpectedSymbolError&);
     }END;
 
     //( expression )
@@ -126,9 +139,30 @@ void unaryExpression_test(){
         Lexer l(ss);
         l();
 
+        ValueExpression *v;
+        EXPECT_NO_THROW(v = UnaryExpression::parse(l));
+
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
-        EXPECT_EQ(UnaryExpression::PLUS, unop->op);
+        EXPECT_NO_THROW(unop = dynamic_cast<UnaryExpression*>(v));
+        EXPECT_TRUE(unop == NULL);
+
+        EXPECT_TRUE(ss.eof());
+    }END;
+    //( expression )
+    TEST(UnaryExpression, not(expression)){
+        std::stringstream ss("~(5)");
+        Lexer l(ss);
+        l();
+
+        ValueExpression *v;
+        EXPECT_NO_THROW(v = UnaryExpression::parse(l));
+
+        UnaryExpression *unop;
+        EXPECT_NO_THROW(unop = dynamic_cast<UnaryExpression*>(v));
+        EXPECT_TRUE(unop != NULL);
+
+        EXPECT_EQ(UnaryExpression::NOT, unop->op);
+
         EXPECT_TRUE(ss.eof());
     }END;
 }

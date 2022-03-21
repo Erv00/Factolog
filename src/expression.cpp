@@ -2,6 +2,10 @@
 
 #include "exceptions.h"
 
+std::ostream& dotConnection(std::ostream& os, const void *from, const void *to){
+    return os << "\"" << from << "\" -> \"" << to << "\";\n"; 
+}
+
 ValueExpression* Expression::parse(Lexer& lex){
     Expression *res = new Expression;
     res->left = Term::parse(lex);
@@ -35,7 +39,35 @@ ValueExpression* Expression::parse(Lexer& lex){
         return opt;
     }
 
+    lex.consume();
+
     res->right = Expression::parse(lex);
 
     return res;
+}
+
+std::ostream& Expression::printDot(std::ostream& os) const {
+    os << "\"" << this << "\" [label=\"Binary ";
+    switch(op){
+        case PLUS: os << '+'; break;
+        case MINUS: os << '-'; break;
+        case AND: os << '&'; break;
+        case OR: os << '|'; break;
+        case XOR: os << '^'; break;
+    }
+
+    os << "\"];\n";
+    
+    if(left != NULL){
+        left->printDot(os);
+        dotConnection(os, this, left);
+
+        if(right != NULL){
+            right->printDot(os);
+            dotConnection(os, this, right);
+        }
+    }else if(right != NULL)
+        throw "Havbe right but no left";
+    
+    return os;
 }

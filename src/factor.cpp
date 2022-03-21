@@ -17,6 +17,8 @@ ValueExpression* Factor::parse(Lexer& lex){
     }
 
     if(curr == "**"){
+        //Consume **
+        lex.consume();
         res->right = Factor::parse(lex);
         return res;
     }else{
@@ -27,4 +29,21 @@ ValueExpression* Factor::parse(Lexer& lex){
         return opt;
         return res;
     }
+} 
+
+std::ostream& Factor::printDot(std::ostream& os) const {
+    os << "\"" << this << "\" [label=\"Binary **\"]\n";
+    if(left != NULL){
+        dotConnection(os, this, left);
+        left->printDot(os);
+
+        if(right != NULL){
+            dotConnection(os, this, right);
+            right->printDot(os);
+        }
+    }else if(right != NULL)
+        throw "Have right but no left";
+    
+    return os;
+    
 }

@@ -32,6 +32,30 @@ ValueExpression* UnaryExpression::parse(Lexer& lex){
     }
 
     res->expr = Value::parse(lex);
+
+    //No need to do unary +, it does nothing 
+    if(res->op == PLUS)
+        return res->expr;
     return res;
     
+}
+
+std::ostream& UnaryExpression::printDot(std::ostream& os) const {
+    os << "\"" << this << "\" [label=\"Unary ";
+    switch(op){
+        case MINUS:
+            os << '-';
+            break;
+        case NOT:
+            os << '~';
+            break;
+        case PLUS:
+            throw "Unary + not optimized";
+    }
+
+    os << "\"]\n";
+
+    os << "\"" << this << "\" -> \"" << expr << "\";\n";
+
+    return expr->printDot(os);
 }

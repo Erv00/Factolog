@@ -51,4 +51,16 @@ void lexer_test(){
 
         EXPECT_STREQ("Foo#(#clk#clk#,#s1#,#s2#,#o#)#;#", out.str().c_str());
     }END;
+
+    TEST(Lexer, Multichar operator){
+        std::stringstream in("async module Foo(){x=-b+(b**2-4*a*c)**(1/2);}");
+        std::stringstream out;
+
+        Lexer l(in);
+        EXPECT_NO_THROW(l());
+
+        out << l;
+
+        EXPECT_STREQ("async#module#Foo#(#)#{#x#=#-#b#+#(#b#**#2#-#4#*#a#*#c#)#**#(#1#/#2#)#;#}#", out.str().c_str());
+    }END;
 }

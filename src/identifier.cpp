@@ -20,3 +20,7 @@ Identifier* Identifier::parse(Lexer& lex){
     return new Identifier(tok);
     
 }
+
+std::ostream& Identifier::printDot(std::ostream& os) const {
+    return os << "\"" << this << "\" [label=\"" << name << "\"]\n";
+}
