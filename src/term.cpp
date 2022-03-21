@@ -1,6 +1,6 @@
 #include "lexemes.h"
 
-Term* Term::parse(Lexer& lex){
+ValueExpression* Term::parse(Lexer& lex){
     Term *res = new Term;
     res->left = Factor::parse(lex);
 
@@ -9,10 +9,10 @@ Term* Term::parse(Lexer& lex){
     //Have we reached the end of the stream?
     if(curr.isEOF()){
         //Eof reached, return
-        /*Term *opt = res->left;
+        ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
-        return opt;*/
+        return opt;
         return res;
     }
 
@@ -28,10 +28,10 @@ Term* Term::parse(Lexer& lex){
         res->op = RSHIFT;
     else{
         //We may have reached a higher order operator, or invalid syntax
-        /*Term *opt = res->left;
+        ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
-        return opt;*/
+        return opt;
         return res;
     }
 

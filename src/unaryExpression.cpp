@@ -1,6 +1,6 @@
 #include "lexemes.h"
 
-UnaryExpression* UnaryExpression::parse(Lexer& lex){
+ValueExpression* UnaryExpression::parse(Lexer& lex){
     Token& curr = lex.current();
 
     UnaryExpression* res = new UnaryExpression();
@@ -24,13 +24,10 @@ UnaryExpression* UnaryExpression::parse(Lexer& lex){
         res->expr = Expression::parse(lex);
         //throw "NABAZDMEG";
         lex.except(")");
-        /**
-         * @todo Optimize
-         * 
-         * No need to do unary +, it does nothing 
-         */
-        /*if(res->op == PLUS)
-            return res->expr;*/
+        
+        //No need to do unary +, it does nothing 
+        if(res->op == PLUS)
+            return res->expr;
         return res;
     }
 

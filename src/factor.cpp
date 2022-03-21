@@ -1,6 +1,6 @@
 #include "lexemes.h"
 
-Factor* Factor::parse(Lexer& lex){
+ValueExpression* Factor::parse(Lexer& lex){
     Factor *res = new Factor;
     res->left = UnaryExpression::parse(lex);
 
@@ -9,26 +9,22 @@ Factor* Factor::parse(Lexer& lex){
     //Have we reached the end of the stream?
     if(curr.isEOF()){
         //Eof reached, return
-        /*Factor *opt = res->left;
+        ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
-        return opt;*/
+        return opt;
         return res;
     }
 
-    if(curr == "**")
-        res->op = EXPONENT;
-    else{
+    if(curr == "**"){
+        res->right = Factor::parse(lex);
+        return res;
+    }else{
         //We may have reached a higher order operator, or invalid syntax
-        /*Factor *opt = res->left;
+        ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
-        return opt;*/
+        return opt;
         return res;
     }
-
-    res->right = Factor::parse(lex);
-
-    return res;
-
 }

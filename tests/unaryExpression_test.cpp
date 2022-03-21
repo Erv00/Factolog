@@ -12,7 +12,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = UnaryExpression::parse(l));
+        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::PLUS, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -24,7 +24,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = UnaryExpression::parse(l));
+        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::PLUS, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -36,7 +36,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = UnaryExpression::parse(l));
+        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::MINUS, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -48,7 +48,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = UnaryExpression::parse(l));
+        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::NOT, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -60,7 +60,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_THROW(unop = UnaryExpression::parse(l), UnexpectedSymbolError&);
+        EXPECT_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)), UnexpectedSymbolError&);
     }END;
 
     TEST(UnaryExpression, NormalIdentifier){
@@ -69,7 +69,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = UnaryExpression::parse(l));
+        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::PLUS, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -81,7 +81,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = UnaryExpression::parse(l));
+        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::PLUS, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -93,7 +93,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = UnaryExpression::parse(l));
+        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::MINUS, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -105,7 +105,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = UnaryExpression::parse(l));
+        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
 
         EXPECT_EQ(UnaryExpression::NOT, unop->op);
         EXPECT_TRUE(ss.eof());
@@ -117,7 +117,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_THROW(unop = UnaryExpression::parse(l), UnexpectedSymbolError&);
+        EXPECT_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)), UnexpectedSymbolError&);
     }END;
 
     //( expression )
@@ -127,7 +127,7 @@ void unaryExpression_test(){
         l();
 
         UnaryExpression *unop;
-        EXPECT_NO_THROW(unop = UnaryExpression::parse(l));
+        EXPECT_NO_THROW(unop = static_cast<UnaryExpression*>(UnaryExpression::parse(l)));
         EXPECT_EQ(UnaryExpression::PLUS, unop->op);
         EXPECT_TRUE(ss.eof());
     }END;

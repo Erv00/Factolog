@@ -7,50 +7,47 @@
 
 class Lexer;
 
+class ValueExpression : public TreeNode {
+    protected:
+    ValueExpression* left;
+    ValueExpression* right;
+}; 
 
-class Expression : public TreeNode {
+class Expression : public ValueExpression {
     public:
     enum BinaryOperator {
-        PLUS, MINUS, AND, OR, XOR, 
-        MUL, DIV, MOD, LSHIFT, RSHIFT,
-        EXPONENT
+        PLUS, MINUS, AND, OR, XOR
     };
 
-    protected:
-    Expression* left;
-    Expression* right;
-    
     public:
     enum BinaryOperator op;
-    static Expression* parse(Lexer&);
+    static ValueExpression* parse(Lexer&);
 };
 
-class Term : public Expression {
-    /*private:
-    Term* left;
-    Term* right;*/
+class Term : public ValueExpression {
     public:
-    static Term* parse(Lexer&);
+    enum BinaryOperator {
+        MUL, DIV, MOD, LSHIFT, RSHIFT
+    };
+    enum BinaryOperator op;
+    static ValueExpression* parse(Lexer&);
 };
 
-class Factor : public Expression {
-    /*private:
-    Factor* left;
-    Factor* right;*/
+class Factor : public ValueExpression {
     public:
-    static Factor* parse(Lexer&);
+    static ValueExpression* parse(Lexer&);
 };
 
-class UnaryExpression : public Expression {
+class UnaryExpression : public ValueExpression {
     public:
     enum Operator {PLUS, MINUS, NOT};
-    static UnaryExpression* parse(Lexer&);
+    static ValueExpression* parse(Lexer&);
     enum Operator op;
-    TreeNode *expr;   ///< Kifejezés, amire alkalmazni kell az operátort
-    UnaryExpression():Expression(){op=PLUS;};
+    ValueExpression *expr;   ///< Kifejezés, amire alkalmazni kell az operátort
+    UnaryExpression(){op=PLUS;};
 };
 
-class Value : public TreeNode {
+class Value : public ValueExpression {
     public:
     static Value* parse(Lexer& l);
 };

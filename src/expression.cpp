@@ -2,7 +2,7 @@
 
 #include "exceptions.h"
 
-Expression* Expression::parse(Lexer& lex){
+ValueExpression* Expression::parse(Lexer& lex){
     Expression *res = new Expression;
     res->left = Term::parse(lex);
 
@@ -11,7 +11,7 @@ Expression* Expression::parse(Lexer& lex){
     //Have we reached the end of the stream?
     if(curr.isEOF()){
         //Eof reached, return
-        Expression *opt = res->left;
+        ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
         return opt;
@@ -29,7 +29,7 @@ Expression* Expression::parse(Lexer& lex){
         res->op = XOR;
     else{
         //We may have reached a higher order operator, or invalid syntax
-        Expression *opt = res->left;
+        ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
         return opt;
