@@ -14,10 +14,46 @@ void dot_test(){
 
         ValueExpression *val;
         EXPECT_NO_THROW(val = Expression::parse(l));
-
         std::stringstream out;
         EXPECT_NO_THROW(val->printDot(out));
 
         std::cout << out.str();
+    }END;
+
+    TEST(Dot, Complex){
+        std::stringstream ss("async module Foo(out baz){"
+                "var a, b;"
+                "Bar(a, a&b, 5);"
+                "a = 6+9;"
+                "}");
+        Lexer l(ss);
+        EXPECT_NO_THROW(l());
+
+        AsyncModule *am;
+        EXPECT_NO_THROW(am = AsyncModule::parse(l));
+
+        EXPECT_TRUE(am != NULL);
+
+        std::cout << "digraph G{\n";
+
+        am->printDot(std::cout) << "}\n";
+
+        delete am;
+    }END;
+
+    TEST(Dot, 41Mul File){
+        std::ifstream in("tests/4_1mul.fl");
+        EXPECT_TRUE(in.is_open());
+        Lexer l(in);
+        EXPECT_NO_THROW(l());
+
+        AsyncModule *am;
+        EXPECT_NO_THROW(am = AsyncModule::parse(l));
+
+        std::cout << "digraph G{\n";
+
+        am->printDot(std::cout) << "}\n";
+
+        delete am;
     }END;
 }

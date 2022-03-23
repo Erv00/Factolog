@@ -25,4 +25,11 @@ class UnexpectedSymbolError : public ParserError {
 };
 
 class UnableToRepresentError : ParserError {};
+
+class ProgrammingError : public std::exception::exception {};
+
+class EmptyParameterListError : public ProgrammingError{
+    public:
+    EmptyParameterListError(Token t){t.isEOF();};
+};
 #endif //exceptions_H

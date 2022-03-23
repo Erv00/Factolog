@@ -1,0 +1,7 @@
+async module Mul4_1(in a, in b, in c, in d, in s1, in s2, out S){
+    //4/1 multiplexer example
+    S = (a & ~s1 & ~s2) | 
+        (b & ~s1 &  s2) |  
+        (c &  s1 & ~s2) | 
+        (d &  s1 &  s2) ; 
+}

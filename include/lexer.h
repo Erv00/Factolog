@@ -75,6 +75,16 @@ public:
      * @return Token& A jelenlegi token
      */
     Token& current() const;
+
+    /**
+     * @brief Visszaadja, hogy a következő token END_TOKEN-e
+     * 
+     * Egyenlő a this->current().isEOF() értékével
+     * 
+     * @return true Ha elérte a token-sorozat végét
+     * @return false Egyébként
+     */
+    bool eof() const;
 };
 
 std::ostream& operator<<(std::ostream& os, const Lexer& l);

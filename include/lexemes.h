@@ -1,15 +1,17 @@
 #ifndef lexemes_H
 #define lexemes_H
 
-#include "matcher.h"
+#include <vector>
 
 #include "treenode.h"
+#include "lexer.h"
 
+class AsyncExpression;
+class ParameterListDeclaration;
+class ParameterList;
 
 std::ostream& dotConnection(std::ostream& os, const void *from, const void *to);
-
-
-class Lexer;
+std::ostream& dotNode(std::ostream& os, const void *obj, const char *label, const char *style);
 
 class ValueExpression : public TreeNode {
     public:
@@ -88,6 +90,77 @@ class Identifier : public Value{
     public:
     ~Identifier(){};
     static Identifier* parse(Lexer& l);
+    std::ostream& printDot(std::ostream& os) const;
+    std::string& getName(){return name;};
+};
+
+class Module : public TreeNode {
+    protected:
+    Identifier* identifier;
+    ParameterListDeclaration* parameters;
+    public:
+    ~Module(){};
+};
+
+class AsyncModule : public Module {
+    std::vector<AsyncExpression*> expressions;
+    public:
+    ~AsyncModule(){};
+    static AsyncModule* parse(Lexer& l);
+    std::ostream& printDot(std::ostream& os) const;
+};
+
+class AsyncExpression : public TreeNode {
+    public:
+    ~AsyncExpression(){};
+    static AsyncExpression* parse(Lexer& l);
+};
+class VariableDeclaration : public AsyncExpression {
+    std::vector<Identifier*> varsDeclared;
+    public:
+    ~VariableDeclaration(){};
+    static VariableDeclaration* parse(Lexer& l);
+    std::ostream& printDot(std::ostream& os) const;
+};
+class ModuleConnection : public AsyncExpression {
+    Identifier *identifier;
+    ParameterList *parameters;
+    public:
+    ~ModuleConnection(){};
+    static ModuleConnection* parse(Lexer& l);
+    std::ostream& printDot(std::ostream& os) const;
+};
+class Assignment : public AsyncExpression {
+    Identifier *to;
+    ValueExpression *val;
+    public:
+    ~Assignment(){};
+    static Assignment* parse(Lexer& l);
+    std::ostream& printDot(std::ostream& os) const;
+};
+class Parameter : public TreeNode {
+    public:
+    enum Direction {IN, OUT};
+    private:
+    enum Direction direction;
+    Identifier* identifier;
+    public:
+    ~Parameter(){};
+    static Parameter* parse(Lexer& l);
+    std::ostream& printDot(std::ostream& os) const;
+};
+class ParameterList : public TreeNode {
+    std::vector<ValueExpression*> parameters;    ///< Paraméterek nevei
+    public:
+    ~ParameterList(){};
+    static ParameterList* parse(Lexer& l);
+    std::ostream& printDot(std::ostream& os) const;
+};
+class ParameterListDeclaration : public TreeNode {
+    std::vector<Parameter*> parameters;
+    public:
+    ~ParameterListDeclaration(){};
+    static ParameterListDeclaration* parse(Lexer& l);
     std::ostream& printDot(std::ostream& os) const;
 };
 #endif //lexemes_H

@@ -44,4 +44,18 @@ void number_test(){
 
         EXPECT_THROW(Number::parse(l), UnableToRepresentError&);
     }END;
+
+    TEST(Number, Dot){
+        std::stringstream in("69");
+        Lexer l(in);
+        l();
+
+        Number *i;
+        EXPECT_NO_THROW(i = Number::parse(l));
+
+        std::stringstream out;
+        EXPECT_NO_THROW(i->printDot(out));
+
+        delete i;
+    }END;
 }

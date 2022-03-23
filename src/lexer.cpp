@@ -96,6 +96,10 @@ Token& Lexer::current() const {
     return *currentToken;
 }
 
+Token& Lexer::next() const {
+    return *nextToken;
+}
+
 void Lexer::except(Token t){
     if(t != current())
         throw UnexpectedSymbolError(t, current());
@@ -106,6 +110,10 @@ void Lexer::consume(){
     currentToken = nextToken;
     if(nextToken != tokens.end())
         nextToken++;
+}
+
+bool Lexer::eof() const {
+    return currentToken == tokens.end();
 }
 
 std::ostream& operator<<(std::ostream& os, const Lexer& l){

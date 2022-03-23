@@ -6,6 +6,14 @@ std::ostream& dotConnection(std::ostream& os, const void *from, const void *to){
     return os << "\"" << from << "\" -> \"" << to << "\";\n"; 
 }
 
+std::ostream& dotNode(std::ostream& os, const void *obj, const char *label, const char *style){
+    os << "\"" << obj << "\" [label=\"" << label << "\"";
+    if(style != NULL)
+        os << "," << style;
+    
+    return os << "];\n";
+}
+
 ValueExpression* Expression::parse(Lexer& lex){
     Expression *res = new Expression;
     res->left = Term::parse(lex);
