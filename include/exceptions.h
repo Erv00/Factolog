@@ -2,34 +2,42 @@
 #define exceptions_H
 
 #include <exception>
+#include <sstream>
+
 #include "lexer.h"
 
-class ParserError : std::exception::exception {};
+class ParserError : public std::exception{
+    protected:
+    char *whatData;
+    public:
+    const char* what() const throw();
+};
 
-class TokenExpectedError : ParserError {
-    const char* what(){
-        return "FOFOFO";
-    }
+class TokenExpectedError : public ParserError {
+    public:
+    //const char* what();
+    TokenExpectedError(Token expected, Token got);
+    ~TokenExpectedError() throw() {};
 };
 
 
 class UnexpectedSymbolError : public ParserError {
     public:
-    UnexpectedSymbolError(Token a):ParserError(){
-        a.length();
-    }
-    UnexpectedSymbolError(Token expected, Token got){
-        expected.isEOF();
-        got.isEOF();
-    }
+    UnexpectedSymbolError(Token got);
+    ~UnexpectedSymbolError() throw() {};
 };
 
 class UnableToRepresentError : ParserError {};
 
-class ProgrammingError : public std::exception::exception {};
+class ProgrammingError : public std::exception {
+    protected:
+    char *whatData;
+};
 
 class EmptyParameterListError : public ProgrammingError{
     public:
-    EmptyParameterListError(Token t){t.isEOF();};
+    EmptyParameterListError(Token t);
+    ~EmptyParameterListError() throw();
+    const char* what() const throw();
 };
 #endif //exceptions_H

@@ -9,7 +9,7 @@ VariableDeclaration* VariableDeclaration::parse(Lexer& lex){
 
     va->varsDeclared.push_back(Identifier::parse(lex));
 
-    while(lex.current() == "," && !lex.eof()){
+    while(!lex.eof() && lex.current() == ","){
         lex.except(',');
         va->varsDeclared.push_back(Identifier::parse(lex));        
     }

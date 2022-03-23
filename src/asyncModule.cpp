@@ -15,7 +15,7 @@ AsyncModule* AsyncModule::parse(Lexer& lex){
     lex.except(")");
     lex.except("{");
 
-    while(lex.current() != "}" && !lex.eof()){
+    while(!lex.eof() && lex.current() != "}"){
         //Add expression
         amod->expressions.push_back(AsyncExpression::parse(lex));
     }

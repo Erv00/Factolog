@@ -16,8 +16,6 @@ void Lexer::operator()(){
     std::string current;
     std::string line;
 
-    //std::noskipws(is);
-
     while(std::getline(is, line)){
         //Remove indentation
         size_t start = line.find_first_not_of(' ');
@@ -101,8 +99,10 @@ Token& Lexer::next() const {
 }
 
 void Lexer::except(Token t){
+    if(eof())
+        throw TokenExpectedError(t, Token("EOF"));
     if(t != current())
-        throw UnexpectedSymbolError(t, current());
+        throw TokenExpectedError(t, current());
     consume();
 }
 
