@@ -22,20 +22,27 @@ ValueExpression* UnaryExpression::parse(Lexer& lex){
         //( expression )
         lex.consume();
         res->expr = Expression::parse(lex);
-        //throw "NABAZDMEG";
         lex.except(")");
         
         //No need to do unary +, it does nothing 
-        if(res->op == PLUS)
-            return res->expr;
+        if(res->op == PLUS){
+            ValueExpression *expr = res->expr;
+            res->expr = NULL;
+            delete res;
+            return expr;
+        }
         return res;
     }
 
     res->expr = Value::parse(lex);
 
     //No need to do unary +, it does nothing 
-    if(res->op == PLUS)
-        return res->expr;
+    if(res->op == PLUS){
+        ValueExpression* expr = res->expr;
+        res->expr = NULL;
+        delete res;
+        return expr;
+    }
     return res;
     
 }

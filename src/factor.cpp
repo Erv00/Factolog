@@ -7,7 +7,7 @@ ValueExpression* Factor::parse(Lexer& lex){
     Token& curr = lex.current();
     
     //Have we reached the end of the stream?
-    if(curr.isEOF()){
+    if(lex.eof()){
         //Eof reached, return
         ValueExpression *opt = res->left;
         res->left = NULL;

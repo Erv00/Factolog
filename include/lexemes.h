@@ -6,6 +6,8 @@
 #include "treenode.h"
 #include "lexer.h"
 
+#include <memtrace.h>
+
 class AsyncExpression;
 class ParameterListDeclaration;
 class ParameterList;
@@ -24,7 +26,10 @@ class BinaryExpression : public ValueExpression {
     ValueExpression* right;
     public:
     BinaryExpression():left(NULL),right(NULL){}
-    virtual ~BinaryExpression(){};
+    virtual ~BinaryExpression(){
+        delete left;
+        delete right;
+    };
 };
 
 class Expression : public BinaryExpression {
@@ -60,12 +65,12 @@ class Factor : public BinaryExpression {
 
 class UnaryExpression : public ValueExpression {
     public:
-    ~UnaryExpression(){};
+    ~UnaryExpression(){delete expr;};
     enum Operator {PLUS, MINUS, NOT};
     static ValueExpression* parse(Lexer&);
     enum Operator op;
     ValueExpression *expr;   ///< Kifejezés, amire alkalmazni kell az operátort
-    UnaryExpression(){op=PLUS;};
+    UnaryExpression(){op=PLUS;expr=NULL;};
     std::ostream& printDot(std::ostream& os) const;
 };
 
@@ -94,22 +99,6 @@ class Identifier : public Value{
     std::string& getName(){return name;};
 };
 
-class Module : public TreeNode {
-    protected:
-    Identifier* identifier;
-    ParameterListDeclaration* parameters;
-    public:
-    ~Module(){};
-};
-
-class AsyncModule : public Module {
-    std::vector<AsyncExpression*> expressions;
-    public:
-    ~AsyncModule(){};
-    static AsyncModule* parse(Lexer& l);
-    std::ostream& printDot(std::ostream& os) const;
-};
-
 class AsyncExpression : public TreeNode {
     public:
     ~AsyncExpression(){};
@@ -118,23 +107,18 @@ class AsyncExpression : public TreeNode {
 class VariableDeclaration : public AsyncExpression {
     std::vector<Identifier*> varsDeclared;
     public:
-    ~VariableDeclaration(){};
+    ~VariableDeclaration(){
+        for(size_t i=0; i<varsDeclared.size(); i++)
+            delete varsDeclared[i];
+    }
     static VariableDeclaration* parse(Lexer& l);
-    std::ostream& printDot(std::ostream& os) const;
-};
-class ModuleConnection : public AsyncExpression {
-    Identifier *identifier;
-    ParameterList *parameters;
-    public:
-    ~ModuleConnection(){};
-    static ModuleConnection* parse(Lexer& l);
     std::ostream& printDot(std::ostream& os) const;
 };
 class Assignment : public AsyncExpression {
     Identifier *to;
     ValueExpression *val;
     public:
-    ~Assignment(){};
+    ~Assignment(){delete to; delete val;};
     static Assignment* parse(Lexer& l);
     std::ostream& printDot(std::ostream& os) const;
 };
@@ -145,22 +129,53 @@ class Parameter : public TreeNode {
     enum Direction direction;
     Identifier* identifier;
     public:
-    ~Parameter(){};
+    ~Parameter(){delete identifier;};
     static Parameter* parse(Lexer& l);
     std::ostream& printDot(std::ostream& os) const;
 };
 class ParameterList : public TreeNode {
     std::vector<ValueExpression*> parameters;    ///< Paraméterek nevei
     public:
-    ~ParameterList(){};
+    ~ParameterList(){
+        for(size_t i=0; i<parameters.size(); i++)
+            delete parameters[i];
+    };
     static ParameterList* parse(Lexer& l);
     std::ostream& printDot(std::ostream& os) const;
 };
 class ParameterListDeclaration : public TreeNode {
     std::vector<Parameter*> parameters;
     public:
-    ~ParameterListDeclaration(){};
+    ~ParameterListDeclaration(){
+        for(size_t i=0; i<parameters.size(); i++)
+            delete parameters[i];
+    }
     static ParameterListDeclaration* parse(Lexer& l);
+    std::ostream& printDot(std::ostream& os) const;
+};
+class Module : public TreeNode {
+    protected:
+    Identifier* identifier;
+    ParameterListDeclaration* parameters;
+    public:
+    ~Module(){delete identifier;delete parameters;};
+};
+class AsyncModule : public Module {
+    std::vector<AsyncExpression*> expressions;
+    public:
+    ~AsyncModule(){
+        for(size_t i=0; i<expressions.size(); i++)
+            delete expressions[i];
+    };
+    static AsyncModule* parse(Lexer& l);
+    std::ostream& printDot(std::ostream& os) const;
+};
+class ModuleConnection : public AsyncExpression {
+    Identifier *identifier;
+    ParameterList *parameters;
+    public:
+    ~ModuleConnection(){delete identifier; delete parameters;};
+    static ModuleConnection* parse(Lexer& l);
     std::ostream& printDot(std::ostream& os) const;
 };
 #endif //lexemes_H

@@ -11,6 +11,7 @@ class ParserError : public std::exception{
     char *whatData;
     public:
     const char* what() const throw();
+    virtual ~ParserError() throw();
 };
 
 class TokenExpectedError : public ParserError {
@@ -32,12 +33,14 @@ class UnableToRepresentError : ParserError {};
 class ProgrammingError : public std::exception {
     protected:
     char *whatData;
+    public:
+    virtual ~ProgrammingError() throw();
+    const char* what() const throw();
 };
 
 class EmptyParameterListError : public ProgrammingError{
     public:
     EmptyParameterListError(Token t);
-    ~EmptyParameterListError() throw();
-    const char* what() const throw();
+    ~EmptyParameterListError() throw(){};
 };
 #endif //exceptions_H

@@ -1,5 +1,7 @@
 #include "token.h"
 
+#include <memtrace.h>
+
 Token::Token(std::string cont): content(cont){}
 Token::Token(const char* cont): content(cont){}
 Token::Token(char c){

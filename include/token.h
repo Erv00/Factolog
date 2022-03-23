@@ -2,6 +2,7 @@
 #define token_H
 
 #include <string>
+#include <memtrace.h>
 
 class Token {
     private:

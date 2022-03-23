@@ -3,6 +3,7 @@
 #include "token.h"
 
 #include <string.h>
+#include <memtrace.h>
 
 
 TokenExpectedError::TokenExpectedError(Token expected, Token got){
@@ -18,6 +19,10 @@ const char* ParserError::what() const throw(){
     return whatData;
 }
 
+const char* ProgrammingError::what() const throw(){
+    return whatData;
+}
+
 UnexpectedSymbolError::UnexpectedSymbolError(Token got){
     whatData = new char[19+got.getContent().size()+1];
 
@@ -25,7 +30,11 @@ UnexpectedSymbolError::UnexpectedSymbolError(Token got){
     strcat(whatData, got.getContent().c_str());
 }
 
-EmptyParameterListError::~EmptyParameterListError() throw() {
+ParserError::~ParserError() throw() {
+    delete[] whatData;
+}
+
+ProgrammingError::~ProgrammingError() throw() {
     delete[] whatData;
 }
 
@@ -35,7 +44,4 @@ EmptyParameterListError::EmptyParameterListError(Token t){
     strcpy(whatData, "Module has no connections");
 
     t.isEOF();
-}
-const char* EmptyParameterListError::what() const throw() {
-    return whatData;
 }

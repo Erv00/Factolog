@@ -65,7 +65,9 @@ void value_test(){
         Lexer l(in);
         l();
 
-        EXPECT_NO_THROW(Value::parse(l));
+        Value* val;
+        EXPECT_NO_THROW(val = Value::parse(l));
+        delete val;
     }END;
     
     TEST(Value, Overflow){

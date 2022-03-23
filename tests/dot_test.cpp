@@ -18,6 +18,8 @@ void dot_test(){
         EXPECT_NO_THROW(val->printDot(out));
 
         std::cout << out.str();
+
+        delete val;
     }END;
 
     TEST(Dot, Complex){
