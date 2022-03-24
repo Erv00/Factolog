@@ -8,8 +8,8 @@ TEST_OBJS := $(TEST_SRCS:tests/%.cpp=obj/%.o)
 DEPFILES := $(SRCS:src/%.cpp=deps/%.d) $(TEST_SRCS:tests/%.cpp=deps/%.d)
 OBJS := $(SRCS:src/%.cpp=obj/%.o)
 
-MAKEDEPEND = g++ -MM -MF deps/$*.d -I include $<
-MAKEDEPEND_TEST = g++ -MM -MF deps/$*_test.d -I include $<
+MAKEDEPEND = g++ -MM -MT "$@" -MF deps/$*.d -I include $<
+MAKEDEPEND_TEST = g++ -MM -MT "$@" -MF deps/$*_test.d -I include $<
 
 # Package for submission
 .PHONY: package

@@ -3,7 +3,7 @@
 #include <sstream>
 
 #include "exceptions.h"
-#include "lexemes.h"
+#include "structureLexemes.h"
 
 void unaryExpression_test(){
     TEST(UnaryExpression, NormalConst){

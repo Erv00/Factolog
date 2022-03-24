@@ -16,6 +16,9 @@
 
 #include "token.h"
 
+/**
+ * @brief Lexikai értelmező
+ */
 class Lexer {
     std::istream& is;                           ///<Az input stream
     std::vector<Token> tokens;                  ///<A stream összes tokenje
@@ -88,8 +91,9 @@ public:
      * 
      * Ha nem a megadott tokent találja, parser hibát dob
      * 
+     * @param t Elvárt token
      */
-    void except(Token);
+    void except(Token t);
 
     /**
      * @brief Elfogyasztja a következő tokent

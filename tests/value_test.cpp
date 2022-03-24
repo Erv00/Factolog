@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-#include "lexemes.h"
+#include "structureLexemes.h"
 #include "exceptions.h"
 
 void value_test(){

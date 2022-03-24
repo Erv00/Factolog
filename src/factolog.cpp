@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "lexemes.h"
+#include "structureLexemes.h"
 #include "exceptions.h"
 
 int main(int argc, char* argv[]){

@@ -1,4 +1,4 @@
-#include "lexemes.h"
+#include "structureLexemes.h"
 
 ValueExpression* Term::parse(Lexer& lex){
     Term *res = new Term;

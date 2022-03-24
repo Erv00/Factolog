@@ -3,7 +3,7 @@
 #include <sstream>
 
 #include "exceptions.h"
-#include "lexemes.h"
+#include "structureLexemes.h"
 
 void number_test(){
     TEST(Number, ValidTest){

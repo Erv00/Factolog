@@ -43,14 +43,8 @@ bool Token::operator==(const char c) const{
 bool Token::operator!=(const Token& t) const{
     return !(*this == t);
 }
-bool Token::operator!=(const std::string& s) const{
-    return !(*this == s);
-}
 bool Token::operator!=(const char* s) const{
     return !(*this == s);
-}
-bool Token::operator!=(const char c) const{
-    return !(*this == c);
 }
 
 Token::operator std::string(){
