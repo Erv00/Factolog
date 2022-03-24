@@ -17,19 +17,51 @@
 #include "token.h"
 
 class Lexer {
-    std::vector<Token> tokens;
-    std::istream& is;
-    std::vector<Token>::iterator currentToken;   ///<A jelenlegi tokenre mutató iterator
-    std::vector<Token>::iterator nextToken;      ///<A következő tokenre mutató iterator
+    std::istream& is;                           ///<Az input stream
+    std::vector<Token> tokens;                  ///<A stream összes tokenje
+    std::vector<Token>::iterator currentToken;  ///<A jelenlegi tokenre mutató iterator
+    std::vector<Token>::iterator nextToken;     ///<A következő tokenre mutató iterator
 
+    /**
+     * @brief Eldönti egy addot karakterről, hogy Single Character Token (SCT)-e
+     * @sa SCT
+     * @param c A vizsgált karakter
+     * @return true Ha a karekter SCT
+     * @return false Egyébként
+     */
     bool isSingleCharToken(char c) const;
+
+    /**
+     * @brief Eldönti a stringben következő 2 karakterről, hogy Double Character Token (DCT)-e 
+     * @sa DCT
+     * @param it A következő karakterre mutató string iterátor
+     * @return true Ha a karakterek DCTk
+     * @return false Egyébként
+     */
     bool isTwoCharToken(std::string::iterator& it) const;
 
+    /**
+     * @brief Sor feldolgozása
+     * @param line A feldolgozandó sor
+     */
+    void lexLine(std::string line);
 
 public:
+    /**
+     * @brief Új Lexer létrehozása
+     * @param _is Bemeneti stream
+     */
     Lexer(std::istream& _is);
+    /**
+     * @brief Új Lexer létrehozása
+     * @param _is Bemeneti stream
+     */
     Lexer(std::ifstream& _is);
 
+    /**
+     * @brief Konstans referencia a tokenekre
+     * @return const std::vector<Token>& konstans referencia a tokenekre
+     */
     const std::vector<Token>& getTokens() const {return tokens;};
 
     /**
@@ -42,8 +74,6 @@ public:
      * @li Tokenekre bontás
      */
     void operator()();
-
-    void lexLine(std::string line);
 
     /**
      * @brief Visszadja következő tokent, de nem fogyasztja el
@@ -87,5 +117,12 @@ public:
     bool eof() const;
 };
 
+/**
+ * @brief Lexer tokenlistájának kiírása
+ * Csak tesztelési szempontból van, használata felesleges
+ * @param os A kimeneti stream
+ * @param l A lexer
+ * @return std::ostream& A kimeneti stream
+ */
 std::ostream& operator<<(std::ostream& os, const Lexer& l);
 #endif
