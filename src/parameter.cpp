@@ -1,9 +1,11 @@
 #include "structureLexemes.h"
 
 #include "exceptions.h"
+#include "autoDtor.h"
 
 Parameter* Parameter::parse(Lexer& lex){
     Parameter *p = new Parameter();
+    AutoDtor<Parameter> dtor(p);
 
     if(lex.current() == "in")
         p->direction = IN;
@@ -16,6 +18,7 @@ Parameter* Parameter::parse(Lexer& lex){
 
     p->identifier = Identifier::parse(lex);
 
+    dtor.success();
     return p;
 }
 

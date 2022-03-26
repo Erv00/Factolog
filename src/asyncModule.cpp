@@ -1,10 +1,13 @@
 #include "structureLexemes.h"
 
+#include "autoDtor.h"
+
 AsyncModule* AsyncModule::parse(Lexer& lex){
     lex.except("async");
     lex.except("module");
 
     AsyncModule* amod = new AsyncModule();
+    AutoDtor<AsyncModule> dtor(amod);
 
     amod->identifier = Identifier::parse(lex);
 
@@ -22,6 +25,7 @@ AsyncModule* AsyncModule::parse(Lexer& lex){
 
     lex.except("}");
 
+    dtor.success();    
     return amod;
 }
 

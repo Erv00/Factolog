@@ -1,9 +1,11 @@
 #include "structureLexemes.h"
+#include "autoDtor.h"
 
 ValueExpression* UnaryExpression::parse(Lexer& lex){
     Token& curr = lex.current();
 
     UnaryExpression* res = new UnaryExpression();
+    AutoDtor<UnaryExpression> dtor(res);    
 
     if(curr == "+"){
         res->op = UnaryExpression::PLUS;
@@ -29,6 +31,7 @@ ValueExpression* UnaryExpression::parse(Lexer& lex){
             ValueExpression *expr = res->expr;
             res->expr = NULL;
             delete res;
+            dtor.success();
             return expr;
         }
         return res;
@@ -41,8 +44,10 @@ ValueExpression* UnaryExpression::parse(Lexer& lex){
         ValueExpression* expr = res->expr;
         res->expr = NULL;
         delete res;
+        dtor.success();
         return expr;
     }
+    dtor.success();
     return res;
     
 }

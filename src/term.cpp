@@ -1,7 +1,11 @@
 #include "structureLexemes.h"
 
+#include "autoDtor.h"
+
 ValueExpression* Term::parse(Lexer& lex){
     Term *res = new Term;
+    AutoDtor<Term> dtor(res);    
+
     res->left = Factor::parse(lex);
 
     Token& curr = lex.current();
@@ -12,8 +16,8 @@ ValueExpression* Term::parse(Lexer& lex){
         ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
+        dtor.success();
         return opt;
-        return res;
     }
 
     if(curr == '*')
@@ -31,14 +35,15 @@ ValueExpression* Term::parse(Lexer& lex){
         ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
+        dtor.success();
         return opt;
-        return res;
     }
 
     lex.consume();
 
     res->right = Term::parse(lex);
 
+    dtor.success();
     return res;
 }
 std::ostream& Term::printDot(std::ostream& os) const {

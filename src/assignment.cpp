@@ -1,7 +1,10 @@
 #include "structureLexemes.h"
 
+#include "autoDtor.h"
+
 Assignment* Assignment::parse(Lexer& lex){
     Assignment *assign = new Assignment();
+    AutoDtor<Assignment> dtor(assign);
 
     assign->to = Identifier::parse(lex);
 
@@ -11,6 +14,7 @@ Assignment* Assignment::parse(Lexer& lex){
 
     lex.except(";");
 
+    dtor.success();    
     return assign;
 }
 std::ostream& Assignment::printDot(std::ostream& os) const{

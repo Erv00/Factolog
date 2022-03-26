@@ -1,6 +1,7 @@
 #include "structureLexemes.h"
 
 #include "exceptions.h"
+#include "autoDtor.h"
 
 std::ostream& dotConnection(std::ostream& os, const void *from, const void *to){
     return os << "\"" << from << "\" -> \"" << to << "\";\n"; 
@@ -16,6 +17,8 @@ std::ostream& dotNode(std::ostream& os, const void *obj, const char *label, cons
 
 ValueExpression* Expression::parse(Lexer& lex){
     Expression *res = new Expression;
+    AutoDtor<Expression> dtor(res);
+
     res->left = Term::parse(lex);
 
     Token& curr = lex.current();
@@ -26,6 +29,7 @@ ValueExpression* Expression::parse(Lexer& lex){
         ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
+        dtor.success();
         return opt;
     }
 
@@ -44,6 +48,7 @@ ValueExpression* Expression::parse(Lexer& lex){
         ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
+        dtor.success();
         return opt;
     }
 
@@ -51,6 +56,7 @@ ValueExpression* Expression::parse(Lexer& lex){
 
     res->right = Expression::parse(lex);
 
+    dtor.success();
     return res;
 }
 

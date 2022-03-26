@@ -1,7 +1,10 @@
 #include "structureLexemes.h"
 
+#include "autoDtor.h"
+
 ModuleConnection* ModuleConnection::parse(Lexer& lex){
     ModuleConnection *mc = new ModuleConnection();
+    AutoDtor<ModuleConnection> dtor(mc);
 
     mc->identifier = Identifier::parse(lex);
 
@@ -11,6 +14,7 @@ ModuleConnection* ModuleConnection::parse(Lexer& lex){
     lex.except(")");
     lex.except(";");
 
+    dtor.success();
     return mc;
 }
 

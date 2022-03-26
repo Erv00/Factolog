@@ -1,7 +1,11 @@
 #include "structureLexemes.h"
 
+#include "autoDtor.h"
+
 ValueExpression* Factor::parse(Lexer& lex){
     Factor *res = new Factor;
+    AutoDtor<Factor> dtor(res);
+
     res->left = UnaryExpression::parse(lex);
 
     Token& curr = lex.current();
@@ -12,22 +16,23 @@ ValueExpression* Factor::parse(Lexer& lex){
         ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
+        dtor.success();
         return opt;
-        return res;
     }
 
     if(curr == "**"){
         //Consume **
         lex.consume();
         res->right = Factor::parse(lex);
+        dtor.success();
         return res;
     }else{
         //We may have reached a higher order operator, or invalid syntax
         ValueExpression *opt = res->left;
         res->left = NULL;
         delete res;
+        dtor.success();
         return opt;
-        return res;
     }
 } 
 

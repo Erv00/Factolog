@@ -1,10 +1,12 @@
 #include "structureLexemes.h"
 
 #include "exceptions.h"
+#include "autoDtor.h"
 
 ParameterListDeclaration* ParameterListDeclaration::parse(Lexer& lex){
     
     ParameterListDeclaration *plistd = new ParameterListDeclaration();
+    AutoDtor<ParameterListDeclaration> dtor(plistd);
 
     while(lex.current() == "in" || lex.current() == "out"){
         plistd->parameters.push_back(Parameter::parse(lex));
@@ -16,6 +18,7 @@ ParameterListDeclaration* ParameterListDeclaration::parse(Lexer& lex){
     if(plistd->parameters.size() == 0)
         throw EmptyParameterListError(lex.current());
 
+    dtor.success();
     return plistd;
 }
 

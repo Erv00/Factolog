@@ -1,9 +1,11 @@
 #include "structureLexemes.h"
 
 #include "exceptions.h"
+#include "autoDtor.h"
 
 ParameterList* ParameterList::parse(Lexer& lex){
     ParameterList  *plist = new ParameterList();
+    AutoDtor<ParameterList> dtor(plist);
 
     while(lex.current() != ")"){
         plist->parameters.push_back(Expression::parse(lex));
@@ -17,6 +19,7 @@ ParameterList* ParameterList::parse(Lexer& lex){
         throw EmptyParameterListError(lex.current());
     }
 
+    dtor.success();    
     return plist;
 }
 
