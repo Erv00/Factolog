@@ -23,7 +23,25 @@ class AsyncExpression;
 class ParameterListDeclaration;
 class ParameterList;
 
+/**
+ * @brief Kapcsolat hoz létre a két objektum között
+ * 
+ * @param os Kimeneti stream
+ * @param from Kapcsolat kiindulása
+ * @param to Kapcsolat végpontja
+ * @return std::ostream& Kimeneti stream
+ */
 std::ostream& dotConnection(std::ostream& os, const void *from, const void *to);
+
+/**
+ * @brief Csomópont létrehozása megadott paraméterekkel
+ * 
+ * @param os Kimeneti stream
+ * @param obj Objektum
+ * @param label Csomópont címkéje
+ * @param style Csomópont stílusa
+ * @return std::ostream& Kimeneti stream
+ */
 std::ostream& dotNode(std::ostream& os, const void *obj, const char *label, const char *style);
 
 
@@ -44,8 +62,9 @@ class Identifier : public Value{
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return Identifier* A tokenekből előállított AST
-     * @sa AST 
+     * @return Identifier* A tokenekből előállított @ref AST
+     * @sa @ref AST 
+     * @throws UnexpectedSymbolError Ha a következő Token nem érvényes azonosító
      */
     static Identifier* parse(Lexer& lex);
 
@@ -63,6 +82,10 @@ class Identifier : public Value{
      * @return std::string& Az azonosító neve
      */
     const std::string& getName()const {return name;};
+
+    bool operator<(const Identifier& b) const{
+        return name < b.name;
+    }
 };
 
 /**
@@ -79,8 +102,8 @@ class AsyncExpression : public TreeNode {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return AsyncExpression* A tokenekből előállított AST
-     * @sa AST 
+     * @return AsyncExpression* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
     static AsyncExpression* parse(Lexer& lex);
 };
@@ -104,8 +127,8 @@ class VariableDeclaration : public AsyncExpression {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return VariableDeclaration* A tokenekből előállított AST
-     * @sa AST 
+     * @return VariableDeclaration* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
     static VariableDeclaration* parse(Lexer& lex);
 
@@ -135,8 +158,8 @@ class Assignment : public AsyncExpression {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return Assignment* A tokenekből előállított AST
-     * @sa AST 
+     * @return Assignment* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
     static Assignment* parse(Lexer& lex);
 
@@ -173,8 +196,8 @@ class Parameter : public TreeNode {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return Parameter* A tokenekből előállított AST
-     * @sa AST 
+     * @return Parameter* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
     static Parameter* parse(Lexer& lex);
 
@@ -206,8 +229,8 @@ class ParameterList : public TreeNode {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return ParameterList* A tokenekből előállított AST
-     * @sa AST 
+     * @return ParameterList* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
 
     static ParameterList* parse(Lexer& lex);
@@ -239,8 +262,8 @@ class ParameterListDeclaration : public TreeNode {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return ParameterListDeclaration* A tokenekből előállított AST
-     * @sa AST 
+     * @return ParameterListDeclaration* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
 
     static ParameterListDeclaration* parse(Lexer& lex);
@@ -267,6 +290,13 @@ class Module : public TreeNode {
      * @brief Module felszabadítása
      */
     virtual ~Module(){delete identifier;delete parameters;};
+
+    /**
+     * @brief Megadja a modul azonosítóját
+     * 
+     * @return const Identifier* A modul azonosítója
+     */
+    const Identifier* getIdentifier() const {return identifier;}
 };
 
 /**
@@ -288,8 +318,8 @@ class AsyncModule : public Module {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return AsyncModule* A tokenekből előállított AST
-     * @sa AST 
+     * @return AsyncModule* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
     static AsyncModule* parse(Lexer& lex);
 
@@ -319,8 +349,8 @@ class ModuleConnection : public AsyncExpression {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return ModuleConnection* A tokenekből előállított AST
-     * @sa AST 
+     * @return ModuleConnection* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
     static ModuleConnection* parse(Lexer& lex);
 

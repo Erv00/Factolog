@@ -7,11 +7,11 @@
 
 
 TokenExpectedError::TokenExpectedError(Token expected, Token got){
-    whatData = new char[16+9+expected.getContent().size()+got.getContent().size()+1];
+    whatData = new char[17+10+expected.getContent().size()+got.getContent().size()+1];
 
-    strcpy(whatData, "Expected symbol ");
+    strcpy(whatData, "Expected symbol '");
     strcat(whatData, expected.getContent().c_str());
-    strcat(whatData, " but got ");
+    strcat(whatData, "' but got ");
     strcat(whatData, got.getContent().c_str());
 }
 
@@ -24,10 +24,11 @@ const char* ProgrammingError::what() const throw(){
 }
 
 UnexpectedSymbolError::UnexpectedSymbolError(Token got){
-    whatData = new char[19+got.getContent().size()+1];
+    whatData = new char[19+got.getContent().size()+1+1];
 
-    strcpy(whatData, "Unexpected symbol ");
+    strcpy(whatData, "Unexpected symbol '");
     strcat(whatData, got.getContent().c_str());
+    strcat(whatData, "'");
 }
 
 ParserError::~ParserError() throw() {
@@ -39,9 +40,17 @@ ProgrammingError::~ProgrammingError() throw() {
 }
 
 EmptyParameterListError::EmptyParameterListError(Token t){
-    whatData = new char[26+1];
+    whatData = new char[8+t.length()+20+1];
 
-    strcpy(whatData, "Module has no connections");
+    strcpy(whatData, "Module '");
+    strcat(whatData, t.getContent().c_str());
+    strcat(whatData, "' has no connections");
+}
 
-    t.isEOF();
+ModuleAlreadyDefinedError::ModuleAlreadyDefinedError(Token identifier){
+    whatData = new char[8+identifier.length()+21+1];
+
+    strcpy(whatData, "Module '");
+    strcat(whatData, identifier.getContent().c_str());
+    strcat(whatData, "' was already defined");
 }

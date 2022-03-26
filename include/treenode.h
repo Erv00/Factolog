@@ -4,7 +4,7 @@
  * @brief AST alapja
  * @version 0.1
  * @date 2022-03-24
- * @sa AST
+ * @sa @ref AST
  * @copyright Copyright (c) 2022
  */
 #ifndef treenode_H

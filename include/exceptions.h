@@ -112,4 +112,17 @@ class EmptyParameterListError : public ProgrammingError{
      */
     ~EmptyParameterListError() throw(){};
 };
+
+/**
+ * @brief A modul már definiálva van
+ */
+class ModuleAlreadyDefinedError : public ProgrammingError {
+    public:
+    /**
+     * @brief Új ModuleAlreadyDefinedError létrehozása
+     * 
+     * @param identifier A modul azonosítója
+     */
+    ModuleAlreadyDefinedError(Token identifier);
+};
 #endif //exceptions_H

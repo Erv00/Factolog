@@ -71,8 +71,8 @@ class Expression : public BinaryExpression {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return ValueExpression* A tokenekből előállított AST
-     * @sa AST 
+     * @return ValueExpression* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
     static ValueExpression* parse(Lexer& lex);
 
@@ -107,8 +107,8 @@ class Term : public BinaryExpression {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return ValueExpression* A tokenekből előállított AST
-     * @sa AST 
+     * @return ValueExpression* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
     static ValueExpression* parse(Lexer& lex);
 
@@ -134,8 +134,8 @@ class Factor : public BinaryExpression {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return ValueExpression* A tokenekből előállított AST
-     * @sa AST 
+     * @return ValueExpression* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
     static ValueExpression* parse(Lexer& lex);
 
@@ -175,8 +175,8 @@ class UnaryExpression : public ValueExpression {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return ValueExpression* A tokenekből előállított AST
-     * @sa AST 
+     * @return ValueExpression* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
     static ValueExpression* parse(Lexer& lex);
 
@@ -203,8 +203,8 @@ class Value : public ValueExpression {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return Value* A tokenekből előállított AST
-     * @sa AST 
+     * @return Value* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
     static Value* parse(Lexer& lex);
 };
@@ -226,8 +226,8 @@ class Number : public Value {
      * @brief Tokenek értelmezése 
      * 
      * @param lex Tokeneket tartalmazó lexer
-     * @return Number* A tokenekből előállított AST
-     * @sa AST 
+     * @return Number* A tokenekből előállított @ref AST
+     * @sa @ref AST 
      */
 
     static Number* parse(Lexer& lex);
