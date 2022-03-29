@@ -24,3 +24,12 @@ Identifier* Identifier::parse(Lexer& lex){
 std::ostream& Identifier::printDot(std::ostream& os) const {
     return os << "\"" << this << "\" [label=\"" << name << "\"]\n";
 }
+
+void Identifier::checkSemantics(CompilationUnit& cu) const {
+    if(!cu.isVariableDefined(this))
+        throw UndefinedVariableError(this);
+    
+    if(!cu.isVariableAssigned(this))
+        //TODO: Emit warning formally
+        std::cerr << "Variable '" << name << "' uses default 0" << std::endl;
+}

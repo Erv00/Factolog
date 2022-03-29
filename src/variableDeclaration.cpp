@@ -36,3 +36,13 @@ std::ostream& VariableDeclaration::printDot(std::ostream& os) const{
 
     return os;
 }
+
+void VariableDeclaration::checkSemantics(CompilationUnit& cu) const {
+    //None of the variables can be defined
+    for(size_t i=0; i<varsDeclared.size(); i++){
+        if(cu.isVariableDefined(varsDeclared[i]))
+            throw VariableAlreadyDefinedError(varsDeclared[i]);
+        
+        cu.defineVariable(varsDeclared[i]);
+    }
+}

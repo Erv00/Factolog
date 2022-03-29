@@ -47,6 +47,19 @@ class BinaryExpression : public ValueExpression {
         delete left;
         delete right;
     };
+
+    /**
+     * @brief Szemantika ellenőrzést végez
+     * 
+     * Ellenőrzött tulajdonságok:
+     * @li A bal és jobb oldal helyessége
+     * 
+     * @param cu A fordítási egység
+     */
+    void checkSemantics(CompilationUnit& cu) const{
+        left->checkSemantics(cu);
+        right->checkSemantics(cu);
+    }
 };
 
 /**
@@ -187,6 +200,16 @@ class UnaryExpression : public ValueExpression {
      * @return std::ostream& Célstream
      */
     std::ostream& printDot(std::ostream& os) const;
+
+    /**
+     * @brief Szemantika ellenőrzést végez
+     * 
+     * Ellenőrzött tulajdonságok:
+     * @li A kifejezés
+     * 
+     * @param cu A fordítási egység
+     */
+    void checkSemantics(CompilationUnit& cu) const;
 };
 
 /**

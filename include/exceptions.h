@@ -12,6 +12,8 @@
 
 #include "lexer.h"
 
+class Identifier;
+
 /**
  * @brief Base class feldolgozás közbeni hibáknak
  */
@@ -124,5 +126,70 @@ class ModuleAlreadyDefinedError : public ProgrammingError {
      * @param identifier A modul azonosítója
      */
     ModuleAlreadyDefinedError(Token identifier);
+};
+
+/**
+ * @brief Definiálatlan változó
+ */
+class UndefinedVariableError : public ProgrammingError{
+    public:
+    /**
+     * @brief Új UndefinedVariableError létrehozása
+     * 
+     * @param var A definiálatlan változó 
+     */
+    UndefinedVariableError(const Identifier* var);
+};
+
+/**
+ * @brief Újraértékadás
+ */
+class VariableReassignmentError : public ProgrammingError{
+    public:
+    /**
+     * @brief Új VariableReassignmentError létrehozása
+     * 
+     * @param to Az újradefiniált változó
+     */
+    VariableReassignmentError(const Identifier* to);
+};
+
+/**
+ * @brief Definiálatlan modul
+ */
+class ModuleNotDefinedError : public ProgrammingError{
+    public:
+    /**
+     * @brief Új ModuleNotDefinedError létrehozása
+     * 
+     * @param module A definiálatlan modul 
+     */
+    ModuleNotDefinedError(const Identifier* module);
+};
+
+/**
+ * @brief Eltérő paraméterszám
+ */
+class MismatchedParametersError : public ProgrammingError{
+    public:
+    /**
+     * @brief Új MismatchedParametersError létrehozása
+     * 
+     * @param at A hiba helye
+     */
+    MismatchedParametersError(const Identifier* at);
+};
+
+/**
+ * @brief Már definiált változó
+ */
+class VariableAlreadyDefinedError : public ProgrammingError{
+    public:
+    /**
+     * @brief Új VariableAlreadyDefinedError létrehozása
+     * 
+     * @param var A változó azonosítója
+     */
+    VariableAlreadyDefinedError(const Identifier* var);
 };
 #endif //exceptions_H

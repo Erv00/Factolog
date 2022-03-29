@@ -83,9 +83,27 @@ class Identifier : public Value{
      */
     const std::string& getName()const {return name;};
 
+    /**
+     * @brief Összehasonlít két azonosítót
+     * 
+     * @param b A másik azonosító
+     * @return true Ha betűrendben b később van
+     * @return false Egyébként
+     */
     bool operator<(const Identifier& b) const{
         return name < b.name;
     }
+
+    /**
+     * @brief Szemantika ellenőrzést végez
+     * 
+     * Ellenőrzött tulajdonságok:
+     * @li A változó létezése
+     * @li A változónak már van értéke (Erre csak figyelmeztetés van)
+     * 
+     * @param cu A fordítási egység
+     */
+    void checkSemantics(CompilationUnit& cu) const;
 };
 
 /**
@@ -139,6 +157,16 @@ class VariableDeclaration : public AsyncExpression {
      * @return std::ostream& Célstream
      */
     std::ostream& printDot(std::ostream& os) const;
+
+    /**
+     * @brief Szemantika ellenőrzést végez
+     * 
+     * Ellenőrzött tulajdonságok:
+     * @li A változók nem létezése
+     * 
+     * @param cu A fordítási egység
+     */
+    void checkSemantics(CompilationUnit& cu) const;
 };
 
 /**
@@ -170,6 +198,18 @@ class Assignment : public AsyncExpression {
      * @return std::ostream& Célstream
      */
     std::ostream& printDot(std::ostream& os) const;
+
+    /**
+     * @brief Semantikailag ellenőrzi az egyenlőségadást
+     * 
+     * Ellenőrzött tulajdonságok:
+     * @li Baloldal létezik
+     * @li Jobboldal helyes
+     * @li Van-e már a baloldalhoz rendelve érték
+     * 
+     * @param cu Fordítási egység
+     */
+    void checkSemantics(CompilationUnit& cu) const;
 };
 
 /**
@@ -208,6 +248,20 @@ class Parameter : public TreeNode {
      * @return std::ostream& Célstream
      */
     std::ostream& printDot(std::ostream& os) const;
+
+    /**
+     * @brief Visszaadja a paraméter irányát
+     * 
+     * @return enum Direction A paraméter iránya
+     */
+    enum Direction getDirection() const {return direction;}
+    
+    /**
+     * @brief Visszadja a paraméter azonosítóját
+     * 
+     * @return const Identifier* A paraméter azonosítója
+     */
+    const Identifier* getIdentifier() const {return identifier;}
 };
 
 /**
@@ -241,6 +295,31 @@ class ParameterList : public TreeNode {
      * @return std::ostream& Célstream
      */
     std::ostream& printDot(std::ostream& os) const;
+
+    /**
+     * @brief Visszaadja a megadott paraméterek számát
+     * 
+     * @return size_t A megadott paraméterek száma
+     */
+    size_t length() const {return parameters.size();}
+
+    /**
+     * @brief Visszaadja az idx-edik paramétert
+     * 
+     * @param idx Index
+     * @return const ValueExpression* Az idx-edik paraméter
+     */
+    const ValueExpression* operator[](size_t idx) const {return parameters[idx];}
+
+    /**
+     * @brief Szemantika ellenőrzést végez
+     * 
+     * Ellenőrzött tulajdonságok:
+     * @li A paraméterek tulajdonságai
+     * 
+     * @param cu A fordítási egység
+     */
+    void checkSemantics(CompilationUnit& cu) const;
 };
 
 /**
@@ -274,11 +353,35 @@ class ParameterListDeclaration : public TreeNode {
      * @return std::ostream& Célstream
      */
     std::ostream& printDot(std::ostream& os) const;
+
+    /**
+     * @brief Visszaadja a lehetséges paraméterek számát 
+     * 
+     * @return size_t A lehetséges paraméterek száma
+     */
+    size_t length() const {return parameters.size();}
+
+    /**
+     * @brief Visszaadja az idx-edik paramétert
+     * 
+     * @param idx Index
+     * @return const Parameter* Az idx-edik paraméter
+     */
+    const Parameter* operator[](size_t idx) const {return parameters[idx];}
+
+    /**
+     * @brief Szemantika ellenőrzést végez
+     * 
+     * Ellenőrzött tulajdonságok:
+     * @li A paraméterek egyedisége
+     * 
+     * @param cu A fordítási egység
+     */
+    void checkSemantics(CompilationUnit& cu) const;
 };
 
 /**
  * @brief Modul leírása
- * 
  */
 class Module : public TreeNode {
     protected:
@@ -297,6 +400,13 @@ class Module : public TreeNode {
      * @return const Identifier* A modul azonosítója
      */
     const Identifier* getIdentifier() const {return identifier;}
+
+    /**
+     * @brief Visszaadja a modul paraméterlistáját
+     * 
+     * @return const ParameterListDeclaration* A modul paraméterlistája
+     */
+    const ParameterListDeclaration* getParameters() const {return parameters;}
 };
 
 /**
@@ -330,6 +440,17 @@ class AsyncModule : public Module {
      * @return std::ostream& Célstream
      */
     std::ostream& printDot(std::ostream& os) const;
+
+    /**
+     * @brief Szemantika ellenőrzést végez
+     * 
+     * Ellenőrzött tulajdonságok:
+     * @li A paraméterek tulajdonságai
+     * @li A kifejezések
+     * 
+     * @param cu A fordítási egység
+     */
+    void checkSemantics(CompilationUnit& cu) const;
 };
 
 /**
@@ -361,5 +482,16 @@ class ModuleConnection : public AsyncExpression {
      * @return std::ostream& Célstream
      */
     std::ostream& printDot(std::ostream& os) const;
+
+    /**
+     * @brief Semantikailag ellenőrzi a csatlakozást
+     * 
+     * Ellenőrzött tulajdonságok:
+     * @li Modul létezik
+     * @li Paraméterek helyesek
+     * 
+     * @param cu Fordítási egység
+     */
+    void checkSemantics(CompilationUnit& cu) const;
 };
 #endif //lexemes_H

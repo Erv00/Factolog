@@ -33,3 +33,8 @@ std::ostream& ParameterList::printDot(std::ostream& os) const{
 
     return os;
 }
+
+void ParameterList::checkSemantics(CompilationUnit& cu) const {
+    for(size_t i=0; i<parameters.size(); i++)
+        parameters[i]->checkSemantics(cu);
+}

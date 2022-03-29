@@ -1,5 +1,6 @@
 #include "structureLexemes.h"
 
+#include "exceptions.h"
 #include "autoDtor.h"
 
 Assignment* Assignment::parse(Lexer& lex){
@@ -27,4 +28,16 @@ std::ostream& Assignment::printDot(std::ostream& os) const{
     dotConnection(os, this, val);
 
     return os;
+}
+
+void Assignment::checkSemantics(CompilationUnit& cu) const {
+    if(!cu.isVariableDefined(to))
+        throw UndefinedVariableError(to);
+    
+    if(cu.isVariableAssigned(to))
+        throw VariableReassignmentError(to);
+    
+    val->checkSemantics(cu);
+
+    cu.assignVariable(to);
 }

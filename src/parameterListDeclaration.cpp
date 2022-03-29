@@ -32,3 +32,18 @@ std::ostream& ParameterListDeclaration::printDot(std::ostream& os) const{
 
     return os;
 }
+
+void ParameterListDeclaration::checkSemantics(CompilationUnit& cu) const {
+    for(size_t i=0; i<parameters.size(); i++){
+        Parameter *param = parameters[i];
+        
+        if(cu.isVariableDefined(param->getIdentifier()))
+            throw VariableAlreadyDefinedError(param->getIdentifier());
+
+        cu.defineVariable(param->getIdentifier());
+        if(param->getDirection() == Parameter::IN){
+            //Parameter is inbound, define and assign
+            cu.assignVariable(param->getIdentifier());
+        }
+    }
+}

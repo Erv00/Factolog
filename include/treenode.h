@@ -12,6 +12,8 @@
 
 #include <iostream>
 
+#include "compilationUnit.h"
+
 /**
  * @brief AST alaposztály
  */
@@ -24,6 +26,17 @@ public:
      * @return std::ostream& Célstream
      */
     virtual std::ostream& printDot(std::ostream& os) const = 0;
+
+    /**
+     * @brief Szemantika ellenőrzést végez
+     * 
+     * Minden nyelvi elemnek sajátos ellenőrzése lehet. 
+     * Az olyan elemeknek, amelek nem igényelnek különleges ellenőrzést, 
+     * az alapértelmezett implementáció nem csinál semmit
+     * 
+     * @param cu Az adott fordítási egység
+     */
+    virtual void checkSemantics(CompilationUnit& cu) const{(void)cu;};
 
     /**
      * @brief TreeNode felszabadítása

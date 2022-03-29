@@ -1,6 +1,7 @@
 #include "structureLexemes.h"
 
 #include "autoDtor.h"
+#include "exceptions.h"
 
 AsyncModule* AsyncModule::parse(Lexer& lex){
     lex.except("async");
@@ -46,4 +47,13 @@ std::ostream& AsyncModule::printDot(std::ostream& os) const {
     os << "};\n";
 
     return os;
+}
+
+void AsyncModule::checkSemantics(CompilationUnit& cu) const {
+    //Check parameters
+    parameters->checkSemantics(cu);
+
+    //Check all expressions
+    for(size_t i=0; i<expressions.size(); i++)
+        expressions[i]->checkSemantics(cu);
 }

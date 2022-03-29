@@ -71,3 +71,7 @@ std::ostream& UnaryExpression::printDot(std::ostream& os) const {
 
     return expr->printDot(os);
 }
+
+void UnaryExpression::checkSemantics(CompilationUnit& cu) const{
+    expr->checkSemantics(cu);
+}

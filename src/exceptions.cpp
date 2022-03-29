@@ -4,7 +4,7 @@
 
 #include <string.h>
 #include <memtrace.h>
-
+#include "structureLexemes.h"
 
 TokenExpectedError::TokenExpectedError(Token expected, Token got){
     whatData = new char[17+10+expected.getContent().size()+got.getContent().size()+1];
@@ -53,4 +53,44 @@ ModuleAlreadyDefinedError::ModuleAlreadyDefinedError(Token identifier){
     strcpy(whatData, "Module '");
     strcat(whatData, identifier.getContent().c_str());
     strcat(whatData, "' was already defined");
+}
+
+UndefinedVariableError::UndefinedVariableError(const Identifier* var){
+    std::string res = "Variable '";
+    res = res + var->getName() + "' is not defined";
+
+    whatData = new char[res.size()+1];
+    strcpy(whatData, res.c_str());
+}
+
+VariableReassignmentError::VariableReassignmentError(const Identifier* var){
+    std::string res = "Variable '";
+    res = res + var->getName() + "' cannot be reassigned";
+
+    whatData = new char[res.size()+1];
+    strcpy(whatData, res.c_str());
+}
+
+ModuleNotDefinedError::ModuleNotDefinedError(const Identifier* module){
+    std::string res = "Module '";
+    res = res + module->getName() + "' is not defined";
+
+    whatData = new char[res.size()+1];
+    strcpy(whatData, res.c_str());
+}
+
+MismatchedParametersError::MismatchedParametersError(const Identifier* at){
+    std::string res = "Mismatched parameters near '";
+    res = res + at->getName() + "'";
+
+    whatData = new char[res.size()+1];
+    strcpy(whatData, res.c_str());
+}
+
+VariableAlreadyDefinedError::VariableAlreadyDefinedError(const Identifier* var){
+    std::string res = "Variable '";
+    res = res + var->getName() + "' is already defined";
+
+    whatData = new char[res.size()+1];
+    strcpy(whatData, res.c_str());
 }
