@@ -1,7 +1,8 @@
-#include "structureLexemes.h"
+#include "parameters.h"
 
-#include "exceptions.h"
+#include "dot.h"
 #include "autoDtor.h"
+#include "exceptions.h"
 
 Parameter* Parameter::parse(Lexer& lex){
     Parameter *p = new Parameter();

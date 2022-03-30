@@ -1,5 +1,8 @@
-#include "structureLexemes.h"
+#include "unaryExpression.h"
+
+#include "value.h"
 #include "autoDtor.h"
+#include "expression.h"
 
 ValueExpression* UnaryExpression::parse(Lexer& lex){
     Token& curr = lex.current();
@@ -74,4 +77,24 @@ std::ostream& UnaryExpression::printDot(std::ostream& os) const {
 
 void UnaryExpression::checkSemantics(CompilationUnit& cu) const{
     expr->checkSemantics(cu);
+}
+
+void UnaryExpression::optimize() {
+    //Do nothing
+    //If it can be optimized, it will be done one layer up
+    //If not we would just return anyway
+}
+
+int UnaryExpression::calculate() const {
+    if(!expr->isConst())
+        throw "To call calculate both left and right must be const";
+    
+    int val = expr->calculate();
+
+    switch(op){
+        case PLUS:  return val;
+        case MINUS: return -val;
+        case NOT:   return ~val;
+        default:    return 0;
+    }
 }

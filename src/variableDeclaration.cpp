@@ -1,7 +1,9 @@
-#include "structureLexemes.h"
+#include "variableDeclaration.h"
 
-#include "exceptions.h"
+#include "dot.h"
 #include "autoDtor.h"
+#include "exceptions.h"
+#include "compilationUnit.h"
 
 VariableDeclaration* VariableDeclaration::parse(Lexer& lex){
     lex.except("var");

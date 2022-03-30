@@ -74,11 +74,16 @@ void Compiler::check(){
     }
 }
 
+void Compiler::optimize(){
+    for(std::map<const Identifier, Module*>::iterator it=definedModules.begin(); it != definedModules.end(); it++)
+        it->second->optimize();
+}
+
 void Compiler::compile(){
     lex();
     parse();
     check();
-    //optimize();
+    optimize();
     //compileBlueprint();
     //encode();
 }

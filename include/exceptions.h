@@ -11,8 +11,7 @@
 #include <sstream>
 
 #include "lexer.h"
-
-class Identifier;
+#include "identifier.h"
 
 /**
  * @brief Base class feldolgozás közbeni hibáknak

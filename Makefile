@@ -54,13 +54,13 @@ documentation: doc/html pdf
 # Rule for html documentation
 .PHONY: html
 html: doc/html
-doc/html: doc $(SRCS) $(wildcard include/*)
+doc/html: doc $(wildcard include/*)
 	doxygen
 
 # Rule for documentation pdf
 .PHONY: pdf
 pdf: doc/latex/refman.pdf
-doc/latex/refman.pdf: doc/html
+doc/latex/refman.pdf: doc/html $(wildcard include/*)
 	cd doc/latex
 	make -C doc/latex -f Makefile
 

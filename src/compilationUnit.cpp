@@ -1,6 +1,6 @@
 #include "compilationUnit.h"
 
-#include "structureLexemes.h"
+#include "parameters.h"
 
 bool CompilationUnit::isVariableDefined(const Identifier* id) const {
     return definedVariables.find(*id) != definedVariables.end();

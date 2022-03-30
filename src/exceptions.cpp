@@ -4,7 +4,6 @@
 
 #include <string.h>
 #include <memtrace.h>
-#include "structureLexemes.h"
 
 TokenExpectedError::TokenExpectedError(Token expected, Token got){
     whatData = new char[17+10+expected.getContent().size()+got.getContent().size()+1];

@@ -1,6 +1,10 @@
-#include "structureLexemes.h"
+#include "factor.h"
 
+#include "dot.h"
 #include "autoDtor.h"
+#include "unaryExpression.h"
+
+#include <cmath>
 
 ValueExpression* Factor::parse(Lexer& lex){
     Factor *res = new Factor;
@@ -51,4 +55,14 @@ std::ostream& Factor::printDot(std::ostream& os) const {
     
     return os;
     
+}
+
+int Factor::calculate() const {
+    if(!left->isConst() || !right->isConst())
+        throw "To call calculate both left and right must be const";
+    
+    int l = left->calculate();
+    int r = right->calculate();
+
+    return std::pow(l,r);
 }

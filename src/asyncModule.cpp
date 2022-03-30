@@ -1,7 +1,8 @@
-#include "structureLexemes.h"
+#include "modules.h"
 
 #include "autoDtor.h"
 #include "exceptions.h"
+#include "dot.h"
 
 AsyncModule* AsyncModule::parse(Lexer& lex){
     lex.except("async");
@@ -56,4 +57,9 @@ void AsyncModule::checkSemantics(CompilationUnit& cu) const {
     //Check all expressions
     for(size_t i=0; i<expressions.size(); i++)
         expressions[i]->checkSemantics(cu);
+}
+
+void AsyncModule::optimize(){
+    for(size_t i=0; i<expressions.size(); i++)
+        expressions[i]->optimize();
 }

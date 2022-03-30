@@ -18,7 +18,9 @@
 #include <map>
 
 #include "lexer.h"
-#include "structureLexemes.h"
+#include "identifier.h"
+#include "modules.h"
+#include "compilationUnit.h"
 
 #include <memtrace.h>
 

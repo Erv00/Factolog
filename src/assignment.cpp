@@ -1,7 +1,10 @@
-#include "structureLexemes.h"
+#include "assignment.h"
 
+#include "compilationUnit.h"
+#include "expression.h"
 #include "exceptions.h"
 #include "autoDtor.h"
+#include "dot.h"
 
 Assignment* Assignment::parse(Lexer& lex){
     Assignment *assign = new Assignment();

@@ -1,7 +1,8 @@
-#include "structureLexemes.h"
+#include "expression.h"
 
 #include "exceptions.h"
 #include "autoDtor.h"
+#include "term.h"
 
 std::ostream& dotConnection(std::ostream& os, const void *from, const void *to){
     return os << "\"" << from << "\" -> \"" << to << "\";\n"; 
@@ -84,4 +85,21 @@ std::ostream& Expression::printDot(std::ostream& os) const {
         throw "Havbe right but no left";
     
     return os;
+}
+
+int Expression::calculate() const {
+    if(!left->isConst() || !right->isConst())
+        throw "To call calculate both left and right must be const";
+    
+    int l = left->calculate();
+    int r = right->calculate();
+
+    switch(op){
+        case PLUS:  return l+r;
+        case MINUS: return l-r;
+        case AND:   return l&r;
+        case OR:    return l|r;
+        case XOR:   return l^r;
+        default:    return 0;
+    }
 }

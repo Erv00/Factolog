@@ -1,7 +1,9 @@
-#include "structureLexemes.h"
+#include "parameters.h"
 
-#include "exceptions.h"
+#include "dot.h"
 #include "autoDtor.h"
+#include "expression.h"
+#include "exceptions.h"
 
 ParameterList* ParameterList::parse(Lexer& lex){
     ParameterList  *plist = new ParameterList();

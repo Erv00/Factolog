@@ -1,4 +1,8 @@
-#include "structureLexemes.h"
+#include "asyncExpression.h"
+
+#include "variableDeclaration.h"
+#include "assignment.h"
+#include "modules.h"
 
 AsyncExpression* AsyncExpression::parse(Lexer& lex){
     //Determine what kind of expression follows

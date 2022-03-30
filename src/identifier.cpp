@@ -1,6 +1,7 @@
-#include "structureLexemes.h"
+#include "identifier.h"
 
 #include "exceptions.h"
+#include "compilationUnit.h"
 
 Identifier* Identifier::parse(Lexer& lex){
     Token tok = lex.current();

@@ -1,7 +1,9 @@
-#include "structureLexemes.h"
+#include "modules.h"
 
+#include "dot.h"
 #include "autoDtor.h"
 #include "exceptions.h"
+#include "compilationUnit.h"
 
 ModuleConnection* ModuleConnection::parse(Lexer& lex){
     ModuleConnection *mc = new ModuleConnection();

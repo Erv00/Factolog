@@ -11,8 +11,10 @@
 #define treenode_H
 
 #include <iostream>
+#include "memtrace.h"
 
-#include "compilationUnit.h"
+
+class CompilationUnit;
 
 /**
  * @brief AST alaposztály

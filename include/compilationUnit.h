@@ -15,9 +15,8 @@
 #include <set>
 #include <map>
 
-class Identifier;
-class Module;
-class ParameterListDeclaration;
+#include "modules.h"
+#include "identifier.h"
 
 /**
  * @brief Egy fordítási egység

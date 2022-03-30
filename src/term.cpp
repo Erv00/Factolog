@@ -1,5 +1,7 @@
-#include "structureLexemes.h"
+#include "term.h"
 
+#include "dot.h"
+#include "factor.h"
 #include "autoDtor.h"
 
 ValueExpression* Term::parse(Lexer& lex){
@@ -70,4 +72,21 @@ std::ostream& Term::printDot(std::ostream& os) const {
         throw "Havbe right but no left";
     
     return os;
+}
+
+int Term::calculate() const {
+    if(!left->isConst() || !right->isConst())
+        throw "To call calculate both left and right must be const";
+    
+    int l = left->calculate();
+    int r = right->calculate();
+
+    switch(op){
+        case MUL: return l*r;
+        case DIV: return l/r;
+        case MOD: return l%r;
+        case LSHIFT: return l<<r;
+        case RSHIFT: return l>>r;
+        default:     return 0;
+    }
 }
