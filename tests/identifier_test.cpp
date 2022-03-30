@@ -1,5 +1,5 @@
 #include "gtest_lite.h"
-#include "structureLexemes.h"
+#include "identifier.h"
 #include "exceptions.h"
 
 #include <sstream>

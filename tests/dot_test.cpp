@@ -4,7 +4,8 @@
 #include <iostream>
 
 #include "lexer.h"
-#include "structureLexemes.h"
+#include "expression.h"
+#include "modules.h"
 
 void dot_test(){
     TEST(Dot, Basic){

@@ -37,6 +37,7 @@ ValueExpression* UnaryExpression::parse(Lexer& lex){
             dtor.success();
             return expr;
         }
+        dtor.success();
         return res;
     }
 
