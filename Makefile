@@ -30,7 +30,7 @@ deps:
 clean:
 	-rm -rf obj
 	-rm -rf deps
-	-rm -rf doc
+	-rm -rf doc/html doc/latex
 	-rm factolog
 	-rm factoTest
 

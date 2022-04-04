@@ -1,6 +1,7 @@
 deps
 obj
-doc
+doc/html
+doc/latex
 factolog
 factoTest
 include/gtest_lite*
@@ -8,3 +9,4 @@ include/memtrace*
 src/memtrace*
 *.cc
 .vscode
+*.pdf
