@@ -46,6 +46,8 @@ class Number : public Value {
     void optimize(){}
     bool isConst() const {return true;}
     int calculate() const {return value;}
+
+    void calculateColorTree(unsigned int expected) {setOutColor(expected);}
 };
 
 
