@@ -42,6 +42,17 @@ class AutoDtor{
     void success(){
         toDelete = NULL;
     }
+
+    /**
+     * @brief Frissíti a törlendő címet. 
+     * 
+     * A korábban mutatott objektumot nem törli.
+     * 
+     * @param t Az új objektum
+     */
+    void update(T *t){
+        toDelete = t;
+    }
 };
 
 #endif //autoDtor_H

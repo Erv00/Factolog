@@ -20,44 +20,46 @@ ValueExpression* Expression::parse(Lexer& lex){
     Expression *res = new Expression;
     AutoDtor<Expression> dtor(res);
 
-    res->left = Term::parse(lex);
+    while(true){
+        ValueExpression *t = Term::parse(lex);
 
-    Token& curr = lex.current();
-    
-    //Have we reached the end of the stream?
-    if(lex.eof()){
-        //Eof reached, return
-        ValueExpression *opt = res->left;
-        res->left = NULL;
-        delete res;
-        dtor.success();
-        return opt;
+        if(res->left == NULL)
+            //Left is NULL, first item
+            res->left = t;
+        else if(res->right == NULL){
+            //Filled both
+            res->right = t;
+            Expression *e = new Expression;
+            dtor.update(e);
+            e->left = res;
+            res = e;
+        }
+
+        Token& curr = lex.current();
+        
+        if(curr == '+'){
+            res->op = PLUS;
+        }else if(curr == '-')
+            res->op = MINUS;
+        else if(curr == '&')
+            res->op = AND;
+        else if(curr == "|")
+            res->op = OR;
+        else if(curr == "^")
+            res->op = XOR;
+        else{
+            //We may have reached a higher order operator, or invalid syntax
+            ValueExpression *opt = res->left;
+            res->left = NULL;
+            delete res;
+            dtor.success();
+            return opt;
+            break;
+        }
+
+        lex.consume();
     }
 
-    if(curr == '+')
-        res->op = PLUS;
-    else if(curr == '-')
-        res->op = MINUS;
-    else if(curr == '&')
-        res->op = AND;
-    else if(curr == "|")
-        res->op = OR;
-    else if(curr == "^")
-        res->op = XOR;
-    else{
-        //We may have reached a higher order operator, or invalid syntax
-        ValueExpression *opt = res->left;
-        res->left = NULL;
-        delete res;
-        dtor.success();
-        return opt;
-    }
-
-    lex.consume();
-
-    res->right = Expression::parse(lex);
-
-    dtor.success();
     return res;
 }
 

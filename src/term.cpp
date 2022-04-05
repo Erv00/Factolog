@@ -6,47 +6,51 @@
 
 ValueExpression* Term::parse(Lexer& lex){
     Term *res = new Term;
-    AutoDtor<Term> dtor(res);    
+    AutoDtor<Term> dtor(res);
 
-    res->left = Factor::parse(lex);
+    while(true){
+        ValueExpression *t = Factor::parse(lex);
 
-    Token& curr = lex.current();
-    
-    //Have we reached the end of the stream?
-    if(lex.eof()){
-        //Eof reached, return
-        ValueExpression *opt = res->left;
-        res->left = NULL;
-        delete res;
-        dtor.success();
-        return opt;
+
+        if(res->left == NULL)
+            //Left is NULL, first item
+            res->left = t;
+        else if(res->right == NULL){
+            //Filled both
+            res->right = t;
+            Term *e = new Term;
+            dtor.update(e);
+            e->left = res;
+            res = e;
+        }
+
+        Token& curr = lex.current();
+        
+        if(curr == '*')
+            res->op = MUL;
+        else if(curr == '/')
+            res->op = DIV;
+        else if(curr == '%')
+            res->op = MOD;
+        else if(curr == "<<")
+            res->op = LSHIFT;
+        else if(curr == ">>")
+            res->op = RSHIFT;
+        else{
+            //We may have reached a higher order operator, or invalid syntax
+            ValueExpression *opt = res->left;
+            res->left = NULL;
+            delete res;
+            dtor.success();
+            return opt;
+            break;
+        }
+
+        lex.consume();
     }
 
-    if(curr == '*')
-        res->op = MUL;
-    else if(curr == '/')
-        res->op = DIV;
-    else if(curr == '%')
-        res->op = MOD;
-    else if(curr == "<<")
-        res->op = LSHIFT;
-    else if(curr == ">>")
-        res->op = RSHIFT;
-    else{
-        //We may have reached a higher order operator, or invalid syntax
-        ValueExpression *opt = res->left;
-        res->left = NULL;
-        delete res;
-        dtor.success();
-        return opt;
-    }
-
-    lex.consume();
-
-    res->right = Term::parse(lex);
-
-    dtor.success();
     return res;
+
 }
 std::ostream& Term::printDot(std::ostream& os) const {
     os << "\"" << this << "\" [label=\"Binary ";
