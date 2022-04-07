@@ -84,6 +84,14 @@ void Compiler::compile(){
     parse();
     check();
     optimize();
+
+    
+    for(std::map<const Identifier, Module*>::iterator it=definedModules.begin(); it != definedModules.end(); it++){
+        unsigned int a[] = {5};
+        it->second->calcualteColorTree(a, NULL);
+        it->second->printDot(std::cout);
+    }
+
     //compileBlueprint();
     //encode();
 }

@@ -4,8 +4,8 @@
 #include "autoDtor.h"
 #include "term.h"
 
-std::ostream& dotConnection(std::ostream& os, const void *from, const void *to){
-    return os << "\"" << from << "\" -> \"" << to << "\";\n"; 
+std::ostream& dotConnection(std::ostream& os, const void *from, const void *to, const char *label=""){
+    return os << "\"" << from << "\" -> \"" << to << "\" [label=\"" << label << "\"];\n"; 
 }
 
 std::ostream& dotNode(std::ostream& os, const void *obj, const char *label, const char *style){
@@ -77,11 +77,14 @@ std::ostream& Expression::printDot(std::ostream& os) const {
     
     if(left != NULL){
         left->printDot(os);
-        dotConnection(os, this, left);
+        std::string lab;
+        lab += 'A'+getInColor(0);
+        dotConnection(os, this, left, lab.c_str());
 
         if(right != NULL){
             right->printDot(os);
-            dotConnection(os, this, right);
+            lab = 'A'+getInColor(1);
+            dotConnection(os, this, right, lab.c_str());
         }
     }else if(right != NULL)
         throw "Havbe right but no left";

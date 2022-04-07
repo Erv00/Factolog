@@ -49,6 +49,8 @@ class Module : public TreeNode {
      * @brief Optimalizálja a modul kifejezéseit, ha lehet
      */
     virtual void optimize() = 0;
+
+    virtual void calcualteColorTree(unsigned int expectedOut[], unsigned int inputs[]) = 0;
 };
 
 /**
@@ -98,6 +100,7 @@ class AsyncModule : public Module {
      * @brief Optimalizálja a modul kifejezéseit, ha lehet
      */
     void optimize();
+    void calcualteColorTree(unsigned int expectedOut[], unsigned int inputs[]);
 };
 
 /**

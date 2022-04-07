@@ -25,7 +25,7 @@ Identifier* Identifier::parse(Lexer& lex){
 void Identifier::calculateColorTree(unsigned int expected){
     if(expected != getOutColor())
         //Mismatch
-        throw "Color mismatch";
+        std::cout << "Color mismatch" << std::endl;
 }
 
 std::ostream& Identifier::printDot(std::ostream& os) const {

@@ -3,6 +3,7 @@
 #include "autoDtor.h"
 #include "exceptions.h"
 #include "dot.h"
+#include "assignment.h"
 
 AsyncModule* AsyncModule::parse(Lexer& lex){
     lex.except("async");
@@ -62,4 +63,13 @@ void AsyncModule::checkSemantics(CompilationUnit& cu) const {
 void AsyncModule::optimize(){
     for(size_t i=0; i<expressions.size(); i++)
         expressions[i]->optimize();
+}
+
+void AsyncModule::calcualteColorTree(unsigned int expectedOut[], unsigned int inputs[]){
+    for(size_t i=0; i<expressions.size(); i++){
+        Assignment *a = dynamic_cast<Assignment *>(expressions[i]);
+        if(a != NULL){
+            a->val->calculateColorTree(expectedOut[0]);
+        }
+    }
 }

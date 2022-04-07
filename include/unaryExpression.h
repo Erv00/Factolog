@@ -70,6 +70,8 @@ class UnaryExpression : public ValueExpression {
     void optimize();
     bool isConst() const {return expr->isConst();}
     int calculate() const;
+
+    void calculateColorTree(unsigned int expected);
 };
 
 

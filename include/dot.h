@@ -21,7 +21,7 @@
  * @param to Kapcsolat végpontja
  * @return std::ostream& Kimeneti stream
  */
-std::ostream& dotConnection(std::ostream& os, const void *from, const void *to);
+std::ostream& dotConnection(std::ostream& os, const void *from, const void *to, const char *label="");
 
 /**
  * @brief Csomópont létrehozása megadott paraméterekkel

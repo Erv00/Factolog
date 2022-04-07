@@ -19,9 +19,12 @@
  */
 class ValueExpression : public TreeNode {
     unsigned int outColor;
-    std::vector<unsigned int> inColors;
+    unsigned int inColors[2];
     public:
-    ValueExpression(): outColor(0){}
+    ValueExpression(): outColor(0){
+        inColors[0] = 0;
+        inColors[1] = 0;
+    }
     /**
      * @brief Value Expression felszabadítása
      */

@@ -99,3 +99,18 @@ int UnaryExpression::calculate() const {
         default:    return 0;
     }
 }
+
+void UnaryExpression::calculateColorTree(unsigned int expected){
+    //Unary exps never collide
+    setOutColor(expected);
+    
+    //Check if input has color
+    if(expr->hasOutColor())
+        //Input has color
+        setInColor(expr->getOutColor());
+    else{
+        //Input has no color, calculate
+        setInColor(1);
+        expr->calculateColorTree(1);
+    }
+}

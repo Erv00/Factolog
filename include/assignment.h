@@ -20,9 +20,9 @@
  */
 class Assignment : public AsyncExpression {
     Identifier *to;         ///<Az értéket kapó változó
-    ValueExpression *val;   ///<A kapott érték
 
     public:
+    ValueExpression *val;   ///<A kapott érték
     /**
      * @brief Assignment felszabadítása
      */
