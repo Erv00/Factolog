@@ -71,7 +71,7 @@ class UnaryExpression : public ValueExpression {
     bool isConst() const {return expr->isConst();}
     int calculate() const;
 
-    void calculateColorTree(unsigned int expected);
+    void calculateColorTree(LinkingUnit& lu, unsigned int expected);
 };
 
 

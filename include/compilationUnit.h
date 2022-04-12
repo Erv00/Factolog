@@ -86,6 +86,13 @@ class CompilationUnit{
      * @return const ParameterListDeclaration* A modul paraméterlistája
      */
     const ParameterListDeclaration* getModuleParameters(const Identifier* module) const;
+
+    /**
+     * @brief Visszaadja a definiált változókat
+     * 
+     * @return const std::set<Identifier>& Referencia a definiált változókra
+     */
+    const std::set<Identifier>& getDefinedVariables() const {return definedVariables;}
 };
 
 #endif //compilationUnit_H

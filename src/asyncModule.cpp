@@ -4,6 +4,12 @@
 #include "exceptions.h"
 #include "dot.h"
 #include "assignment.h"
+#include "compilationUnit.h"
+
+Module::~Module(){
+    delete identifier;
+    delete parameters;
+}
 
 AsyncModule* AsyncModule::parse(Lexer& lex){
     lex.except("async");
@@ -65,11 +71,13 @@ void AsyncModule::optimize(){
         expressions[i]->optimize();
 }
 
-void AsyncModule::calcualteColorTree(unsigned int expectedOut[], unsigned int inputs[]){
+void AsyncModule::calcualteColorTree(LinkingUnit& lu, unsigned int expectedOut[], unsigned int inputs[]){
+    (void)expectedOut;
+    (void)inputs;
     for(size_t i=0; i<expressions.size(); i++){
         Assignment *a = dynamic_cast<Assignment *>(expressions[i]);
         if(a != NULL){
-            a->val->calculateColorTree(expectedOut[0]);
+            a->calculateColorTree(lu);
         }
     }
 }

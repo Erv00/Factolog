@@ -1,6 +1,7 @@
 #include "assignment.h"
 
 #include "compilationUnit.h"
+#include "linkingUnit.h"
 #include "expression.h"
 #include "exceptions.h"
 #include "autoDtor.h"
@@ -24,11 +25,17 @@ Assignment* Assignment::parse(Lexer& lex){
 std::ostream& Assignment::printDot(std::ostream& os) const{
     dotNode(os, this, "Assign", "");
 
+    std::string lab;
+
+    LinkingUnit lu((Identifier*)NULL, (Identifier*)NULL);
+
+    lab += 'A' + val->getOutColor(lu);
+
     to->printDot(os);
-    dotConnection(os, this, to);
+    dotConnection(os, this, to, lab.c_str());
 
     val->printDot(os);
-    dotConnection(os, this, val);
+    dotConnection(os, this, val, lab.c_str());
 
     return os;
 }
@@ -43,4 +50,8 @@ void Assignment::checkSemantics(CompilationUnit& cu) const {
     val->checkSemantics(cu);
 
     cu.assignVariable(to);
+}
+
+void Assignment::calculateColorTree(LinkingUnit& lu){
+    val->calculateColorTree(lu, lu.getVariableColor(*to));
 }

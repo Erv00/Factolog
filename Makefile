@@ -41,11 +41,7 @@ obj/%.o: src/%.cpp deps/%.d | obj
 
 # Rule for final executable
 factolog: $(OBJS)
-	$(CXX) $(LDFLAGS) $(OBJS) -o $@ $(LIBS)
-
-# Folder for documentation
-doc:
-	mkdir doc
+	$(CXX) $(LDFLAGS) $(OBJS) $(CMD) -o $@ $(LIBS)
 
 # Rule for documentation
 .PHONY: documentation

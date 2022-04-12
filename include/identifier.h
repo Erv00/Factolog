@@ -14,6 +14,8 @@
 #include "value.h"
 #include <string>
 
+class LinkingUnit;
+
 /**
  * @brief Azonosító
  */
@@ -77,7 +79,9 @@ class Identifier : public Value{
     void optimize(){}
     bool isConst() const {return false;/*Could be better*/}
     int calculate() const {throw "Identifier is not const";}
-    void calculateColorTree(unsigned int expected);
+    void calculateColorTree(LinkingUnit& lu, unsigned int expected);
+    bool hasOutColor(LinkingUnit& lu) const;
+    unsigned int getOutColor(LinkingUnit& lu) const;
 };
 
 

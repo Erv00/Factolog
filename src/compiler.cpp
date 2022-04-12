@@ -1,6 +1,7 @@
 #include "compiler.h"
 
 #include "exceptions.h"
+#include "linkingUnit.h"
 
 Compiler::Compiler(std::istream& _is, std::ostream& _os): is(&_is), os(&_os), ifs(NULL), ofs(NULL){
     lexer = new Lexer(*is);
@@ -41,6 +42,10 @@ Compiler& Compiler::operator=(const Compiler& c){
 Compiler::~Compiler(){
     for(std::map<const Identifier, Module*>::iterator it = definedModules.begin(); it != definedModules.end(); it++)
         delete it->second;
+    
+    for(std::map<const Identifier, CompilationUnit*>::iterator it = compilationUnits.begin(); it != compilationUnits.end(); it++)
+        delete it->second;
+
     delete lexer;
 
     delete ifs;
@@ -69,8 +74,9 @@ void Compiler::parse(){
 
 void Compiler::check(){
     for(std::map<const Identifier, Module*>::iterator it=definedModules.begin(); it != definedModules.end(); it++){
-        CompilationUnit cu(definedModules);
-        it->second->checkSemantics(cu);
+        CompilationUnit *cu = new CompilationUnit(definedModules);
+        compilationUnits[it->first] = cu;
+        it->second->checkSemantics(*cu);
     }
 }
 
@@ -88,7 +94,8 @@ void Compiler::compile(){
     
     for(std::map<const Identifier, Module*>::iterator it=definedModules.begin(); it != definedModules.end(); it++){
         unsigned int a[] = {5};
-        it->second->calcualteColorTree(a, NULL);
+        LinkingUnit lu(compilationUnits[it->first]->getDefinedVariables().begin(),compilationUnits[it->first]->getDefinedVariables().end());
+        it->second->calcualteColorTree(lu, a, NULL);
         it->second->printDot(std::cout);
     }
 

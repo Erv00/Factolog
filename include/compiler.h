@@ -43,7 +43,8 @@ class Compiler {
 
     Lexer *lexer;           ///<Lexikai feldolgozó
 
-    std::map<const Identifier, Module*> definedModules; ///<Definiált modulok
+    std::map<const Identifier, Module*> definedModules;             ///<Definiált modulok
+    std::map<const Identifier, CompilationUnit*> compilationUnits;  ///<A modulok fordítási egységei
 
     /**
      * @brief Elvégzi a forrás lexikai feldolgozását 

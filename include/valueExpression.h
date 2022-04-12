@@ -14,12 +14,17 @@
 #include "treenode.h"
 #include <vector>
 
+class LinkingUnit;
+
+#define LEFT 0
+#define RIGHT 1
+
 /**
  * @brief Base class az értéket hordozó osztályoknak 
  */
 class ValueExpression : public TreeNode {
-    unsigned int outColor;
-    unsigned int inColors[2];
+    unsigned int outColor;      ///<A kombinátor kimeneti színe
+    unsigned int inColors[2];   ///<A kombinátor bemenetei
     public:
     ValueExpression(): outColor(0){
         inColors[0] = 0;
@@ -51,22 +56,74 @@ class ValueExpression : public TreeNode {
      */
     virtual int calculate() const = 0;
 
-    unsigned int getOutColor() const{return outColor;}
-    bool hasOutColor() const {return getOutColor() != 0;}
+    /**
+     * @brief Visszadja a kombinátor kimeneti színét
+     * 
+     * Az alap implementáció a kombinátor színét adja vissza, ami alapesetben mindig 0.
+     * Identifier esetében az előre megadott színt adja vissza.
+     * 
+     * @param lu A linkelési egység
+     * @return unsigned int A kombinátor kimeneti színe
+     */
+    virtual unsigned int getOutColor(LinkingUnit& lu) const{
+        (void)lu;
+        return outColor;
+    }
+
+    /**
+     * @brief Megadja, hogy a kombinátornak van-e színe.
+     * 
+     * Az alap implementáció a kombinátor színét adja vissza, ami alapesetben mindig 0,
+     * ezért mindig false a viszzatérési érték.
+     * Identifier esetében az előre megadott a szín, mindig igazzal tér vissza.
+     * 
+     * @param lu A linkelési egység
+     * @return true Ha van színe
+     * @return false Egyébként
+     */
+    virtual bool hasOutColor(LinkingUnit& lu) const {return getOutColor(lu) != 0;}
+
+    /**
+     * @brief Beállítja a kimeneti színt
+     * 
+     * @param col 
+     */
     void setOutColor(unsigned int col){outColor = col;}
 
+    /**
+     * @brief Visszaadja a kombinátor bemenetének a színét
+     * 
+     * @param index A bemenet indexe
+     * @return unsigned int A bemenet színe
+     */
     unsigned int getInColor(size_t index=0) const;
+
+    /**
+     * @brief Megadja, hogy a kombinátornak a megadott bemenetének van-e színe
+     * 
+     * @param index A bemenet indexe
+     * @return true Ha a bemenetnek van színe
+     * @return false Egyébként
+     */
     bool hasInColor(size_t index=0) const;
 
     /**
-     * @brief Set the In Color object
+     * @brief Bállítja a bemenet színét
      * 
-     * @param col 
-     * @param index Index, 0 a bal 1 a jobb
+     * @param col A szín
+     * @param index Bemenet indexe, 0 a bal 1 a jobb
      */
     void setInColor(unsigned int col, size_t index=0);
 
-    virtual void calculateColorTree(unsigned int expectedOut) = 0;
+    /**
+     * @brief Elkészíti a szín-fát
+     * 
+     * Minen kombinátornak meghatározza a bemeneti és kimeneti színeit
+     * 
+     * @param lu Linkelési egység
+     * @param expectedOut A kombinátor kimeneti színe
+     */
+    virtual void calculateColorTree(LinkingUnit& lu, unsigned int expectedOut) = 0;
 
 }; 
 

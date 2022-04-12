@@ -62,7 +62,7 @@ class BinaryExpression : public ValueExpression {
      */
     bool isConst() const {return left->isConst() && right->isConst();}
 
-    void calculateColorTree(unsigned int expectedOut);
+    void calculateColorTree(LinkingUnit& lu, unsigned int expectedOut);
 };
 
 

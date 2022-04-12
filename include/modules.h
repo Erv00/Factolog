@@ -17,6 +17,9 @@
 #include "identifier.h"
 #include <vector>
 
+class CompilationUnit;
+class LinkingUnit;
+
 /**
  * @brief Modul leírása
  */
@@ -24,12 +27,12 @@ class Module : public TreeNode {
     protected:
     Identifier* identifier;                 ///<Modul azonosítója
     ParameterListDeclaration* parameters;   ///<Modul paraméterei
-   
+
     public:
     /**
      * @brief Module felszabadítása
      */
-    virtual ~Module(){delete identifier;delete parameters;};
+    virtual ~Module();
 
     /**
      * @brief Megadja a modul azonosítóját
@@ -50,7 +53,14 @@ class Module : public TreeNode {
      */
     virtual void optimize() = 0;
 
-    virtual void calcualteColorTree(unsigned int expectedOut[], unsigned int inputs[]) = 0;
+    /**
+     * @brief Felépíti a modul szín-fáját
+     * 
+     * @param lu A színezési egység
+     * @param expectedOut Elvárt kimenetek listája
+     * @param inputs Bemeneti paraméterek színei
+     */
+    virtual void calcualteColorTree(LinkingUnit& lu, unsigned int expectedOut[], unsigned int inputs[]) = 0;
 };
 
 /**
@@ -100,7 +110,7 @@ class AsyncModule : public Module {
      * @brief Optimalizálja a modul kifejezéseit, ha lehet
      */
     void optimize();
-    void calcualteColorTree(unsigned int expectedOut[], unsigned int inputs[]);
+    void calcualteColorTree(LinkingUnit& lu, unsigned int expectedOut[], unsigned int inputs[]);
 };
 
 /**

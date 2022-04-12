@@ -1,5 +1,6 @@
 #include "unaryExpression.h"
 
+#include "dot.h"
 #include "value.h"
 #include "autoDtor.h"
 #include "expression.h"
@@ -71,7 +72,9 @@ std::ostream& UnaryExpression::printDot(std::ostream& os) const {
 
     os << "\"]\n";
 
-    os << "\"" << this << "\" -> \"" << expr << "\";\n";
+    std::string lab;
+    lab += 'A'+getInColor(0);
+    dotConnection(os, this, expr, lab.c_str());
 
     return expr->printDot(os);
 }
@@ -100,17 +103,17 @@ int UnaryExpression::calculate() const {
     }
 }
 
-void UnaryExpression::calculateColorTree(unsigned int expected){
+void UnaryExpression::calculateColorTree(LinkingUnit& lu, unsigned int expected){
     //Unary exps never collide
     setOutColor(expected);
     
     //Check if input has color
-    if(expr->hasOutColor())
+    if(expr->hasOutColor(lu))
         //Input has color
-        setInColor(expr->getOutColor());
+        setInColor(expr->getOutColor(lu));
     else{
         //Input has no color, calculate
         setInColor(1);
-        expr->calculateColorTree(1);
+        expr->calculateColorTree(lu, 1);
     }
 }

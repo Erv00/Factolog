@@ -19,6 +19,7 @@
  * @param os Kimeneti stream
  * @param from Kapcsolat kiindulása
  * @param to Kapcsolat végpontja
+ * @param label A kapcsolat felirata
  * @return std::ostream& Kimeneti stream
  */
 std::ostream& dotConnection(std::ostream& os, const void *from, const void *to, const char *label="");

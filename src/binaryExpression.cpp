@@ -27,44 +27,54 @@ void BinaryExpression::optimize() {
         right->optimize();
 }
 
-void BinaryExpression::calculateColorTree(unsigned int expectedOut){
+void BinaryExpression::calculateColorTree(LinkingUnit& lu, unsigned int expectedOut){
     //Set own color
     setOutColor(expectedOut);
 
-    if(left->hasOutColor() && right->hasOutColor()){
+    if(left->hasOutColor(lu) && right->hasOutColor(lu)){
         //Both sides have out colors, preform sanity check
         //Maybe it can be optimized out?
-        if(left->getOutColor() == right->getOutColor())
+        if(left->getOutColor(lu) == right->getOutColor(lu))
             //Left and right are the same
             //TODO: FIX, for now, throw error
             throw "Both inputs have same color";
         
         //Else all is good, set input color
-        setInColor(left->getOutColor(), 0);
-        setInColor(right->getOutColor(), 1);
-    }else if(left->hasOutColor() && !right->hasOutColor()){
+        setInColor(left->getOutColor(lu), 0);
+        setInColor(right->getOutColor(lu), 1);
+    }else if(left->hasOutColor(lu) && !right->hasOutColor(lu)){
         //Left has color, right doesn't
-        unsigned int leftCol = left->getOutColor();
+        unsigned int leftCol = left->getOutColor(lu);
+        setInColor(leftCol, LEFT);
 
-        if(leftCol == 1)
+        if(leftCol == 1){
             //Left color is 1, right should be 2
-            right->calculateColorTree(2);
-        else
+            right->calculateColorTree(lu, 2);
+            setInColor(2, RIGHT);
+        }else{
             //Left's color is not in binary space
-            right->calculateColorTree(1);
-    }else if(!left->hasOutColor() && right->hasOutColor()){
+            right->calculateColorTree(lu, 1);
+            setInColor(1, RIGHT);
+        }
+    }else if(!left->hasOutColor(lu) && right->hasOutColor(lu)){
         //Right has color, left doesn't
-        unsigned int rightCol = right->getOutColor();
+        unsigned int rightCol = right->getOutColor(lu);
+        setInColor(rightCol, RIGHT);
 
-        if(rightCol == 1)
+        if(rightCol == 1){
             //Right color is 1, left should be 2
-            left->calculateColorTree(2);
-        else
+            left->calculateColorTree(lu, 2);
+            setInColor(2, LEFT);
+        }else{
             //Right's color is not in binary space
-            left->calculateColorTree(1);
+            left->calculateColorTree(lu, 1);
+            setInColor(1, LEFT);
+        }
     }else{
         //None have a color
-        left->calculateColorTree(1);
-        right->calculateColorTree(2);
+        left->calculateColorTree(lu, 1);
+        right->calculateColorTree(lu, 2);
+        setInColor(1,LEFT);
+        setInColor(2, RIGHT);
     }
 }

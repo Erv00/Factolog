@@ -62,12 +62,16 @@ void ModuleConnection::checkSemantics(CompilationUnit& cu) const {
                     throw VariableReassignmentError(id);
                     
                 //We will need to define that variable after modul is ran
+                //So the user cannot do foo(5, a, a+5), where a is not assigned
                 break;
         }
     }
 
     //Mark OUT variables as assigned
     for(size_t i=0; i<expectedParams->length(); i++)
-        if((*expectedParams)[i]->getDirection() == Parameter::OUT)
-            cu.assignVariable((*expectedParams)[i]->getIdentifier());
+        if((*expectedParams)[i]->getDirection() == Parameter::OUT){
+            const Identifier *id = dynamic_cast<const Identifier*>((*parameters)[i]);
+            //Check not needed, was already checked before
+            cu.assignVariable(id);
+        }
 }

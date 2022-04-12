@@ -12,6 +12,7 @@
 #define number_H
 
 #include "value.h"
+class LinkingUnit;
 
 /**
  * @brief Konstans számérték
@@ -47,7 +48,7 @@ class Number : public Value {
     bool isConst() const {return true;}
     int calculate() const {return value;}
 
-    void calculateColorTree(unsigned int expected) {setOutColor(expected);}
+    void calculateColorTree(LinkingUnit& lu, unsigned int expected) {(void)lu;setOutColor(expected);}
 };
 
 

@@ -2,6 +2,7 @@
 
 #include "exceptions.h"
 #include "compilationUnit.h"
+#include "linkingUnit.h"
 
 Identifier* Identifier::parse(Lexer& lex){
     Token tok = lex.current();
@@ -22,10 +23,21 @@ Identifier* Identifier::parse(Lexer& lex){
     
 }
 
-void Identifier::calculateColorTree(unsigned int expected){
-    if(expected != getOutColor())
+void Identifier::calculateColorTree(LinkingUnit& lu, unsigned int expected){
+    if(!lu.variableHasColor(*this))
+        throw "Identifier has no color";
+    setOutColor(lu.getVariableColor(*this));
+    if(expected != getOutColor(lu))
         //Mismatch
         std::cout << "Color mismatch" << std::endl;
+}
+
+bool Identifier::hasOutColor(LinkingUnit& lu) const{
+    return lu.variableHasColor(*this);
+}
+
+unsigned int Identifier::getOutColor(LinkingUnit& lu) const {
+    return lu.getVariableColor(*this);
 }
 
 std::ostream& Identifier::printDot(std::ostream& os) const {
