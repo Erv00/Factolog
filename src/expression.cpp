@@ -35,6 +35,15 @@ ValueExpression* Expression::parse(Lexer& lex){
             res = e;
         }
 
+        if(lex.eof()){
+            //Reached end of stream
+            ValueExpression *opt = res->left;
+            res->left = NULL;
+            delete res;
+            dtor.success();
+            return opt;
+        }
+
         Token& curr = lex.current();
         
         if(curr == '+'){
