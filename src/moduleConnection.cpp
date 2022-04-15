@@ -5,6 +5,11 @@
 #include "exceptions.h"
 #include "compilationUnit.h"
 
+ModuleConnection::ModuleConnection(const ModuleConnection& mc){
+    identifier = new Identifier(*mc.identifier);
+    parameters = new ParameterList(*mc.parameters);
+}
+
 ModuleConnection* ModuleConnection::parse(Lexer& lex){
     ModuleConnection *mc = new ModuleConnection();
     AutoDtor<ModuleConnection> dtor(mc);
@@ -74,4 +79,9 @@ void ModuleConnection::checkSemantics(CompilationUnit& cu) const {
             //Check not needed, was already checked before
             cu.assignVariable(id);
         }
+}
+
+void ModuleConnection::translate(const std::map<Identifier,Identifier>& translation){
+    identifier->translate(translation);
+    parameters->translate(translation);
 }

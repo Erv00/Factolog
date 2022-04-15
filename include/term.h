@@ -31,7 +31,21 @@ class Term : public BinaryExpression {
     private:
     enum BinaryOperator op; ///< Elvégzendő művelet
 
+    /**
+     * @brief Új Term létrehozása
+     */
+    Term(){}
+
     public:
+    /**
+     * @brief Új Term létrehozása
+     * 
+     * @param t A másolandó Term
+     */
+    Term(const Term& t):BinaryExpression(t), op(t.op){}
+
+    ValueExpression* clone() const {return new Term(*this);}
+
     /**
      * @brief Tokenek értelmezése 
      * 

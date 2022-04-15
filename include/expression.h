@@ -33,8 +33,22 @@ class Expression : public BinaryExpression {
 
     private:
     enum BinaryOperator op; ///<Végzendő művelet
+    
+    /**
+     * @brief Új Expression létrehozása
+     */
+    Expression(){}
 
     public:
+    /**
+     * @brief Új Expression létrehozása
+     * 
+     * @param e A másolandó kifejezés
+     */
+    Expression(const Expression& e);
+
+    ValueExpression* clone() const;
+
     /**
      * @brief Tokenek értelmezése 
      * 

@@ -66,6 +66,13 @@ class Parameter : public TreeNode {
      * @return const Identifier* A paraméter azonosítója
      */
     const Identifier* getIdentifier() const {return identifier;}
+
+    /**
+     * @brief Lecseréli a változók azonosítóját a modulokban a kapcsolatban lévőkkel
+     * 
+     * @param translation Régi-új változónév összerendelések
+     */
+    void translate(const std::map<Identifier,Identifier>& translation);
 };
 
 /**
@@ -124,6 +131,13 @@ class ParameterList : public TreeNode {
      * @param cu A fordítási egység
      */
     void checkSemantics(CompilationUnit& cu) const;
+
+    /**
+     * @brief Lecseréli a változók azonosítóját a modulokban a kapcsolatban lévőkkel
+     * 
+     * @param translation Régi-új változónév összerendelések
+     */
+    void translate(const std::map<Identifier,Identifier>& translation);
 };
 
 /**
@@ -174,6 +188,14 @@ class ParameterListDeclaration : public TreeNode {
     const Parameter* operator[](size_t idx) const {return parameters[idx];}
 
     /**
+     * @brief Visszaadja az idx-edik paramétert
+     * 
+     * @param idx Index
+     * @return Parameter* Az idx-edik paraméter
+     */
+    Parameter* operator[](size_t idx) {return parameters[idx];}
+
+    /**
      * @brief Szemantika ellenőrzést végez
      * 
      * Ellenőrzött tulajdonságok:
@@ -182,6 +204,13 @@ class ParameterListDeclaration : public TreeNode {
      * @param cu A fordítási egység
      */
     void checkSemantics(CompilationUnit& cu) const;
+
+    /**
+     * @brief Lecseréli a változók azonosítóját a modulokban a kapcsolatban lévőkkel
+     * 
+     * @param translation Régi-új változónév összerendelések
+     */
+    void translate(const std::map<Identifier,Identifier>& translation);
 };
 
 

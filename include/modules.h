@@ -111,6 +111,24 @@ class AsyncModule : public Module {
      */
     void optimize();
     void calcualteColorTree(LinkingUnit& lu, unsigned int expectedOut[], unsigned int inputs[]);
+
+    /**
+     * @brief Visszaadja a modul utasításainak másolatát a megfelelő fordításokkal
+     * 
+     * @param translation Régi-új változóneév hozzárendelések
+     * @return std::vector<AsyncExpression*> A modul utasításainak fordított másolata
+     */
+    std::vector<AsyncExpression*> linkModule(const std::map<Identifier,Identifier>& translation) const;
+    
+    /**
+     * @brief Feloldja a modul csatlakozás parancsait
+     * 
+     * A függvény után a modul nem tartalmaz csatlakozás parancsokat
+     * 
+     * @param modules Az összes definiált modul
+     * @return AsyncModule* A modul
+     */
+    AsyncModule* link(std::map<const Identifier, Module*>& modules);
 };
 
 /**
@@ -119,8 +137,22 @@ class AsyncModule : public Module {
 class ModuleConnection : public AsyncExpression {
     Identifier *identifier;     ///<Csatlakoztatott modul
     ParameterList *parameters;  ///<Csatlakozás paraméterei
+
+    /**
+     * @brief Új ModuleConnection létrehozása
+     */
+    ModuleConnection(){}
     
     public:
+    /**
+     * @brief Új ModuleConnection létrehozása
+     * 
+     * @param mc A másolandó kapcsolat
+     */
+    ModuleConnection(const ModuleConnection& mc);
+
+    AsyncExpression* clone() const {return new ModuleConnection(*this);}
+
     /**
      * @brief ModuleConnection felszabadítása
      */
@@ -153,6 +185,22 @@ class ModuleConnection : public AsyncExpression {
      * @param cu Fordítási egység
      */
     void checkSemantics(CompilationUnit& cu) const;
+
+    /**
+     * @brief Visszadaja a csatlakoztatt modul azonosítóját
+     * 
+     * @return const Identifier* A csatlakoztatott modul azonosítója
+     */
+    const Identifier* getIdentifier() const {return identifier;}
+
+    /**
+     * @brief Visszadaja a csatlakoztatt modul azonosítóját
+     * 
+     * @return Identifier* A csatlakoztatott modul azonosítója
+     */
+    ParameterList* getParameters() {return parameters;}
+
+    void translate(const std::map<Identifier,Identifier>& translation);
 };
 
 #endif //modules_H

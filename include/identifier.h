@@ -21,6 +21,13 @@ class LinkingUnit;
  */
 class Identifier : public Value{
     std::string name;   ///<Az azonosító neve
+    
+    public:
+    /**
+     * @brief Új Identifier létrehozása
+     * Normál használat közben nem kell használni, csak a tárolókhoz kell
+     */
+    Identifier():name("!!NOT SET!!"){}
 
     /**
      * @brief Új Identifier létrehozása
@@ -28,7 +35,15 @@ class Identifier : public Value{
      */
     Identifier(std::string name):name(name){};
 
-    public:
+    /**
+     * @brief Új Identifier létrehozása
+     * 
+     * @param i A másolandó azonosító
+     */
+    Identifier(const Identifier& i): name(i.name){}
+
+    ValueExpression* clone() const {return new Identifier(*this);}
+
     /**
      * @brief Tokenek értelmezése 
      * 
@@ -82,6 +97,7 @@ class Identifier : public Value{
     void calculateColorTree(LinkingUnit& lu, unsigned int expected);
     bool hasOutColor(LinkingUnit& lu) const;
     unsigned int getOutColor(LinkingUnit& lu) const;
+    void translate(const std::map<Identifier,Identifier>& translation);
 };
 
 

@@ -14,6 +14,8 @@
 
 #include "valueExpression.h"
 
+class Identifier;
+
 /**
  * @brief 2 operandusú műveletek base class-a
  */
@@ -27,6 +29,13 @@ class BinaryExpression : public ValueExpression {
      * @brief Új BinaryExpression létrehozása
      */
     BinaryExpression():left(NULL),right(NULL){}
+
+    /**
+     * @brief Új BinaryExpression létrehozása
+     * 
+     * @param b A másolandó bináris kifejezés
+     */
+    BinaryExpression(const BinaryExpression& b);
     
     /**
      * @brief BinaryExpression felszabadítása
@@ -63,6 +72,7 @@ class BinaryExpression : public ValueExpression {
     bool isConst() const {return left->isConst() && right->isConst();}
 
     void calculateColorTree(LinkingUnit& lu, unsigned int expectedOut);
+    void translate(const std::map<Identifier,Identifier>& translation);
 };
 
 

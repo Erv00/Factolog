@@ -1,6 +1,12 @@
 #include "binaryExpression.h"
 
+#include <map>
 #include "number.h"
+
+BinaryExpression::BinaryExpression(const BinaryExpression& b){
+    left = b.left->clone();
+    right = b.right->clone();
+}
 
 void BinaryExpression::optimize() {
     bool leftConst = left->isConst();
@@ -77,4 +83,9 @@ void BinaryExpression::calculateColorTree(LinkingUnit& lu, unsigned int expected
         setInColor(1,LEFT);
         setInColor(2, RIGHT);
     }
+}
+
+void BinaryExpression::translate(const std::map<Identifier,Identifier>& translation){
+    left->translate(translation);
+    right->translate(translation);
 }

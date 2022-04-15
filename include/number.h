@@ -27,6 +27,8 @@ class Number : public Value {
      */
     Number(int val):value(val){};
 
+    ValueExpression* clone() const {return new Number(value);}
+
     /**
      * @brief Tokenek értelmezése 
      * 
@@ -49,6 +51,7 @@ class Number : public Value {
     int calculate() const {return value;}
 
     void calculateColorTree(LinkingUnit& lu, unsigned int expected) {(void)lu;setOutColor(expected);}
+    void translate(const std::map<Identifier,Identifier>& translation){}
 };
 
 

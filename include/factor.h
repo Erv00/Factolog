@@ -22,7 +22,22 @@
  * @sa Precedence
  */
 class Factor : public BinaryExpression {
+    /**
+     * @brief Új Factor létrehozása
+     */
+    Factor(){}
+
     public:
+    /**
+     * @brief Új Factor létrehozása
+     * 
+     * @param f A másolandó Factor
+     */
+    Factor(const Factor& f):BinaryExpression(f){}
+
+
+    ValueExpression* clone() const {return new Factor(*this);}
+
     /**
      * @brief Tokenek értelmezése 
      * 

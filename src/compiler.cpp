@@ -91,13 +91,20 @@ void Compiler::compile(){
     check();
     optimize();
 
-    
-    for(std::map<const Identifier, Module*>::iterator it=definedModules.begin(); it != definedModules.end(); it++){
-        unsigned int a[] = {5};
-        LinkingUnit lu(compilationUnits[it->first]->getDefinedVariables().begin(),compilationUnits[it->first]->getDefinedVariables().end());
-        it->second->calcualteColorTree(lu, a, NULL);
-        it->second->printDot(std::cout);
+    AsyncModule* main = dynamic_cast<AsyncModule*>(definedModules[Identifier("main")]);
+
+    if(main == NULL){
+        std::cerr << "No main module defined" << std::endl;
+        return;
     }
+    
+    main->link(definedModules);
+
+    LinkingUnit lu(compilationUnits[*(main->getIdentifier())]->getDefinedVariables().begin(),compilationUnits[*(main->getIdentifier())]->getDefinedVariables().end());
+    unsigned int a = 5;
+    main->calcualteColorTree(lu, &a, NULL);
+
+    main->printDot(std::cout);
 
     //compileBlueprint();
     //encode();

@@ -20,9 +20,9 @@
  */
 class Assignment : public AsyncExpression {
     Identifier *to;         ///<Az értéket kapó változó
+    ValueExpression *val;   ///<A kapott érték
 
     public:
-    ValueExpression *val;   ///<A kapott érték
     /**
      * @brief Assignment felszabadítása
      */
@@ -68,6 +68,24 @@ class Assignment : public AsyncExpression {
         }else
             val->optimize();
     }
+
+    /**
+     * @brief Elkészíti a szín-fát
+     * 
+     * Minen kombinátornak meghatározza a bemeneti és kimeneti színeit
+     * 
+     * @param lu Linkelési egység
+     */
+    void calculateColorTree(LinkingUnit& lu);
+
+    AsyncExpression* clone() const;
+
+    /**
+     * @brief Lecseréli a változók azonosítóját a modulokban a kapcsolatban lévőkkel
+     * 
+     * @param translation Régi-új változónév összerendelések
+     */
+    void translate(const std::map<Identifier,Identifier>& translation);
 };
 
 

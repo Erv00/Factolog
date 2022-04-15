@@ -13,7 +13,9 @@
 
 #include "treenode.h"
 #include <vector>
+#include <map>
 
+class Identifier;
 class LinkingUnit;
 
 #define LEFT 0
@@ -25,15 +27,29 @@ class LinkingUnit;
 class ValueExpression : public TreeNode {
     unsigned int outColor;      ///<A kombinátor kimeneti színe
     unsigned int inColors[2];   ///<A kombinátor bemenetei
+    
     public:
+    /**
+     * @brief Új ValueExpression létrehozása
+     */
     ValueExpression(): outColor(0){
         inColors[0] = 0;
         inColors[1] = 0;
     }
+
     /**
      * @brief Value Expression felszabadítása
      */
     virtual ~ValueExpression(){};
+
+    /**
+     * @brief Másolat létrehozása
+     * 
+     * A leszármaztatott másoló konstruktorát hívja
+     * 
+     * @return AsyncExpression* A dinamikusan foglalt másolat címe
+     */
+    virtual ValueExpression* clone() const = 0;
 
     /**
      * @brief Optimalizálja a kifejezést, ha lehet
@@ -125,6 +141,12 @@ class ValueExpression : public TreeNode {
      */
     virtual void calculateColorTree(LinkingUnit& lu, unsigned int expectedOut) = 0;
 
+    /**
+     * @brief Lecseréli a változók azonosítóját a modulokban a kapcsolatban lévőkkel
+     * 
+     * @param translation Régi-új változónév összerendelések
+     */
+    virtual void translate(const std::map<Identifier,Identifier>& translation) = 0;
 }; 
 
 #endif //valueExpression_H

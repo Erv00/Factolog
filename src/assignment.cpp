@@ -55,3 +55,17 @@ void Assignment::checkSemantics(CompilationUnit& cu) const {
 void Assignment::calculateColorTree(LinkingUnit& lu){
     val->calculateColorTree(lu, lu.getVariableColor(*to));
 }
+
+AsyncExpression* Assignment::clone() const {
+    Assignment *as = new Assignment;
+
+    as->to = new Identifier(*to);
+    as->val = val->clone();
+
+    return as;
+}
+
+void Assignment::translate(const std::map<Identifier,Identifier>& translation){
+    to->translate(translation);
+    val->translate(translation);
+}

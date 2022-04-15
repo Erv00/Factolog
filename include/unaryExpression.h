@@ -32,6 +32,15 @@ class UnaryExpression : public ValueExpression {
     UnaryExpression(){op=PLUS;expr=NULL;};
 
     /**
+     * @brief Új UnaryExpression létrehozása
+     * 
+     * @param u A másolandó unáris kifejezés
+     */
+    UnaryExpression(const UnaryExpression& u):op(u.op){expr = u.expr->clone();}
+    
+    ValueExpression* clone() const {return new UnaryExpression(*this);}
+
+    /**
      * @brief UnaryExpression felszabadítása
      */
     ~UnaryExpression(){delete expr;};
@@ -72,6 +81,7 @@ class UnaryExpression : public ValueExpression {
     int calculate() const;
 
     void calculateColorTree(LinkingUnit& lu, unsigned int expected);
+    void translate(const std::map<Identifier,Identifier>& translation);
 };
 
 

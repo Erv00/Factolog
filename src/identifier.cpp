@@ -52,3 +52,7 @@ void Identifier::checkSemantics(CompilationUnit& cu) const {
         //TODO: Emit warning formally
         std::cerr << "Variable '" << name << "' uses default 0" << std::endl;
 }
+
+void Identifier::translate(const std::map<Identifier,Identifier>& translation){
+    name = translation.at(name).name;
+}

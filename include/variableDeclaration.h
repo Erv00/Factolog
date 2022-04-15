@@ -20,8 +20,21 @@
  */
 class VariableDeclaration : public AsyncExpression {
     std::vector<Identifier*> varsDeclared;  ///<Deklarált változók
+    
+    /**
+     * @brief Új VariableDeclaration létrehozása
+     */
+    VariableDeclaration(){}
+    
+    /**
+     * @brief Új VariableDeclaration létrehozása
+     * 
+     * @param vd A másolandó deklaráció
+     */
+    VariableDeclaration(const VariableDeclaration& vd):varsDeclared(vd.varsDeclared){}
 
     public:
+    AsyncExpression* clone() const {return new VariableDeclaration(*this);}
     /**
      * @brief VariableDeclaration felszabadítása
      */
@@ -56,6 +69,8 @@ class VariableDeclaration : public AsyncExpression {
      * @param cu A fordítási egység
      */
     void checkSemantics(CompilationUnit& cu) const;
+
+    void translate(const std::map<Identifier,Identifier>& translation){}
 };
 
 

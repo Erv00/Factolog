@@ -117,3 +117,7 @@ void UnaryExpression::calculateColorTree(LinkingUnit& lu, unsigned int expected)
         expr->calculateColorTree(lu, 1);
     }
 }
+
+void UnaryExpression::translate(const std::map<Identifier,Identifier>& translation){
+    expr->translate(translation);
+}

@@ -40,3 +40,8 @@ void ParameterList::checkSemantics(CompilationUnit& cu) const {
     for(size_t i=0; i<parameters.size(); i++)
         parameters[i]->checkSemantics(cu);
 }
+
+void ParameterList::translate(const std::map<Identifier,Identifier>& translation){
+    for(size_t i=0; i<parameters.size(); i++)
+        parameters[i]->translate(translation);
+}

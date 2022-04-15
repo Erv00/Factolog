@@ -13,6 +13,8 @@
 #include "treenode.h"
 #include "lexer.h"
 
+class Identifier;
+
 /**
  * @brief Aszinkron kifejezés
  */
@@ -39,6 +41,22 @@ class AsyncExpression : public TreeNode {
      *  így nem csinál semmit
      */
     virtual void optimize(){};
+
+    /**
+     * @brief Másolat létrehozása
+     * 
+     * A leszármaztatott másoló konstruktorát hívja
+     * 
+     * @return AsyncExpression* A dinamikusan foglalt másolat címe
+     */
+    virtual AsyncExpression* clone() const = 0;
+
+    /**
+     * @brief Lecseréli a változók azonosítóját a modulokban a kapcsolatban lévőkkel
+     * 
+     * @param translation Régi-új változónév összerendelések
+     */
+    virtual void translate(const std::map<Identifier,Identifier>& translation) = 0;
 };
 
 

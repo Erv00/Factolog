@@ -16,6 +16,12 @@ std::ostream& dotNode(std::ostream& os, const void *obj, const char *label, cons
     return os << "];\n";
 }
 
+Expression::Expression(const Expression& e): BinaryExpression(e), op(e.op) {}
+
+ValueExpression* Expression::clone() const {
+    return new Expression(*this);
+}
+
 ValueExpression* Expression::parse(Lexer& lex){
     Expression *res = new Expression;
     AutoDtor<Expression> dtor(res);
