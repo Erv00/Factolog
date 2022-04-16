@@ -4,6 +4,7 @@
 #include "linkingUnit.h"
 #include "expression.h"
 #include "exceptions.h"
+#include "blueprint.h"
 #include "autoDtor.h"
 #include "dot.h"
 
@@ -68,4 +69,10 @@ AsyncExpression* Assignment::clone() const {
 void Assignment::translate(const std::map<Identifier,Identifier>& translation){
     to->translate(translation);
     val->translate(translation);
+}
+
+EID Assignment::addToBlueprint(Blueprint& bp) const{
+    bp.connect(val->addToBlueprint(bp), 0);
+    bp.openColumn();
+    return 0;
 }

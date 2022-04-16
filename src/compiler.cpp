@@ -1,5 +1,6 @@
 #include "compiler.h"
 
+#include "blueprint.h"
 #include "exceptions.h"
 #include "linkingUnit.h"
 
@@ -104,7 +105,13 @@ void Compiler::compile(){
     unsigned int a = 5;
     main->calcualteColorTree(lu, &a, NULL);
 
-    main->printDot(std::cout);
+    //main->printDot(std::cout);
+
+    Blueprint bp(18, 2, main);
+
+    main->addToBlueprint(bp);
+
+    std::cout << bp << std::endl;
 
     //compileBlueprint();
     //encode();

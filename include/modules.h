@@ -129,6 +129,7 @@ class AsyncModule : public Module {
      * @return AsyncModule* A modul
      */
     AsyncModule* link(std::map<const Identifier, Module*>& modules);
+    EID addToBlueprint(Blueprint& bp) const;
 };
 
 /**

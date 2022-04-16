@@ -86,6 +86,7 @@ class Assignment : public AsyncExpression {
      * @param translation Régi-új változónév összerendelések
      */
     void translate(const std::map<Identifier,Identifier>& translation);
+    EID addToBlueprint(Blueprint& bp) const;
 };
 
 

@@ -20,9 +20,16 @@ class Identifier;
  * @brief 2 operandusú műveletek base class-a
  */
 class BinaryExpression : public ValueExpression {
+    public:
+    enum BinaryOperator {
+        PLUS, MINUS, AND, OR, XOR,      //Lv1
+        MUL, DIV, MOD, LSHIFT, RSHIFT,  //Lv2
+        EXP                             //Lv3
+    };
     protected:
     ValueExpression* left;  ///<Bal oldal
     ValueExpression* right; ///<Jobb oldal
+    BinaryOperator op;
 
     public:
     /**
@@ -73,6 +80,7 @@ class BinaryExpression : public ValueExpression {
 
     void calculateColorTree(LinkingUnit& lu, unsigned int expectedOut);
     void translate(const std::map<Identifier,Identifier>& translation);
+    EID addToBlueprint(Blueprint& bp) const;
 };
 
 

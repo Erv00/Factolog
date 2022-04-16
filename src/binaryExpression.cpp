@@ -2,10 +2,13 @@
 
 #include <map>
 #include "number.h"
+#include "blueprint.h"
+#include "combinator.h"
 
 BinaryExpression::BinaryExpression(const BinaryExpression& b){
     left = b.left->clone();
     right = b.right->clone();
+    op = b.op;
 }
 
 void BinaryExpression::optimize() {
@@ -88,4 +91,43 @@ void BinaryExpression::calculateColorTree(LinkingUnit& lu, unsigned int expected
 void BinaryExpression::translate(const std::map<Identifier,Identifier>& translation){
     left->translate(translation);
     right->translate(translation);
+}
+
+EID BinaryExpression::addToBlueprint(Blueprint& bp) const{
+    ArithmeticCombinator *ac = new ArithmeticCombinator(*this);
+    switch(op){
+        case PLUS:  ac->op = ArithmeticCombinator::PLUS;  break;
+        case MINUS: ac->op = ArithmeticCombinator::MINUS; break;
+        case AND:   ac->op = ArithmeticCombinator::AND;   break;
+        case OR:    ac->op = ArithmeticCombinator::OR;    break;
+        case XOR:   ac->op = ArithmeticCombinator::XOR;   break;
+        case MUL:   ac->op = ArithmeticCombinator::MUL;   break;
+        case DIV:   ac->op = ArithmeticCombinator::DIV;   break;
+        case MOD:   ac->op = ArithmeticCombinator::MOD;   break;
+        case LSHIFT:ac->op = ArithmeticCombinator::LSHIFT;break;
+        case RSHIFT:ac->op = ArithmeticCombinator::RSHIFT;break;
+        case EXP:   ac->op = ArithmeticCombinator::EXP;   break;
+    }
+
+    if(left->isConst())
+        ac->setConst(LEFT, left->calculate());
+    else if(right->isConst())
+        ac->setConst(RIGHT, right->calculate());
+
+    EID eid = bp.addCombinator(ac);
+
+
+
+    EID leftComb = left->addToBlueprint(bp);
+    EID rightComb = right->addToBlueprint(bp);
+
+    if(leftComb != 0)
+        //We added another combinator while adding left
+        bp.connect(leftComb, eid);
+    if(rightComb != 0)
+        //We added another combinator while adding right
+        bp.connect(rightComb, eid);
+    
+    return eid;
+
 }

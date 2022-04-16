@@ -3,6 +3,7 @@
 #include "dot.h"
 #include "value.h"
 #include "autoDtor.h"
+#include "blueprint.h"
 #include "expression.h"
 
 ValueExpression* UnaryExpression::parse(Lexer& lex){
@@ -110,14 +111,41 @@ void UnaryExpression::calculateColorTree(LinkingUnit& lu, unsigned int expected)
     //Check if input has color
     if(expr->hasOutColor(lu))
         //Input has color
-        setInColor(expr->getOutColor(lu));
+        setInColor(expr->getOutColor(lu), RIGHT);
     else{
         //Input has no color, calculate
-        setInColor(1);
-        expr->calculateColorTree(lu, 1);
+        setInColor(2, RIGHT);
+        expr->calculateColorTree(lu, 2);
     }
 }
 
 void UnaryExpression::translate(const std::map<Identifier,Identifier>& translation){
     expr->translate(translation);
+}
+
+EID UnaryExpression::addToBlueprint(Blueprint& bp) const{
+    ArithmeticCombinator *ac = new ArithmeticCombinator(*this);
+
+    switch(op){
+        case PLUS:  ac->op = ArithmeticCombinator::PLUS;  break;
+        case MINUS: ac->op = ArithmeticCombinator::MINUS; break;
+        case NOT:   ac->op = ArithmeticCombinator::XOR;   break;
+    }
+
+    if(op != NOT)
+        //Normal operation
+        ac->setConst(LEFT, 0);
+    else
+        //Not <=> XOR
+        ac->setConst(LEFT, 2147483647u);
+
+    EID eid = bp.addCombinator(ac);
+
+    EID exprComb = expr->addToBlueprint(bp);
+
+    if(exprComb != 0)
+        //We added another combinator while adding left
+        bp.connect(exprComb, eid);
+    
+    return eid;
 }

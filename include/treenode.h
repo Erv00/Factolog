@@ -12,8 +12,10 @@
 
 #include <iostream>
 #include "memtrace.h"
+#include "combinator.h"
 
 
+class Blueprint;
 class CompilationUnit;
 
 /**
@@ -44,6 +46,8 @@ public:
      * @brief TreeNode felszabadítása
      */
     virtual ~TreeNode(){};
+
+    virtual EID addToBlueprint(Blueprint& bp) const {return 0;}
 };
 
 #endif //treenode_H

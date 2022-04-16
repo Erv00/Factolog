@@ -27,13 +27,7 @@ class Expression : public BinaryExpression {
      * @brief Egyes precedenciaszintű műveletek
      * @sa Precedence
      */
-    enum BinaryOperator {
-        PLUS, MINUS, AND, OR, XOR
-    };
 
-    private:
-    enum BinaryOperator op; ///<Végzendő művelet
-    
     /**
      * @brief Új Expression létrehozása
      */

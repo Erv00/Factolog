@@ -82,6 +82,7 @@ class UnaryExpression : public ValueExpression {
 
     void calculateColorTree(LinkingUnit& lu, unsigned int expected);
     void translate(const std::map<Identifier,Identifier>& translation);
+    EID addToBlueprint(Blueprint& bp) const;
 };
 
 

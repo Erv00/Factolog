@@ -24,12 +24,6 @@ class Term : public BinaryExpression {
      * @brief Kettes precedenciaszintű műveletek
      * @sa Precedence
      */
-    enum BinaryOperator {
-        MUL, DIV, MOD, LSHIFT, RSHIFT
-    };
-
-    private:
-    enum BinaryOperator op; ///< Elvégzendő művelet
 
     /**
      * @brief Új Term létrehozása
@@ -42,7 +36,7 @@ class Term : public BinaryExpression {
      * 
      * @param t A másolandó Term
      */
-    Term(const Term& t):BinaryExpression(t), op(t.op){}
+    Term(const Term& t):BinaryExpression(t){}
 
     ValueExpression* clone() const {return new Term(*this);}
 

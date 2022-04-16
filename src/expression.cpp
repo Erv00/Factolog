@@ -1,6 +1,8 @@
 #include "expression.h"
 
+#include "combinator.h"
 #include "exceptions.h"
+#include "blueprint.h"
 #include "autoDtor.h"
 #include "term.h"
 
@@ -16,7 +18,7 @@ std::ostream& dotNode(std::ostream& os, const void *obj, const char *label, cons
     return os << "];\n";
 }
 
-Expression::Expression(const Expression& e): BinaryExpression(e), op(e.op) {}
+Expression::Expression(const Expression& e): BinaryExpression(e) {}
 
 ValueExpression* Expression::clone() const {
     return new Expression(*this);
