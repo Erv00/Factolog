@@ -36,7 +36,7 @@ void BinaryExpression::optimize() {
         right->optimize();
 }
 
-void BinaryExpression::calculateColorTree(LinkingUnit& lu, unsigned int expectedOut){
+void BinaryExpression::calculateColorTree(LinkingUnit* lu, unsigned int expectedOut){
     //Set own color
     setOutColor(expectedOut);
 
@@ -114,19 +114,18 @@ EID BinaryExpression::addToBlueprint(Blueprint& bp) const{
     else if(right->isConst())
         ac->setConst(RIGHT, right->calculate());
 
-    EID eid = bp.addCombinator(ac);
+    EID eid = bp.addEntity(ac);
 
 
 
     EID leftComb = left->addToBlueprint(bp);
     EID rightComb = right->addToBlueprint(bp);
 
-    if(leftComb != 0)
-        //We added another combinator while adding left
-        bp.connect(leftComb, eid);
-    if(rightComb != 0)
-        //We added another combinator while adding right
-        bp.connect(rightComb, eid);
+    //We added another combinator while adding left
+    bp.connect(leftComb, eid);
+
+    //We added another combinator while adding right
+    bp.connect(rightComb, eid);
     
     return eid;
 

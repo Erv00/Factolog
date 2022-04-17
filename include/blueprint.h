@@ -20,14 +20,15 @@
 class Blueprint {
     const unsigned int POLE_REACH;
     const unsigned int POLE_DIM;
+    const std::string POLE_NAME;
     std::string name;
 
-    std::map<EID, Combinator*> combinators;
+    std::map<EID, Entity*> entities;
 
     float x, y;
 
     public:
-    Blueprint(const unsigned int reach, const unsigned int dim, const Module* module);
+    Blueprint(const unsigned int reach, const unsigned int dim, const std::string poleName, const Module* module);
     ~Blueprint();
     
     /**
@@ -38,12 +39,13 @@ class Blueprint {
      */
     void connect(EID from, EID to);
 
-    EID addCombinator(Combinator *c);
+    EID addEntity(Entity *c);
+    EID addEntity(Entity *e, float x, float y);
 
     void openColumn(){y=0;x++;}
 
     //void expand(char direction);
-    const std::map<EID, Combinator*>& getCombinators() const {return combinators;}
+    const std::map<EID, Entity*>& getEntities() const {return entities;}
     std::string getName() const {return name;}
 };
 

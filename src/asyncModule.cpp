@@ -71,7 +71,7 @@ void AsyncModule::optimize(){
         expressions[i]->optimize();
 }
 
-void AsyncModule::calcualteColorTree(LinkingUnit& lu, unsigned int expectedOut[], unsigned int inputs[]){
+void AsyncModule::calcualteColorTree(LinkingUnit* lu, unsigned int expectedOut[], unsigned int inputs[]){
     (void)expectedOut;
     (void)inputs;
     for(size_t i=0; i<expressions.size(); i++){

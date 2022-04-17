@@ -30,7 +30,7 @@ std::ostream& Assignment::printDot(std::ostream& os) const{
 
     LinkingUnit lu((Identifier*)NULL, (Identifier*)NULL);
 
-    lab += 'A' + val->getOutColor(lu);
+    lab += 'A' + val->getOutColor(NULL);
 
     to->printDot(os);
     dotConnection(os, this, to, lab.c_str());
@@ -53,8 +53,8 @@ void Assignment::checkSemantics(CompilationUnit& cu) const {
     cu.assignVariable(to);
 }
 
-void Assignment::calculateColorTree(LinkingUnit& lu){
-    val->calculateColorTree(lu, lu.getVariableColor(*to));
+void Assignment::calculateColorTree(LinkingUnit* lu){
+    val->calculateColorTree(lu, lu->getVariableColor(*to));
 }
 
 AsyncExpression* Assignment::clone() const {

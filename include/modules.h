@@ -60,7 +60,7 @@ class Module : public TreeNode {
      * @param expectedOut Elvárt kimenetek listája
      * @param inputs Bemeneti paraméterek színei
      */
-    virtual void calcualteColorTree(LinkingUnit& lu, unsigned int expectedOut[], unsigned int inputs[]) = 0;
+    virtual void calcualteColorTree(LinkingUnit* lu, unsigned int expectedOut[], unsigned int inputs[]) = 0;
 };
 
 /**
@@ -110,7 +110,7 @@ class AsyncModule : public Module {
      * @brief Optimalizálja a modul kifejezéseit, ha lehet
      */
     void optimize();
-    void calcualteColorTree(LinkingUnit& lu, unsigned int expectedOut[], unsigned int inputs[]);
+    void calcualteColorTree(LinkingUnit* lu, unsigned int expectedOut[], unsigned int inputs[]);
 
     /**
      * @brief Visszaadja a modul utasításainak másolatát a megfelelő fordításokkal

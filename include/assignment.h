@@ -76,7 +76,7 @@ class Assignment : public AsyncExpression {
      * 
      * @param lu Linkelési egység
      */
-    void calculateColorTree(LinkingUnit& lu);
+    void calculateColorTree(LinkingUnit* lu);
 
     AsyncExpression* clone() const;
 

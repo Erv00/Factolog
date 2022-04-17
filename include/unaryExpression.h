@@ -80,7 +80,7 @@ class UnaryExpression : public ValueExpression {
     bool isConst() const {return expr->isConst();}
     int calculate() const;
 
-    void calculateColorTree(LinkingUnit& lu, unsigned int expected);
+    void calculateColorTree(LinkingUnit* lu, unsigned int expected);
     void translate(const std::map<Identifier,Identifier>& translation);
     EID addToBlueprint(Blueprint& bp) const;
 };

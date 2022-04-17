@@ -25,6 +25,7 @@ class LinkingUnit;
  * @brief Base class az értéket hordozó osztályoknak 
  */
 class ValueExpression : public TreeNode {
+    protected:
     unsigned int outColor;      ///<A kombinátor kimeneti színe
     unsigned int inColors[2];   ///<A kombinátor bemenetei
     
@@ -81,7 +82,7 @@ class ValueExpression : public TreeNode {
      * @param lu A linkelési egység
      * @return unsigned int A kombinátor kimeneti színe
      */
-    virtual unsigned int getOutColor(LinkingUnit& lu) const{
+    virtual unsigned int getOutColor(LinkingUnit* lu) const{
         (void)lu;
         return outColor;
     }
@@ -97,7 +98,7 @@ class ValueExpression : public TreeNode {
      * @return true Ha van színe
      * @return false Egyébként
      */
-    virtual bool hasOutColor(LinkingUnit& lu) const {return getOutColor(lu) != 0;}
+    virtual bool hasOutColor(LinkingUnit* lu) const {return getOutColor(lu) != 0;}
 
     /**
      * @brief Beállítja a kimeneti színt
@@ -139,7 +140,7 @@ class ValueExpression : public TreeNode {
      * @param lu Linkelési egység
      * @param expectedOut A kombinátor kimeneti színe
      */
-    virtual void calculateColorTree(LinkingUnit& lu, unsigned int expectedOut) = 0;
+    virtual void calculateColorTree(LinkingUnit* lu, unsigned int expectedOut) = 0;
 
     /**
      * @brief Lecseréli a változók azonosítóját a modulokban a kapcsolatban lévőkkel

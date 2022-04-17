@@ -4,68 +4,54 @@
 #include "signals.h"
 #include <sstream>
 
-unsigned int Combinator::GLOBAL_ENTITY_ID = 1;
+unsigned int Entity::GLOBAL_ENTITY_ID = 1;
 
-Combinator::Combinator(std::string pName, float x, float y) :
+Entity::Entity(std::string pName, float x, float y) :
     id(GLOBAL_ENTITY_ID++), prototypeName(pName), x(x), y(y){}
 
-void Combinator::setConst(int side, unsigned int value){
+void Entity::setConst(int side, unsigned int value){
     inConst[side] = true;
     inSignal[side] = value;
 }
 
-ArithmeticCombinator::ArithmeticCombinator(const ValueExpression& ve): Combinator("arithmetic-combinator"){
-    //outSignal = ve.getOutColor();
-    outSignal = 26;
+ArithmeticCombinator::ArithmeticCombinator(const ValueExpression& ve): Entity("arithmetic-combinator"){
+    outSignal = ve.getOutColor(NULL);
     inSignal[0] = ve.getInColor(LEFT);
     inSignal[1] = ve.getInColor(RIGHT);
 }
 
-/*
-{"entity_number":1,"name":"substation","position":{"x":12,"y":-3},
-"connections":{"1":{"red":[{"entity_id":2,"circuit_id":2}]}}}
-
-{"entity_number":2,"name":"arithmetic-combinator","position":{"x":16.5,"y":-2},
-"control_behavior":{"arithmetic_conditions":{
-    "first_signal":{"type":"virtual","name":"signal-A"},
-    "second_signal":{"type":"virtual","name":"signal-B"},
-    "operation":"+",
-    "output_signal":{"type":"virtual","name":"signal-A"}}
-    },
-"connections":{"2":{"red":[{"entity_id":1}]}}}
-
-*/
-
-std::string Combinator::getConnectionString() const {
+std::string Entity::getConnectionString() const {
     std::stringstream ss;
     ss << esc("connections") << ":{";
-    if(incomingConnections.size() > 0)
+    if(incomingRedConnections.size() > 0)
         ss << esc("1") << ":{" << esc("red") << ":[";
     
-    for(size_t i=0; i<incomingConnections.size(); i++){
+    for(size_t i=0; i<incomingRedConnections.size(); i++){
         ss << "{" <<
-        esc("entity_id") << ":" << incomingConnections[i] << "," <<
+        esc("entity_id") << ":" << incomingRedConnections[i] << "," <<
         esc("circuit_id") << ":" << 2 <<
         "}";
+        if(i+1 < incomingRedConnections.size()) ss << ",";
     }
 
-    if(incomingConnections.size() > 0){
+    if(incomingRedConnections.size() > 0){
         ss << "]}";
-        if(outgoingConnections.size() > 0)
+        if(outgoingRedConnections.size() > 0)
             ss << ",";
     }
 
-    if(outgoingConnections.size() > 0)
+    if(outgoingRedConnections.size() > 0)
         ss << esc("2") << ":{" << esc("red") << ":[";
 
-    for(size_t i=0; i<outgoingConnections.size(); i++){
+    for(size_t i=0; i<outgoingRedConnections.size(); i++){
         ss << "{" <<
-        esc("entity_id") << ":" << outgoingConnections[i] << "," <<
+        esc("entity_id") << ":" << outgoingRedConnections[i] << "," <<
         esc("circuit_id") << ":" << 1 <<
         "}";
+        if(i+1 < outgoingRedConnections.size()) ss << ",";
     }
 
-    if(outgoingConnections.size() > 0)
+    if(outgoingRedConnections.size() > 0)
         ss << "]}";
     
     ss << "}";
@@ -73,7 +59,7 @@ std::string Combinator::getConnectionString() const {
     return ss.str();
 }
 
-std::string Combinator::getControlString() const {
+std::string ArithmeticCombinator::getControlString() const {
     std::stringstream ss;
     ss << esc("control_behavior") << ":{" <<
     esc("arithmetic_conditions") << ":{" <<
@@ -105,7 +91,6 @@ std::string ArithmeticCombinator::toBlueprint() const {
     std::stringstream res;
     res << "{\"entity_number\":" << id << ',' <<
     "\"name\":" << esc(prototypeName) << ',' <<
-    esc("direction") << ":" << 4 << ',' <<
     esc("position") << ":{" << 
     esc("x") << ":" << x << ',' <<
     esc("y") << ":" << y << "}," <<

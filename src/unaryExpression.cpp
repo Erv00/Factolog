@@ -74,7 +74,7 @@ std::ostream& UnaryExpression::printDot(std::ostream& os) const {
     os << "\"]\n";
 
     std::string lab;
-    lab += 'A'+getInColor(0);
+    lab += 'A'+getInColor(1);
     dotConnection(os, this, expr, lab.c_str());
 
     return expr->printDot(os);
@@ -104,7 +104,7 @@ int UnaryExpression::calculate() const {
     }
 }
 
-void UnaryExpression::calculateColorTree(LinkingUnit& lu, unsigned int expected){
+void UnaryExpression::calculateColorTree(LinkingUnit* lu, unsigned int expected){
     //Unary exps never collide
     setOutColor(expected);
     
@@ -139,13 +139,12 @@ EID UnaryExpression::addToBlueprint(Blueprint& bp) const{
         //Not <=> XOR
         ac->setConst(LEFT, 2147483647u);
 
-    EID eid = bp.addCombinator(ac);
+    EID eid = bp.addEntity(ac);
 
     EID exprComb = expr->addToBlueprint(bp);
 
-    if(exprComb != 0)
-        //We added another combinator while adding left
-        bp.connect(exprComb, eid);
+    //We added another combinator while adding left
+    bp.connect(exprComb, eid);
     
     return eid;
 }

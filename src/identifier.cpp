@@ -23,21 +23,25 @@ Identifier* Identifier::parse(Lexer& lex){
     
 }
 
-void Identifier::calculateColorTree(LinkingUnit& lu, unsigned int expected){
-    if(!lu.variableHasColor(*this))
+void Identifier::calculateColorTree(LinkingUnit* lu, unsigned int expected){
+    if(!lu->variableHasColor(*this))
         throw "Identifier has no color";
-    setOutColor(lu.getVariableColor(*this));
+    setOutColor(lu->getVariableColor(*this));
     if(expected != getOutColor(lu))
         //Mismatch
         std::cout << "Color mismatch" << std::endl;
 }
 
-bool Identifier::hasOutColor(LinkingUnit& lu) const{
-    return lu.variableHasColor(*this);
+bool Identifier::hasOutColor(LinkingUnit* lu) const{
+    if(getOutColor(lu) != 0)
+        return true;
+    return lu->variableHasColor(*this);
 }
 
-unsigned int Identifier::getOutColor(LinkingUnit& lu) const {
-    return lu.getVariableColor(*this);
+unsigned int Identifier::getOutColor(LinkingUnit* lu) const {
+    if(outColor != 0)
+        return outColor;
+    return lu->getVariableColor(*this);
 }
 
 std::ostream& Identifier::printDot(std::ostream& os) const {

@@ -78,7 +78,7 @@ class BinaryExpression : public ValueExpression {
      */
     bool isConst() const {return left->isConst() && right->isConst();}
 
-    void calculateColorTree(LinkingUnit& lu, unsigned int expectedOut);
+    void calculateColorTree(LinkingUnit* lu, unsigned int expectedOut);
     void translate(const std::map<Identifier,Identifier>& translation);
     EID addToBlueprint(Blueprint& bp) const;
 };

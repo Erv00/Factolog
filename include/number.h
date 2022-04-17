@@ -50,7 +50,7 @@ class Number : public Value {
     bool isConst() const {return true;}
     int calculate() const {return value;}
 
-    void calculateColorTree(LinkingUnit& lu, unsigned int expected) {(void)lu;setOutColor(expected);}
+    void calculateColorTree(LinkingUnit* lu, unsigned int expected) {(void)lu;setOutColor(expected);}
     void translate(const std::map<Identifier,Identifier>& translation){}
 };
 
