@@ -10,3 +10,8 @@ bool LinkingUnit::variableHasColor(const Identifier& id) const {
 
     return it != variableColors.end();
 }
+
+void LinkingUnit::printVariableColorAssociation(std::ostream& os) const{
+    for(std::map<const Identifier, unsigned int>::const_iterator it = variableColors.begin(); it != variableColors.end(); it++)
+        os << it->first.getName() << ":\t" << (char)('A'+it->second-1) << std::endl;
+}

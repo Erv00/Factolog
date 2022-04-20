@@ -75,6 +75,8 @@ class LinkingUnit{
      * @return false Egyébként
      */
     bool variableHasColor(const Identifier& id) const;
+
+    void printVariableColorAssociation(std::ostream& os) const;
 };
 
 #endif //linkingUnit_H

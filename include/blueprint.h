@@ -24,6 +24,7 @@ class Blueprint {
     std::string name;
 
     std::map<EID, Entity*> entities;
+    Entity **area;
 
     float x, y;
 
@@ -41,12 +42,20 @@ class Blueprint {
 
     EID addEntity(Entity *c);
     EID addEntity(Entity *e, float x, float y);
+    void moveEntity(Entity *e, const Position& newPos);
 
     void openColumn(){y=0;x++;}
+    Position getOpenPositionNear(const Position& pos, float maxDist, int ignore=0) const;
 
     //void expand(char direction);
     const std::map<EID, Entity*>& getEntities() const {return entities;}
     std::string getName() const {return name;}
+
+    Entity*& at(const Position& pos);
+    Entity* const & at(const Position& pos) const;
+    bool canCombinatorFit(const Position& pos) const;
+
+    void printArea(std::ostream& os) const;
 };
 
 std::ostream& operator<<(std::ostream& os, const Blueprint& bp);

@@ -103,15 +103,17 @@ void Compiler::compile(){
 
     LinkingUnit lu(compilationUnits[*(main->getIdentifier())]->getDefinedVariables().begin(),compilationUnits[*(main->getIdentifier())]->getDefinedVariables().end());
     unsigned int a = 5;
-    main->calcualteColorTree(lu, &a, NULL);
+    main->calcualteColorTree(&lu, &a, NULL);
 
-    //main->printDot(std::cout);
+    main->printDot(std::cerr);
 
-    Blueprint bp(18, 2, main);
+    Blueprint bp(18, 2, "substation", main);
 
     main->addToBlueprint(bp);
 
     std::cout << bp << std::endl;
+    lu.printVariableColorAssociation(std::cerr);
+    bp.printArea(std::cerr);
 
     //compileBlueprint();
     //encode();

@@ -5,7 +5,7 @@
 
 class Pole : public Entity{
     public:
-    Pole(std::string pName);
+    Pole(std::string pName, int reach);
 
     std::string getConnectionString() const;
     std::string toBlueprint() const;
