@@ -12,6 +12,7 @@
 
 #include "lexer.h"
 #include "identifier.h"
+#include <memtrace.h>
 
 /**
  * @brief Base class feldolgozás közbeni hibáknak

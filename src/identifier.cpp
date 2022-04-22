@@ -3,6 +3,7 @@
 #include "exceptions.h"
 #include "compilationUnit.h"
 #include "linkingUnit.h"
+#include "translator.h"
 
 Identifier* Identifier::parse(Lexer& lex){
     Token tok = lex.current();
@@ -57,6 +58,6 @@ void Identifier::checkSemantics(CompilationUnit& cu) const {
         std::cerr << "Variable '" << name << "' uses default 0" << std::endl;
 }
 
-void Identifier::translate(const std::map<Identifier,Identifier>& translation){
-    name = translation.at(name).name;
+void Identifier::translate(const Translator& translation){
+        name = translation.at(name).name;
 }

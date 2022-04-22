@@ -14,6 +14,7 @@
 #include "asyncExpression.h"
 #include "identifier.h"
 #include <vector>
+#include <memtrace.h>
 
 /**
  * @brief Változó(k) deklarálása
@@ -31,7 +32,7 @@ class VariableDeclaration : public AsyncExpression {
      * 
      * @param vd A másolandó deklaráció
      */
-    VariableDeclaration(const VariableDeclaration& vd):varsDeclared(vd.varsDeclared){}
+    VariableDeclaration(const VariableDeclaration& vd);
 
     public:
     AsyncExpression* clone() const {return new VariableDeclaration(*this);}
@@ -53,6 +54,13 @@ class VariableDeclaration : public AsyncExpression {
     static VariableDeclaration* parse(Lexer& lex);
 
     /**
+     * @brief Visszaadja a deklarált változókat
+     * 
+     * @return std::vector<Identifier*>& Deklarált változók azonosítói
+     */
+    std::vector<Identifier*>& getDeclaredVariables() {return varsDeclared;}
+
+    /**
      * @brief Részfa kiírása dot formátumban
      * 
      * @param os Célstream
@@ -70,7 +78,7 @@ class VariableDeclaration : public AsyncExpression {
      */
     void checkSemantics(CompilationUnit& cu) const;
 
-    void translate(const std::map<Identifier,Identifier>& translation){}
+    void translate(const Translator& translation);
 };
 
 

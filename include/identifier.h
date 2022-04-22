@@ -13,6 +13,7 @@
 
 #include "value.h"
 #include <string>
+#include <memtrace.h>
 
 class LinkingUnit;
 
@@ -97,7 +98,7 @@ class Identifier : public Value{
     void calculateColorTree(LinkingUnit* lu, unsigned int expected);
     bool hasOutColor(LinkingUnit* lu) const;
     unsigned int getOutColor(LinkingUnit* lu) const;
-    void translate(const std::map<Identifier,Identifier>& translation);
+    void translate(const Translator& translation);
 };
 
 

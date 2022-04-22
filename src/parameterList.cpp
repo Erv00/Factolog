@@ -41,7 +41,7 @@ void ParameterList::checkSemantics(CompilationUnit& cu) const {
         parameters[i]->checkSemantics(cu);
 }
 
-void ParameterList::translate(const std::map<Identifier,Identifier>& translation){
+void ParameterList::translate(const Translator& translation){
     for(size_t i=0; i<parameters.size(); i++)
         parameters[i]->translate(translation);
 }

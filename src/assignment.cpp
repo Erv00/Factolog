@@ -66,7 +66,7 @@ AsyncExpression* Assignment::clone() const {
     return as;
 }
 
-void Assignment::translate(const std::map<Identifier,Identifier>& translation){
+void Assignment::translate(const Translator& translation){
     to->translate(translation);
     val->translate(translation);
 }

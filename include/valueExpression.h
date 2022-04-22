@@ -14,11 +14,20 @@
 #include "treenode.h"
 #include <vector>
 #include <map>
+#include <memtrace.h>
 
 class Identifier;
+class Translator;
 class LinkingUnit;
 
+/**
+ * @brief Bal oldal
+ */
 #define LEFT 0
+
+/**
+ * @brief Jobb oldal
+ */
 #define RIGHT 1
 
 /**
@@ -147,7 +156,7 @@ class ValueExpression : public TreeNode {
      * 
      * @param translation Régi-új változónév összerendelések
      */
-    virtual void translate(const std::map<Identifier,Identifier>& translation) = 0;
+    virtual void translate(const Translator& translation) = 0;
 }; 
 
 #endif //valueExpression_H

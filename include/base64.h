@@ -18,6 +18,7 @@
 #include <istream>
 #include <ostream>
 #include <sstream>
+#include <memtrace.h>
 
 /**
  * @brief Base64 enkódolást végez

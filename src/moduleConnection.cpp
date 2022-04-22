@@ -81,7 +81,6 @@ void ModuleConnection::checkSemantics(CompilationUnit& cu) const {
         }
 }
 
-void ModuleConnection::translate(const std::map<Identifier,Identifier>& translation){
-    identifier->translate(translation);
+void ModuleConnection::translate(const Translator& translation){
     parameters->translate(translation);
 }

@@ -88,7 +88,7 @@ void BinaryExpression::calculateColorTree(LinkingUnit* lu, unsigned int expected
     }
 }
 
-void BinaryExpression::translate(const std::map<Identifier,Identifier>& translation){
+void BinaryExpression::translate(const Translator& translation){
     left->translate(translation);
     right->translate(translation);
 }

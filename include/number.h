@@ -12,6 +12,8 @@
 #define number_H
 
 #include "value.h"
+#include <memtrace.h>
+
 class LinkingUnit;
 
 /**
@@ -51,7 +53,7 @@ class Number : public Value {
     int calculate() const {return value;}
 
     void calculateColorTree(LinkingUnit* lu, unsigned int expected) {(void)lu;setOutColor(expected);}
-    void translate(const std::map<Identifier,Identifier>& translation){}
+    void translate(const Translator& translation){}
 };
 
 

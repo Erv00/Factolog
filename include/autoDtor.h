@@ -12,6 +12,7 @@
 #define autoDtor_H
 
 #include <iostream>
+#include <memtrace.h>
 
 /**
  * @brief Automatikusan törli a megadott dinamikus memóriát ha nem hívódik meg előbb az AutoDtor::success() 

@@ -13,7 +13,10 @@
 #include "treenode.h"
 #include "lexer.h"
 
+#include <memtrace.h>
+
 class Identifier;
+class Translator;
 
 /**
  * @brief Aszinkron kifejezés
@@ -56,7 +59,7 @@ class AsyncExpression : public TreeNode {
      * 
      * @param translation Régi-új változónév összerendelések
      */
-    virtual void translate(const std::map<Identifier,Identifier>& translation) = 0;
+    virtual void translate(const Translator& translation) = 0;
 };
 
 

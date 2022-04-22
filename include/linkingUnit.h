@@ -15,6 +15,7 @@
 #include <map>
 
 #include "identifier.h"
+#include <memtrace.h>
 
 /**
  * @brief Linkelési (színezési) egység
@@ -76,6 +77,11 @@ class LinkingUnit{
      */
     bool variableHasColor(const Identifier& id) const;
 
+    /**
+     * @brief Változó-jelszín asszociációk kiírása debug célból.
+     * 
+     * @param os A kimeneti stream
+     */
     void printVariableColorAssociation(std::ostream& os) const;
 };
 

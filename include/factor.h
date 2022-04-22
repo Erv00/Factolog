@@ -13,6 +13,7 @@
 
 #include "binaryExpression.h"
 #include "lexer.h"
+#include <memtrace.h>
 
 /**
  * @brief Hármas precedenciaszintű művelet

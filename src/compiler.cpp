@@ -86,35 +86,35 @@ void Compiler::optimize(){
         it->second->optimize();
 }
 
+std::string Compiler::compileBlueprint() {
+    AsyncModule* main = dynamic_cast<AsyncModule*>(definedModules[Identifier("main")]);
+
+    if(main == NULL) throw "No main module defined";
+    
+    main->link(definedModules);
+
+    std::vector<Identifier> ids =  main->recalculateDefinedVariables();
+    LinkingUnit lu(ids.begin(), ids.end());
+    unsigned int a = 5;
+    main->calcualteColorTree(&lu, &a, NULL);
+
+    Blueprint bp(18, 2, "substation", main);
+
+    main->addToBlueprint(bp);
+
+    std::stringstream ss;
+    ss << bp;
+    return ss.str();
+}
+
 void Compiler::compile(){
     lex();
     parse();
     check();
     optimize();
 
-    AsyncModule* main = dynamic_cast<AsyncModule*>(definedModules[Identifier("main")]);
 
-    if(main == NULL){
-        std::cerr << "No main module defined" << std::endl;
-        return;
-    }
-    
-    main->link(definedModules);
-
-    LinkingUnit lu(compilationUnits[*(main->getIdentifier())]->getDefinedVariables().begin(),compilationUnits[*(main->getIdentifier())]->getDefinedVariables().end());
-    unsigned int a = 5;
-    main->calcualteColorTree(&lu, &a, NULL);
-
-    main->printDot(std::cerr);
-
-    Blueprint bp(18, 2, "substation", main);
-
-    main->addToBlueprint(bp);
-
-    std::cout << bp << std::endl;
-    lu.printVariableColorAssociation(std::cerr);
-    bp.printArea(std::cerr);
-
-    //compileBlueprint();
+    std::string blueprintString = compileBlueprint();
+    *os << blueprintString;
     //encode();
 }

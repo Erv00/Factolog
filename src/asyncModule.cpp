@@ -1,10 +1,12 @@
 #include "modules.h"
 
+#include "dot.h"
 #include "autoDtor.h"
 #include "exceptions.h"
-#include "dot.h"
 #include "assignment.h"
+#include "translator.h"
 #include "compilationUnit.h"
+#include "variableDeclaration.h"
 
 Module::~Module(){
     delete identifier;
@@ -83,7 +85,7 @@ void AsyncModule::calcualteColorTree(LinkingUnit* lu, unsigned int expectedOut[]
     }
 }
 
-std::vector<AsyncExpression*> AsyncModule::linkModule(const std::map<Identifier,Identifier>& translation) const{
+std::vector<AsyncExpression*> AsyncModule::linkModule(const Translator& translation) const{
     std::vector<AsyncExpression*> res;
 
     for(size_t i=0; i<expressions.size(); i++){
@@ -123,18 +125,18 @@ AsyncModule* AsyncModule::link(std::map<const Identifier, Module*>& modules) {
                 const Identifier* id = dynamic_cast<const Identifier*>(list->operator[](ii));
 
                 if(id == NULL){
-                    std::cout << "Cannot cast" << std::endl;
+                    std::cerr << "Cannot cast" << std::endl;
                     continue;
                 }
 
                 trans[*p->getIdentifier()] = *id;
             }
 
-            std::vector<AsyncExpression*> newExpressions = mod->linkModule(trans);
+            std::vector<AsyncExpression*> newExpressions = mod->linkModule(Translator(trans));
 
             expressions.insert(expressions.end(),newExpressions.begin(), newExpressions.end());
+            delete mc;
         }
-        delete mc;
     }
 
     return this;
@@ -144,4 +146,23 @@ EID AsyncModule::addToBlueprint(Blueprint& bp) const{
     for(size_t i=0; i<expressions.size(); i++)
         expressions[i]->addToBlueprint(bp);
     return 0;
+}
+
+std::vector<Identifier> AsyncModule::recalculateDefinedVariables(){
+    //TODO: Should do this while linking
+    std::vector<Identifier> res;
+    for(size_t i=0; i<expressions.size(); i++){
+        VariableDeclaration *vars = dynamic_cast<VariableDeclaration*>(expressions[i]);
+        if(vars != NULL){
+            std::vector<Identifier*> ids = vars->getDeclaredVariables();
+            for(size_t ii=0; ii<ids.size(); ii++)
+                res.push_back(Identifier(*(ids[ii])));
+        }
+    }
+
+    for(size_t i=0; i<parameters->length(); i++){
+        res.push_back(Identifier(*(parameters->operator[](i)->getIdentifier())));
+    }
+
+    return res;
 }

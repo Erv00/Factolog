@@ -11,7 +11,7 @@
 #define treenode_H
 
 #include <iostream>
-#include "memtrace.h"
+#include <memtrace.h>
 #include "combinator.h"
 
 
@@ -47,6 +47,12 @@ public:
      */
     virtual ~TreeNode(){};
 
+    /**
+     * @brief TreeNode hozzáadása blueprinthez
+     * 
+     * @param bp A tervrajz
+     * @return EID A hozááadott elem azonosítója, vagy 0
+     */
     virtual EID addToBlueprint(Blueprint& bp) const {return 0;}
 };
 

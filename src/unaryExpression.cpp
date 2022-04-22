@@ -119,7 +119,7 @@ void UnaryExpression::calculateColorTree(LinkingUnit* lu, unsigned int expected)
     }
 }
 
-void UnaryExpression::translate(const std::map<Identifier,Identifier>& translation){
+void UnaryExpression::translate(const Translator& translation){
     expr->translate(translation);
 }
 
@@ -137,7 +137,7 @@ EID UnaryExpression::addToBlueprint(Blueprint& bp) const{
         ac->setConst(LEFT, 0);
     else
         //Not <=> XOR
-        ac->setConst(LEFT, 2147483647u);
+        ac->setConst(LEFT, /*2147483647u*/1);
 
     EID eid = bp.addEntity(ac);
 

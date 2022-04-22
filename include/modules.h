@@ -16,6 +16,7 @@
 #include "parameters.h"
 #include "identifier.h"
 #include <vector>
+#include <memtrace.h>
 
 class CompilationUnit;
 class LinkingUnit;
@@ -61,6 +62,15 @@ class Module : public TreeNode {
      * @param inputs Bemeneti paraméterek színei
      */
     virtual void calcualteColorTree(LinkingUnit* lu, unsigned int expectedOut[], unsigned int inputs[]) = 0;
+
+    /**
+     * @brief Definiált változók újraösszegzése
+     * 
+     * @todo Máshol elvégezni
+     * 
+     * @return std::vector<Identifier> A definiált változók
+     */
+    virtual std::vector<Identifier> recalculateDefinedVariables() = 0;
 };
 
 /**
@@ -118,7 +128,7 @@ class AsyncModule : public Module {
      * @param translation Régi-új változóneév hozzárendelések
      * @return std::vector<AsyncExpression*> A modul utasításainak fordított másolata
      */
-    std::vector<AsyncExpression*> linkModule(const std::map<Identifier,Identifier>& translation) const;
+    std::vector<AsyncExpression*> linkModule(const Translator& translation) const;
     
     /**
      * @brief Feloldja a modul csatlakozás parancsait
@@ -129,7 +139,10 @@ class AsyncModule : public Module {
      * @return AsyncModule* A modul
      */
     AsyncModule* link(std::map<const Identifier, Module*>& modules);
+
     EID addToBlueprint(Blueprint& bp) const;
+
+    std::vector<Identifier> recalculateDefinedVariables();
 };
 
 /**
@@ -201,7 +214,7 @@ class ModuleConnection : public AsyncExpression {
      */
     ParameterList* getParameters() {return parameters;}
 
-    void translate(const std::map<Identifier,Identifier>& translation);
+    void translate(const Translator& translation);
 };
 
 #endif //modules_H

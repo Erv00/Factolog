@@ -14,6 +14,7 @@
 
 #include "binaryExpression.h"
 #include <ostream>
+#include <memtrace.h>
 
 class Lexer;
 

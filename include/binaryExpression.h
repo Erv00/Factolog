@@ -14,6 +14,8 @@
 
 #include "valueExpression.h"
 
+#include <memtrace.h>
+
 class Identifier;
 
 /**
@@ -21,15 +23,20 @@ class Identifier;
  */
 class BinaryExpression : public ValueExpression {
     public:
+    /**
+     * @brief Kétoperandusú műveletek, precedenciaszintenként
+     * 
+     */
     enum BinaryOperator {
         PLUS, MINUS, AND, OR, XOR,      //Lv1
         MUL, DIV, MOD, LSHIFT, RSHIFT,  //Lv2
         EXP                             //Lv3
     };
+
     protected:
-    ValueExpression* left;  ///<Bal oldal
-    ValueExpression* right; ///<Jobb oldal
-    BinaryOperator op;
+    ValueExpression* left;  ///< Bal oldal
+    ValueExpression* right; ///< Jobb oldal
+    BinaryOperator op;      ///< Elvégzendő művelet
 
     public:
     /**
@@ -79,7 +86,7 @@ class BinaryExpression : public ValueExpression {
     bool isConst() const {return left->isConst() && right->isConst();}
 
     void calculateColorTree(LinkingUnit* lu, unsigned int expectedOut);
-    void translate(const std::map<Identifier,Identifier>& translation);
+    void translate(const Translator& translation);
     EID addToBlueprint(Blueprint& bp) const;
 };
 

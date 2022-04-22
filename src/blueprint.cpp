@@ -24,7 +24,6 @@ Blueprint::~Blueprint(){
 }
 
 void Blueprint::connect(EID from, EID to){
-    //std::cerr << "Connecting " << from << " -> " << to << std::endl;
     bool red = !(from == 0 || to == 0);
 
     if(from == 0)
@@ -45,7 +44,6 @@ void Blueprint::connect(EID from, EID to){
 
     if(dist >= maxDist){
         //Connection too long
-        std::cerr << from << " cable cannot reach " << to << ": " << dist << " > " << maxDist << std::endl;
         //Try moving the one with de least connections
         Entity *toMove = fromE->connections() <= toE->connections() ? fromE : toE;
 
@@ -64,15 +62,8 @@ void Blueprint::connect(EID from, EID to){
             //toMove->setPos(candidate);
             moveEntity(toMove, candidate);
 
-            /*if(!toMove->checkConnections(entities)){
-                //Failed to move
-                throw "Failed to route";
-            }*/
-
         }while(!toMove->checkConnections(entities));
-        std::cerr << "Found positions after " << ignore-1 << " tries" << std::endl;
     }
-    
 }
 
 EID Blueprint::addEntity(Entity *c){
@@ -94,7 +85,6 @@ EID Blueprint::addEntity(Entity *c, float _x, float _y){
     //Rotation is hardcoded
     at(c->getPosition()) = c;
     at(c->getPosition()+Position(0,1)) = c;
-    printArea(std::cerr);
     return c->getEID();
 }
 
@@ -174,7 +164,6 @@ void Blueprint::moveEntity(Entity *e, const Position& newPos){
     at(newPos) = e;
     at(newPos+Position(0,1)) = e;
     e->setPos(newPos);
-    printArea(std::cerr);
 }
 
 bool Blueprint::canCombinatorFit(const Position& pos) const {

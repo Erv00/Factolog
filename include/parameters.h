@@ -15,6 +15,7 @@
 #include "lexer.h"
 #include "valueExpression.h"
 #include "identifier.h"
+#include <memtrace.h>
 
 /**
  * @brief Modul paraméter
@@ -46,6 +47,18 @@ class Parameter : public TreeNode {
     static Parameter* parse(Lexer& lex);
 
     /**
+     * @brief Új Parameter létrehozása
+     */
+    Parameter():identifier(NULL){}
+    
+    /**
+     * @brief Új Parameter létrehozása
+     * 
+     * @param p A másolandó paraméter
+     */
+    Parameter(const Parameter& p):direction(p.direction){identifier = new Identifier(*p.identifier);}
+
+    /**
      * @brief Részfa kiírása dot formátumban
      * 
      * @param os Célstream
@@ -72,7 +85,7 @@ class Parameter : public TreeNode {
      * 
      * @param translation Régi-új változónév összerendelések
      */
-    void translate(const std::map<Identifier,Identifier>& translation);
+    void translate(const Translator& translation);
 };
 
 /**
@@ -99,6 +112,22 @@ class ParameterList : public TreeNode {
      */
 
     static ParameterList* parse(Lexer& lex);
+
+    /**
+     * @brief Új ParameterList létrehozása
+     */
+    ParameterList(){}
+
+    /**
+     * @brief Új ParameterList létrehozása
+     * 
+     * @param pl Másolandó ParameterList
+     */
+    ParameterList(const ParameterList& pl){
+        for(size_t i=0; i<pl.parameters.size(); i++)
+            parameters.push_back(pl.parameters[i]->clone());
+    }
+
     /**
      * @brief Részfa kiírása dot formátumban
      * 
@@ -137,7 +166,7 @@ class ParameterList : public TreeNode {
      * 
      * @param translation Régi-új változónév összerendelések
      */
-    void translate(const std::map<Identifier,Identifier>& translation);
+    void translate(const Translator& translation);
 };
 
 /**
@@ -210,7 +239,7 @@ class ParameterListDeclaration : public TreeNode {
      * 
      * @param translation Régi-új változónév összerendelések
      */
-    void translate(const std::map<Identifier,Identifier>& translation);
+    void translate(const Translator& translation);
 };
 
 

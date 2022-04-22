@@ -15,6 +15,8 @@
 #include "identifier.h"
 #include "number.h"
 
+#include <memtrace.h>
+
 /**
  * @brief Értékadás
  */
@@ -85,7 +87,7 @@ class Assignment : public AsyncExpression {
      * 
      * @param translation Régi-új változónév összerendelések
      */
-    void translate(const std::map<Identifier,Identifier>& translation);
+    void translate(const Translator& translation);
     EID addToBlueprint(Blueprint& bp) const;
 };
 

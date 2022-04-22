@@ -15,6 +15,7 @@
 #include <fstream>
 
 #include "token.h"
+#include <memtrace.h>
 
 /**
  * @brief Lexikai értelmező

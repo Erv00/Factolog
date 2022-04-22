@@ -13,6 +13,7 @@
 
 #include "valueExpression.h"
 #include "lexer.h"
+#include <memtrace.h>
 
 /**
  * @brief Unáris operátor
@@ -81,7 +82,7 @@ class UnaryExpression : public ValueExpression {
     int calculate() const;
 
     void calculateColorTree(LinkingUnit* lu, unsigned int expected);
-    void translate(const std::map<Identifier,Identifier>& translation);
+    void translate(const Translator& translation);
     EID addToBlueprint(Blueprint& bp) const;
 };
 

@@ -18,6 +18,8 @@
 #include "modules.h"
 #include "identifier.h"
 
+#include <memtrace.h>
+
 /**
  * @brief Egy fordítási egység
  * 

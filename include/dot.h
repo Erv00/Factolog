@@ -12,6 +12,8 @@
 #define lexemes_H
 
 #include <ostream>
+#include <memtrace.h>
+
 
 /**
  * @brief Kapcsolat hoz létre a két objektum között

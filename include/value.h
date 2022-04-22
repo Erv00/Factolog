@@ -13,6 +13,7 @@
 
 #include "valueExpression.h"
 #include "lexer.h"
+#include <memtrace.h>
 
 /**
  * @brief Érték

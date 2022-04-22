@@ -3,6 +3,7 @@
 #include "dot.h"
 #include "autoDtor.h"
 #include "exceptions.h"
+#include "translator.h"
 #include "compilationUnit.h"
 
 VariableDeclaration* VariableDeclaration::parse(Lexer& lex){
@@ -27,6 +28,10 @@ VariableDeclaration* VariableDeclaration::parse(Lexer& lex){
     return va;
 }
 
+VariableDeclaration::VariableDeclaration(const VariableDeclaration& vd){
+    for(size_t i=0; i<vd.varsDeclared.size(); i++)
+        varsDeclared.push_back(new Identifier(*(vd.varsDeclared[i])));
+}
 
 std::ostream& VariableDeclaration::printDot(std::ostream& os) const{
     dotNode(os, this, "New vars", "");
@@ -46,5 +51,14 @@ void VariableDeclaration::checkSemantics(CompilationUnit& cu) const {
             throw VariableAlreadyDefinedError(varsDeclared[i]);
         
         cu.defineVariable(varsDeclared[i]);
+    }
+}
+
+void VariableDeclaration::translate(const Translator& translation){
+    for(size_t i=0; i<varsDeclared.size(); i++){
+        Identifier *old = varsDeclared[i];
+        Identifier *newID = new Identifier(translation.at(*old));
+        varsDeclared[i] = newID;
+        delete old;
     }
 }
