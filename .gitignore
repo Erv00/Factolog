@@ -2,6 +2,7 @@ deps
 obj
 doc/html
 doc/latex
+doc/dotfiles
 factolog
 factoTest
 include/gtest_lite*

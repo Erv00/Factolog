@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mkdir -p ./doc/dotfiles
+cp $1 ./doc/dotfiles
+dot $@
