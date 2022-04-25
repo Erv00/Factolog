@@ -37,7 +37,7 @@ void Blueprint::connect(EID from, EID to){
     Entity *toE = entities.at(to);
 
     float dist = fromE->distanceTo(*toE);
-    float maxDist = std::max(fromE->getReach(), toE->getReach());
+    float maxDist = std::min(fromE->getReach(), toE->getReach());
 
     fromE->addOutgoingConnection(to, red);
     toE->addIncomingConnection(from, red);

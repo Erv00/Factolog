@@ -17,56 +17,32 @@
 
 #include <memtrace.h>
 
-
 /**
- * @brief Aritmetikai kombinátor
+ * @brief Kombinátor
  * 
- * Két operandussal végez műveletet
+ * Bementtel és/vagy kimenettel rendelkező elem.
+ * A Factorioban található kombinátorok közös őse.
  * 
  */
-class ArithmeticCombinator : public Entity {
+class Combinator : public Entity {
     public:
     /**
-     * @brief Lehetséges kétoperandusú műveletek
-     */
-    enum Operation {PLUS, MINUS, MUL, DIV, MOD, EXP, LSHIFT, RSHIFT, AND, OR, XOR};
-
-    Operation op;   ///< Az elvégzendő művelet
-
-    /**
-     * @brief Új ArithmeticCombinator létrehozása
-     */
-    ArithmeticCombinator();
-
-    /**
-     * @brief Új ArithmeticCombinator létrehozása
+     * @brief Új Entity létrehozása
      * 
-     * Az elvégzendő unáris kifejezéseket is kétoperandusúként kell elvégeni
-     * 
-     * @param ve Elvégzendő művelet
+     * @param pName Factorio prototípusnév
+     * @param reach Összeköttetések maximum hossza
+     * @param x X pozíció
+     * @param y Y pozíció
      */
-    ArithmeticCombinator(const ValueExpression& ve);
-
-    /**
-     * @brief Új ArithmeticCombinator létrehozása
-     * 
-     * @param op Az elvégzendő művelet
-     */
-    ArithmeticCombinator(Operation op);
+    Combinator(std::string pName, int reach, float x = 0, float y = 0):Entity(pName,reach,x,y){}
 
     /**
      * @brief "control_bahavior" meghatározása
      * 
      * @return std::string "control_behavior" JSON formában
      */
-    std::string getControlString() const;
+    virtual std::string getControlString() const = 0;
 
-    /**
-     * @brief "operation_string" meghatározása
-     * 
-     * @return std::string "operation_string" JSON formában
-     */
-    std::string getOperationString() const;
     std::string toBlueprint() const;
 };
 

@@ -7,8 +7,13 @@ Pole::Pole(std::string pName, int reach):Entity(pName, reach){}
 std::string Pole::getConnectionString() const{
     std::stringstream ss;
     ss << esc("connections") << ":{";
-    if(incomingGreenConnections.size() > 0)
+    if(incomingGreenConnections.size() > 0 || outgoingGreenConnections.size() > 0)
         ss << esc("1") << ":{" << esc("green") << ":[";
+    else {
+        //No connections
+        ss << "}";
+        return ss.str();
+    }
     
     for(size_t i=0; i<incomingGreenConnections.size(); i++){
         ss << "{" <<
@@ -29,11 +34,8 @@ std::string Pole::getConnectionString() const{
         "}";
         if(i+1 < outgoingGreenConnections.size()) ss << ",";
     }
-
-    if(outgoingGreenConnections.size() > 0)
-        ss << "]}";
     
-    ss << "}";
+    ss << "]}}";
 
     return ss.str();
 }

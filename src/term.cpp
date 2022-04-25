@@ -69,6 +69,7 @@ std::ostream& Term::printDot(std::ostream& os) const {
         case MOD: os << '%'; break;
         case LSHIFT: os << "<<"; break;
         case RSHIFT: os << ">>"; break;
+        default: throw "Invalid operation";
     }
 
     os << "\"];\n";

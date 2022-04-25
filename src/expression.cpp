@@ -88,6 +88,7 @@ std::ostream& Expression::printDot(std::ostream& os) const {
         case AND: os << '&'; break;
         case OR: os << '|'; break;
         case XOR: os << '^'; break;
+        default: throw "Invalid op";
     }
 
     os << "\"];\n";

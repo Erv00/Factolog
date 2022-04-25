@@ -5,6 +5,7 @@
 #include "autoDtor.h"
 #include "blueprint.h"
 #include "expression.h"
+#include "arithmeticCombinator.h"
 
 ValueExpression* UnaryExpression::parse(Lexer& lex){
     Token& curr = lex.current();

@@ -1,5 +1,6 @@
 #include "assignment.h"
 
+#include "constantCombinator.h"
 #include "compilationUnit.h"
 #include "linkingUnit.h"
 #include "expression.h"
@@ -72,7 +73,15 @@ void Assignment::translate(const Translator& translation){
 }
 
 EID Assignment::addToBlueprint(Blueprint& bp) const{
-    bp.connect(val->addToBlueprint(bp), 0);
-    bp.openColumn();
-    return 0;
+    if(!val->isConst()){
+        bp.connect(val->addToBlueprint(bp), 0);
+        bp.openColumn();
+        return 0;
+    }else{
+        ConstantCombinator *cc = new ConstantCombinator(val->getOutColor(NULL), val->calculate());
+        EID eid = bp.addEntity(cc);
+        bp.connect(eid, 0);
+        bp.openColumn();
+        return eid;
+    }
 }

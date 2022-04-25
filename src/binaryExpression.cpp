@@ -3,7 +3,7 @@
 #include <map>
 #include "number.h"
 #include "blueprint.h"
-#include "combinator.h"
+#include "arithmeticCombinator.h"
 
 BinaryExpression::BinaryExpression(const BinaryExpression& b){
     left = b.left->clone();
