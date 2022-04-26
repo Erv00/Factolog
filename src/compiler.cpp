@@ -4,23 +4,25 @@
 #include "exceptions.h"
 #include "linkingUnit.h"
 
-Compiler::Compiler(std::istream& _is, std::ostream& _os): is(&_is), os(&_os), ifs(NULL), ofs(NULL){
+Compiler::Compiler(std::istream& _is, std::ostream& _os): is(&_is), os(&_os), ifs(NULL), ofs(NULL), doPrintBlueprint(true), doPrintDot(false){
     lexer = new Lexer(*is);
 }
-Compiler::Compiler(const char* filename, std::ostream& _os): os(&_os), ofs(NULL){
+Compiler::Compiler(const char* filename, std::ostream& _os): os(&_os), ofs(NULL), doPrintBlueprint(true), doPrintDot(false){
     if(filename[0] == '-' && filename[1] == '\0'){
         //We want cin as input
         is = &std::cin;
         ifs = NULL;
     }else{
         ifs = new std::ifstream(filename);
-        if(!ifs->is_open())
+        if(!ifs->is_open()){
+            delete ifs;
             throw "UNABLE TO OPEN";
+        }
         is = ifs;
     }
     lexer = new Lexer(*is);
 }
-Compiler::Compiler(const char* inFilename, const char* outFilename){
+Compiler::Compiler(const char* inFilename, const char* outFilename): doPrintBlueprint(true), doPrintDot(false){
     is = new std::fstream(inFilename, std::ios::in);
     os = new std::fstream(outFilename, std::ios::out);
     lexer = new Lexer(*is);
@@ -28,21 +30,39 @@ Compiler::Compiler(const char* inFilename, const char* outFilename){
 
 Compiler::Compiler(const Configuration& config){
     std::string filename = config.getInputFile();
-    if(filename[0] == '-' && filename[1] == '\0'){
+    if(filename == "-"){
         //We want cin as input
         is = &std::cin;
         ifs = NULL;
     }else{
         ifs = new std::ifstream(filename.c_str());
-        if(!ifs->is_open())
+        if(!ifs->is_open()){
+            delete ifs;
             throw "UNABLE TO OPEN";
+        }
         is = ifs;
     }
 
-    ofs = new std::ofstream(config.getOutFile().c_str(), std::ios::out);
-    os = ofs;
+    filename = config.getOutFile();
+    if(filename == "-" || filename == ""){
+        //We want cout as output
+        os = &std::cout;
+        ofs = NULL;
+    }else{
+        ofs = new std::ofstream(config.getOutFile().c_str(), std::ios::out);
+        if(!ofs->is_open()){
+            delete ifs;
+            delete ofs;
+            throw "Unable to open output file";
+        }
+        os = ofs;
+    }
 
     lexer = new Lexer(*is);
+
+    doPrintBlueprint = config.printBlueprint();
+    doPrintDot = config.printDot();
+    userColorMapping = config.getSignals();
 }
 
 Compiler& Compiler::operator=(const Compiler& c){
@@ -132,8 +152,13 @@ void Compiler::compile(){
     check();
     optimize();
 
+    if(doPrintBlueprint){
+        std::string blueprintString = compileBlueprint();
+        *os << blueprintString;
+    }
+    if(doPrintDot){
+        definedModules.at(Identifier("main"))->printDot(*os);
+    }
 
-    std::string blueprintString = compileBlueprint();
-    *os << blueprintString;
     //encode();
 }

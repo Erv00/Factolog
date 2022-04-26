@@ -2,6 +2,8 @@
 #include <getopt.h>
 #include <iostream>
 #include <sstream>
+#include <iomanip>
+#include <string.h>
 
 Configuration::Configuration(int argc, char *argv[]){
     //Set defaults
@@ -13,7 +15,7 @@ Configuration::Configuration(int argc, char *argv[]){
         {"no-blueprint",    no_argument,        0,  'n'},
         {"output",          required_argument,  0,  'o'},
         {"help",            no_argument,        0,  'h'},
-        {"signals",         required_argument,  0,  's'},
+        //{"signals",         required_argument,  0,  's'},
         {0,                 0,                  0,   0 }
     };
     static const char *optionHelp[] = {
@@ -52,12 +54,16 @@ Configuration::Configuration(int argc, char *argv[]){
 }
 
 std::string Configuration::printOptions(const struct option options[], const char* help[]){
+    //Get fill size
+    size_t fillSize=0;
+    for(size_t i=0; options[i].name != NULL; i++) if(strlen(options[i].name) > fillSize) fillSize = strlen(options[i].name)+2;
+
     std::stringstream ss;
     struct option opt=options[0];
     while(opt.name != NULL){
-        ss << "--" << opt.name << " -" << (char)opt.val << " ";
+        int currFillSize = opt.has_arg ? fillSize-6 : fillSize;
+        ss << "-" << (char)opt.val << " --" << std::left << std::setw(currFillSize) << opt.name << " ";
         if(opt.has_arg) ss << "[arg] ";
-        ss << "\t";
         ss << *(help++);
         ss << std::endl;
         options++;

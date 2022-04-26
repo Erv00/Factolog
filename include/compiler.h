@@ -47,6 +47,10 @@ class Compiler {
     std::map<const Identifier, Module*> definedModules;             ///<Definiált modulok
     std::map<const Identifier, CompilationUnit*> compilationUnits;  ///<A modulok fordítási egységei
 
+    bool doPrintBlueprint;  ///<Kell tervrajz kimenet?
+    bool doPrintDot;        ///<Kell dot kimenet?
+    std::vector<std::string> userColorMapping;  ///<A felhasználó által megadott szín-jel összerendelések
+
     /**
      * @brief Elvégzi a forrás lexikai feldolgozását 
      */
