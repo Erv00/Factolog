@@ -35,8 +35,8 @@ class LinkingUnit;
  */
 class ValueExpression : public TreeNode {
     protected:
-    unsigned int outColor;      ///<A kombinátor kimeneti színe
-    unsigned int inColors[2];   ///<A kombinátor bemenetei
+    Color outColor;      ///<A kombinátor kimeneti színe
+    Color inColors[2];   ///<A kombinátor bemenetei
     
     public:
     /**
@@ -89,9 +89,9 @@ class ValueExpression : public TreeNode {
      * Identifier esetében az előre megadott színt adja vissza.
      * 
      * @param lu A linkelési egység
-     * @return unsigned int A kombinátor kimeneti színe
+     * @return Color A kombinátor kimeneti színe
      */
-    virtual unsigned int getOutColor(LinkingUnit* lu) const{
+    virtual Color getOutColor(LinkingUnit* lu) const{
         (void)lu;
         return outColor;
     }
@@ -114,15 +114,15 @@ class ValueExpression : public TreeNode {
      * 
      * @param col 
      */
-    void setOutColor(unsigned int col){outColor = col;}
+    void setOutColor(Color col){outColor = col;}
 
     /**
      * @brief Visszaadja a kombinátor bemenetének a színét
      * 
      * @param index A bemenet indexe
-     * @return unsigned int A bemenet színe
+     * @return Color A bemenet színe
      */
-    unsigned int getInColor(size_t index=0) const;
+    Color getInColor(size_t index=0) const;
 
     /**
      * @brief Megadja, hogy a kombinátornak a megadott bemenetének van-e színe
@@ -139,7 +139,7 @@ class ValueExpression : public TreeNode {
      * @param col A szín
      * @param index Bemenet indexe, 0 a bal 1 a jobb
      */
-    void setInColor(unsigned int col, size_t index=0);
+    void setInColor(Color col, size_t index=0);
 
     /**
      * @brief Elkészíti a szín-fát
@@ -149,7 +149,7 @@ class ValueExpression : public TreeNode {
      * @param lu Linkelési egység
      * @param expectedOut A kombinátor kimeneti színe
      */
-    virtual void calculateColorTree(LinkingUnit* lu, unsigned int expectedOut) = 0;
+    virtual void calculateColorTree(LinkingUnit* lu, Color expectedOut) = 0;
 
     /**
      * @brief Lecseréli a változók azonosítóját a modulokban a kapcsolatban lévőkkel

@@ -11,6 +11,8 @@ ParameterListDeclaration* ParameterListDeclaration::parse(Lexer& lex){
     AutoDtor<ParameterListDeclaration> dtor(plistd);
 
     while(lex.current() == "in" || lex.current() == "out"){
+        if(lex.current() == "in") plistd->numInputs++;
+        else if(lex.current() == "out") plistd->numOutputs++;
         plistd->parameters.push_back(Parameter::parse(lex));
 
         if(lex.current() == ",")

@@ -24,7 +24,7 @@
  * 
  */
 class LinkingUnit{
-    std::map<const Identifier, unsigned int> variableColors;    ///< A változók színei
+    std::map<const Identifier, Color> variableColors;    ///< A változók színei
 
     public:
     /**
@@ -36,7 +36,7 @@ class LinkingUnit{
      */
     template<class RandomIt>
     LinkingUnit(RandomIt firstID, RandomIt lastID){
-        unsigned int color = 3; //First 3 are reserved
+        Color color = 3; //First 3 are reserved
         for(;firstID != lastID; firstID++)
             variableColors[*firstID] = color++;
     }
@@ -54,7 +54,7 @@ class LinkingUnit{
     template<class IDIt, class ColorIt>
     LinkingUnit(IDIt firstID, IDIt lastID, ColorIt firstColor, ColorIt lastColor){
         while(firstID != lastID && firstColor != lastColor){
-            variableColors[*firstID] = firstColor;
+            variableColors[*firstID] = *firstColor;
             firstID++;
             firstColor++;
         }
@@ -64,9 +64,9 @@ class LinkingUnit{
      * @brief Visszaadja egy változó színét
      * 
      * @param id A változó azonosítója
-     * @return unsigned int A változó színe
+     * @return Color A változó színe
      */
-    unsigned int getVariableColor(const Identifier& id) const;
+    Color getVariableColor(const Identifier& id) const;
 
     /**
      * @brief Megadja, hogy egy adott változónak van-e színe

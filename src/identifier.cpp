@@ -24,7 +24,7 @@ Identifier* Identifier::parse(Lexer& lex){
     
 }
 
-void Identifier::calculateColorTree(LinkingUnit* lu, unsigned int expected){
+void Identifier::calculateColorTree(LinkingUnit* lu, Color expected){
     if(!lu->variableHasColor(*this))
         throw "Identifier has no color";
     setOutColor(lu->getVariableColor(*this));
@@ -39,7 +39,7 @@ bool Identifier::hasOutColor(LinkingUnit* lu) const{
     return lu->variableHasColor(*this);
 }
 
-unsigned int Identifier::getOutColor(LinkingUnit* lu) const {
+Color Identifier::getOutColor(LinkingUnit* lu) const {
     if(outColor != 0)
         return outColor;
     return lu->getVariableColor(*this);

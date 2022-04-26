@@ -75,7 +75,7 @@ std::ostream& UnaryExpression::printDot(std::ostream& os) const {
     os << "\"]\n";
 
     std::string lab;
-    lab += 'A'+getInColor(1);
+    lab += getInColor(1);
     dotConnection(os, this, expr, lab.c_str());
 
     return expr->printDot(os);
@@ -105,7 +105,7 @@ int UnaryExpression::calculate() const {
     }
 }
 
-void UnaryExpression::calculateColorTree(LinkingUnit* lu, unsigned int expected){
+void UnaryExpression::calculateColorTree(LinkingUnit* lu, Color expected){
     //Unary exps never collide
     setOutColor(expected);
     

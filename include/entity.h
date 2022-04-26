@@ -15,6 +15,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "color.h"
 #include <memtrace.h>
 
 #include "position.h"
@@ -37,8 +38,8 @@ class Entity {
     EID id;                     ///< Az elem azonosítója, 0-nál nagyobb
     std::string prototypeName;  ///< Factorio prototype neve
     Position pos;               ///< Pozíció
-    unsigned int outSignal;     ///< A kimeneti jel színe
-    unsigned int inSignal[2];   ///< A bemeneti jelek színei, lehet csak a 0.-at használja
+    Color outSignal;     ///< A kimeneti jel színe
+    Color inSignal[2];   ///< A bemeneti jelek színei, lehet csak a 0.-at használja
     bool         inConst[2];    ///< Igaz, ha valamelyik operandus nem jel, hanem konstans
     const int reach;            ///< Összeköttetések maximum hossza
 

@@ -25,7 +25,7 @@ void signal_test(){
         EXPECT_STREQ("\"first_signal\":{\"type\":\"virtual\",\"name\":\"signal-A\"}", ss.str().c_str());
     }END;
     TEST(Signal, TwoIn){
-        unsigned int sig[] = {1,2};
+        Color sig[] = {1,2};
         bool isConst[] = {false, false};
 
         Signal<2> s(sig, isConst);

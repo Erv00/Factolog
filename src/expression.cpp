@@ -96,12 +96,12 @@ std::ostream& Expression::printDot(std::ostream& os) const {
     if(left != NULL){
         left->printDot(os);
         std::string lab;
-        lab += 'A'+getInColor(0);
+        lab += getInColor(0);
         dotConnection(os, this, left, lab.c_str());
 
         if(right != NULL){
             right->printDot(os);
-            lab = 'A'+getInColor(1);
+            lab = getInColor(1);
             dotConnection(os, this, right, lab.c_str());
         }
     }else if(right != NULL)

@@ -81,7 +81,7 @@ class UnaryExpression : public ValueExpression {
     bool isConst() const {return expr->isConst();}
     int calculate() const;
 
-    void calculateColorTree(LinkingUnit* lu, unsigned int expected);
+    void calculateColorTree(LinkingUnit* lu, Color expected);
     void translate(const Translator& translation);
     EID addToBlueprint(Blueprint& bp) const;
 };

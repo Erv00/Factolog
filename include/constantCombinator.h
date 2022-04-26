@@ -18,7 +18,7 @@
  * A Factorioban lévo Constant Combinatornak megefelelő osztály.
  */
 class ConstantCombinator : public Combinator {
-    std::map<unsigned int, unsigned int> signals;   ///< A kiadott jelek
+    std::map<Color, unsigned int> signals;   ///< A kiadott jelek
 
     public:
     /**
@@ -27,7 +27,7 @@ class ConstantCombinator : public Combinator {
      * @param sig A kimeneti jel
      * @param val A kimeneti jel értéke
      */
-    ConstantCombinator(unsigned int sig, unsigned int val);
+    ConstantCombinator(Color sig, unsigned int val);
 
     std::string getConnectionString() const;
     std::string getControlString() const;

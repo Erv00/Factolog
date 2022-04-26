@@ -36,7 +36,7 @@ void BinaryExpression::optimize() {
         right->optimize();
 }
 
-void BinaryExpression::calculateColorTree(LinkingUnit* lu, unsigned int expectedOut){
+void BinaryExpression::calculateColorTree(LinkingUnit* lu, Color expectedOut){
     //Set own color
     setOutColor(expectedOut);
 
@@ -53,7 +53,7 @@ void BinaryExpression::calculateColorTree(LinkingUnit* lu, unsigned int expected
         setInColor(right->getOutColor(lu), 1);
     }else if(left->hasOutColor(lu) && !right->hasOutColor(lu)){
         //Left has color, right doesn't
-        unsigned int leftCol = left->getOutColor(lu);
+        Color leftCol = left->getOutColor(lu);
         setInColor(leftCol, LEFT);
 
         if(leftCol == 1){
@@ -67,7 +67,7 @@ void BinaryExpression::calculateColorTree(LinkingUnit* lu, unsigned int expected
         }
     }else if(!left->hasOutColor(lu) && right->hasOutColor(lu)){
         //Right has color, left doesn't
-        unsigned int rightCol = right->getOutColor(lu);
+        Color rightCol = right->getOutColor(lu);
         setInColor(rightCol, RIGHT);
 
         if(rightCol == 1){

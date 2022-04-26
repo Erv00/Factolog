@@ -95,9 +95,9 @@ class Identifier : public Value{
     void optimize(){}
     bool isConst() const {return false;/*Could be better*/}
     int calculate() const {throw "Identifier is not const";}
-    void calculateColorTree(LinkingUnit* lu, unsigned int expected);
+    void calculateColorTree(LinkingUnit* lu, Color expected);
     bool hasOutColor(LinkingUnit* lu) const;
-    unsigned int getOutColor(LinkingUnit* lu) const;
+    Color getOutColor(LinkingUnit* lu) const;
     void translate(const Translator& translation);
 };
 

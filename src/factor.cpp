@@ -43,12 +43,15 @@ ValueExpression* Factor::parse(Lexer& lex){
 std::ostream& Factor::printDot(std::ostream& os) const {
     os << "\"" << this << "\" [label=\"Binary **\"]\n";
     if(left != NULL){
-        dotConnection(os, this, left);
         left->printDot(os);
+        std::string lab;
+        lab += getInColor(0);
+        dotConnection(os, this, left, lab.c_str());
 
         if(right != NULL){
-            dotConnection(os, this, right);
             right->printDot(os);
+            lab = getInColor(1);
+            dotConnection(os, this, right, lab.c_str());
         }
     }else if(right != NULL)
         throw "Have right but no left";

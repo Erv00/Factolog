@@ -14,6 +14,7 @@
 #define signals_H
 
 #include <ostream>
+#include "color.h"
 #include <memtrace.h>
 
 /**
@@ -41,7 +42,7 @@ std::string esc(const T& s){
 template<int LEN>
 class Signal {
     public:
-    unsigned int sig[LEN];  ///< A kapcsolatok színei, vagy konstans esteén az értékük
+    Color sig[LEN];  ///< A kapcsolatok színei, vagy konstans esteén az értékük
     bool isConst[LEN];      ///< Igaz, ha a jel konstans
     bool out;               ///< Igaz, ha a kapcsolatok kimenetiek
 
@@ -52,7 +53,7 @@ class Signal {
      * @param _isConst Igaz, ha az adott jel konstans
      * @param out Igaz, ha a jelek kimenetiek
      */
-    Signal(const unsigned int _sig[LEN], const bool _isConst[LEN], bool out = false):out(out){
+    Signal(const Color _sig[LEN], const bool _isConst[LEN], bool out = false):out(out){
         for(int i=0; i<LEN; i++){
             sig[i] = _sig[i];
             isConst[i] = _isConst[i];
@@ -63,9 +64,9 @@ class Signal {
      * @brief Visszaadja az idx. jelet
      * 
      * @param idx Index
-     * @return unsigned int A jel színe/értéke
+     * @return Color A jel színe/értéke
      */
-    unsigned int getSig(int idx) const {return sig[idx];}
+    Color getSig(int idx) const {return sig[idx];}
 
     /**
      * @brief Visszaadja, hogy az idx. jel konstans-e
@@ -85,7 +86,7 @@ class Signal {
 template<>
 class Signal<1>{
     public:
-    unsigned int sig;  ///< A kapcsolat színe, vagy konstans esetén az értéke
+    Color sig;  ///< A kapcsolat színe, vagy konstans esetén az értéke
     bool isConst;      ///< Igaz, ha a jel konstans
     bool out;               ///< Igaz, ha a kapcsolatok kimenetiek
 
@@ -96,16 +97,16 @@ class Signal<1>{
      * @param isConst Igaz, ha a jel konstans
      * @param out Igaz, ha a jel kimeneti
      */
-    Signal(const unsigned int sig, const bool isConst, bool out = false):
+    Signal(const Color sig, const bool isConst, bool out = false):
     sig(sig), isConst(isConst), out(out){}
 
     /**
      * @brief Visszaadja az idx. jelet
      * 
      * @param idx Index
-     * @return unsigned int A jel színe/értéke
+     * @return Color A jel színe/értéke
      */
-    unsigned int getSig(int idx) const {return sig;}
+    Color getSig(int idx) const {return sig;}
 
     /**
      * @brief Visszaadja, hogy az idx. jel konstans-e
@@ -135,15 +136,15 @@ std::ostream& operator<<(std::ostream& os, const Signal<LEN>& s){
     if(s.out){
         return os << esc("output_signal") << ":{" <<
         esc("type") << ":" << esc("virtual") << "," <<
-        esc("name") << ":\"signal-" << (char)('A'+s.getSig(0)-1) << "\"}";
+        esc("name") << ":\"" << s.getSig(0) << "\"}";
     }else{
         for(int i=0; i<LEN; i++){
             if(!s.getConst(i)){
                 os << "\"" << NAMES[i] << "_signal\":{" <<
                 esc("type") << ":" << esc("virtual") << "," <<
-                esc("name") << ":\"signal-" << (char)('A'+s.getSig(i)-1) << "\"}";
+                esc("name") << ":\"" << s.getSig(i) << "\"}";
             }else{
-                os << "\"" << NAMES[i] << "_constant\":" << s.getSig(i);
+                os << "\"" << NAMES[i] << "_constant\":" << s.getSig(i).toConst();
             }
             if(i+1 < LEN) os << ',';
         }

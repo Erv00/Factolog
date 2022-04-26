@@ -3,7 +3,7 @@
 #include "signals.h"
 #include <sstream>
 
-ConstantCombinator::ConstantCombinator(unsigned int sig, unsigned int val):Combinator("constant-combinator",11){
+ConstantCombinator::ConstantCombinator(Color sig, unsigned int val):Combinator("constant-combinator",11){
     signals[sig] = val;
 }
 
@@ -14,11 +14,11 @@ std::string ConstantCombinator::getControlString() const {
 
     int idx = 1;
 
-    for(std::map<unsigned int, unsigned int>::const_iterator it=signals.begin(); it != signals.end();){
+    for(std::map<Color, unsigned int>::const_iterator it=signals.begin(); it != signals.end();){
         ss << "{" <<
         esc("signal") << ":{" <<
         esc("type") << ":" << esc("virtual") << "," <<
-        esc("name") << ":\"signal-" << (char)('A'+it->first-1) << "\"}," <<
+        esc("name") << ":\"" << it->first << "\"}," <<
         esc("count") << ":" << it->second << "," <<
         esc("index") << ":" << idx++ << "}";
         if(++it != signals.end()) ss << ",";

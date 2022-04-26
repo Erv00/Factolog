@@ -31,7 +31,7 @@ std::ostream& Assignment::printDot(std::ostream& os) const{
 
     LinkingUnit lu((Identifier*)NULL, (Identifier*)NULL);
 
-    lab += 'A' + val->getOutColor(NULL);
+    lab += val->getOutColor(NULL);
 
     to->printDot(os);
     dotConnection(os, this, to, lab.c_str());

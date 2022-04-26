@@ -15,7 +15,7 @@ Configuration::Configuration(int argc, char *argv[]){
         {"no-blueprint",    no_argument,        0,  'n'},
         {"output",          required_argument,  0,  'o'},
         {"help",            no_argument,        0,  'h'},
-        //{"signals",         required_argument,  0,  's'},
+        {"signals",         required_argument,  0,  's'},
         {0,                 0,                  0,   0 }
     };
     static const char *optionHelp[] = {
