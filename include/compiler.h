@@ -20,6 +20,7 @@
 #include "lexer.h"
 #include "identifier.h"
 #include "modules.h"
+#include "argumentParser.h"
 #include "compilationUnit.h"
 
 #include <memtrace.h>
@@ -101,6 +102,13 @@ class Compiler {
      * @param outFilename Kimeneti fájl
      */
     Compiler(const char* inFilename, const char* outFilename);
+
+    /**
+     * @brief Új Compiler létrehozása konfigurációval
+     * 
+     * @param config A konfiguráció
+     */
+    Compiler(const Configuration& config);
 
     /**
      * @brief Compiler felszabadítása

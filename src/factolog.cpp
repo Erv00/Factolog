@@ -3,16 +3,12 @@
 
 #include "compiler.h"
 #include "exceptions.h"
+#include "argumentParser.h"
 
 int main(int argc, char* argv[]){
-    if(argc < 2){
-        std::cout << "No files. Terminating" << std::endl;
-        return -1;
-    }
-
-
-    Compiler c(argv[1], std::cout);
     try{
+        Configuration conf(argc, argv);
+        Compiler c(conf);
         c.compile();
     }catch (ParserError& p){
         std::cerr << "Parser error: " << p.what() << std::endl;
@@ -21,6 +17,7 @@ int main(int argc, char* argv[]){
         std::cerr << "Programming error: " << p.what() << std::endl;
         return -1;
     }catch(const char* p){
+        if(std::string(p) == "HELP") return -1;
         std::cerr << "Unexpected exception: " << p << std::endl;
     }
 

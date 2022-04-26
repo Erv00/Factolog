@@ -26,6 +26,25 @@ Compiler::Compiler(const char* inFilename, const char* outFilename){
     lexer = new Lexer(*is);
 }
 
+Compiler::Compiler(const Configuration& config){
+    std::string filename = config.getInputFile();
+    if(filename[0] == '-' && filename[1] == '\0'){
+        //We want cin as input
+        is = &std::cin;
+        ifs = NULL;
+    }else{
+        ifs = new std::ifstream(filename.c_str());
+        if(!ifs->is_open())
+            throw "UNABLE TO OPEN";
+        is = ifs;
+    }
+
+    ofs = new std::ofstream(config.getOutFile().c_str(), std::ios::out);
+    os = ofs;
+
+    lexer = new Lexer(*is);
+}
+
 Compiler& Compiler::operator=(const Compiler& c){
     if(this==&c)
         return *this;
