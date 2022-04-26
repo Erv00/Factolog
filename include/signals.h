@@ -135,13 +135,13 @@ std::ostream& operator<<(std::ostream& os, const Signal<LEN>& s){
 
     if(s.out){
         return os << esc("output_signal") << ":{" <<
-        esc("type") << ":" << esc("virtual") << "," <<
+        esc("type") << ":" << esc(s.getSig(0).getType()) << "," <<
         esc("name") << ":\"" << s.getSig(0) << "\"}";
     }else{
         for(int i=0; i<LEN; i++){
             if(!s.getConst(i)){
                 os << "\"" << NAMES[i] << "_signal\":{" <<
-                esc("type") << ":" << esc("virtual") << "," <<
+                esc("type") << ":" << esc(s.getSig(i).getType()) << "," <<
                 esc("name") << ":\"" << s.getSig(i) << "\"}";
             }else{
                 os << "\"" << NAMES[i] << "_constant\":" << s.getSig(i).toConst();

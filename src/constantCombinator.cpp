@@ -17,7 +17,7 @@ std::string ConstantCombinator::getControlString() const {
     for(std::map<Color, unsigned int>::const_iterator it=signals.begin(); it != signals.end();){
         ss << "{" <<
         esc("signal") << ":{" <<
-        esc("type") << ":" << esc("virtual") << "," <<
+        esc("type") << ":" << esc(it->first.getType()) << "," <<
         esc("name") << ":\"" << it->first << "\"}," <<
         esc("count") << ":" << it->second << "," <<
         esc("index") << ":" << idx++ << "}";

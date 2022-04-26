@@ -1,24 +1,51 @@
 #include "color.h"
+#include <sstream>
 
-Color::Color(std::string str){
+Color::Color(std::string str):constantValue(0){
+    size_t sepPos = str.find(':');
+    if(sepPos == str.npos)
+        //No : found, assume virtual
+        signalType = "virtual";
+    else{
+        //Found :, get type
+        signalType = str.substr(0,sepPos);
+        str = str.substr(sepPos+1);
+    }
     if(str.substr(0,8) == "signal-") throw "This signal cannot be assigned";
-    color = -1;
+    signal = str;
 }
 
-bool Color::operator!=(unsigned int i) const {
-    return color != i;
+Color::Color(unsigned int col){
+    constantValue = col;
+    signalType = "virtual";
+    signal = "signal-";
+    signal += (char)('A'+col-1);
 }
 
-bool Color::operator!=(const Color& col) const {
-    return color != col.color;
+bool Color::isNumeric() const {
+    return signal.substr(0,8) != "signal-";
+}
+
+bool Color::operator==(unsigned int i) const {
+    return isNumeric() && (signal[signal.size()-1]-(unsigned int)'A' == i);
 }
 
 bool Color::operator==(const Color& col) const {
-    return color == col.color;
+    return (*this == (std::string)col.signal);
 }
 
+bool Color::operator!=(unsigned int i) const {
+    return !(*this == i);
+}
+
+bool Color::operator!=(const Color& col) const {
+    return !(*this == col);
+}
+
+
 Color Color::operator++(){
-    color++;
+    constantValue++;
+    signal[signal.size()-1]++;
     return *this;
 }
 
@@ -29,15 +56,15 @@ Color Color::operator++(int){
 }
 
 bool Color::operator<(const Color& col) const {
-    return color < col.color;
+    return signal < col.signal;
 }
 
 Color::operator std::string() const {
-    return std::string("signal-")+(char)(('A'+color)-1);
+    return signal;
 }
 
 unsigned int Color::toConst() const {
-    return color;
+    return constantValue;
 }
 
 std::ostream& operator<<(std::ostream& os, const Color& col){
