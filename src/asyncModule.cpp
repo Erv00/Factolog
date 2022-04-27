@@ -73,9 +73,7 @@ void AsyncModule::optimize(){
         expressions[i]->optimize();
 }
 
-void AsyncModule::calcualteColorTree(LinkingUnit* lu, Color expectedOut[], Color inputs[]){
-    (void)expectedOut;
-    (void)inputs;
+void AsyncModule::calcualteColorTree(LinkingUnit* lu){
     for(size_t i=0; i<expressions.size(); i++){
         //Only calculate color tree for assignment, as the oders make no sense
         Assignment *a = dynamic_cast<Assignment *>(expressions[i]);

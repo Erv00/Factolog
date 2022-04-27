@@ -126,17 +126,7 @@ void Compiler::optimize(){
 }
 
 std::string Compiler::compileBlueprint() {
-    AsyncModule* main = dynamic_cast<AsyncModule*>(definedModules[Identifier("main")]);
-
-    if(main == NULL) throw "No main module defined";
-    
-    main->link(definedModules);
-
-    std::vector<Identifier> ids =  main->recalculateDefinedVariables();
-    LinkingUnit lu(ids.begin(), ids.end());
-    unsigned int a = 5;
-    main->calcualteColorTree(&lu, &a, NULL);
-
+    Module *main = definedModules.at(Identifier("main"));
     Blueprint bp(18, 2, "substation", main);
 
     main->addToBlueprint(bp);
@@ -152,13 +142,29 @@ void Compiler::compile(){
     check();
     optimize();
 
+    //Calculate colors
+    Module *main = definedModules[Identifier("main")];
+    if(main == NULL) throw "No main module defined";
+    std::vector<Identifier> ids =  main->recalculateDefinedVariables();
+    std::vector<Color> colors;
+
+    size_t i=0;
+    for(; i<userColorMapping.size(); i++)
+        colors.push_back(userColorMapping[i]);
+
+    Color c = 3;
+    for(; i<ids.size(); i++)
+        colors.push_back(c);
+
+    LinkingUnit lu(ids.begin(), ids.end(), colors.begin(), colors.end());
+    main->calcualteColorTree(&lu);
+
     if(doPrintBlueprint){
         std::string blueprintString = compileBlueprint();
         *os << blueprintString;
+        lu.printVariableColorAssociation(std::cerr);
     }
-    if(doPrintDot){
-        definedModules.at(Identifier("main"))->printDot(*os);
-    }
+    if(doPrintDot) definedModules.at(Identifier("main"))->printDot(*os);
 
     //encode();
 }

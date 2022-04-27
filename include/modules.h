@@ -58,10 +58,8 @@ class Module : public TreeNode {
      * @brief Felépíti a modul szín-fáját
      * 
      * @param lu A színezési egység
-     * @param expectedOut Elvárt kimenetek listája
-     * @param inputs Bemeneti paraméterek színei
      */
-    virtual void calcualteColorTree(LinkingUnit* lu, Color expectedOut[], Color inputs[]) = 0;
+    virtual void calcualteColorTree(LinkingUnit* lu) = 0;
 
     /**
      * @brief Definiált változók újraösszegzése
@@ -120,12 +118,12 @@ class AsyncModule : public Module {
      * @brief Optimalizálja a modul kifejezéseit, ha lehet
      */
     void optimize();
-    void calcualteColorTree(LinkingUnit* lu, Color expectedOut[], Color inputs[]);
+    void calcualteColorTree(LinkingUnit* lu);
 
     /**
      * @brief Visszaadja a modul utasításainak másolatát a megfelelő fordításokkal
      * 
-     * @param translation Régi-új változóneév hozzárendelések
+     * @param translation Régi-új változónév hozzárendelések
      * @return std::vector<AsyncExpression*> A modul utasításainak fordított másolata
      */
     std::vector<AsyncExpression*> linkModule(const Translator& translation) const;

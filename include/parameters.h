@@ -174,8 +174,8 @@ class ParameterList : public TreeNode {
  */
 class ParameterListDeclaration : public TreeNode {
     std::vector<Parameter*> parameters; ///<Deklarált paraméterek
-    int numInputs;
-    int numOutputs;
+    int numInputs;  ///< A bemeneti paraméterek száma
+    int numOutputs; ///< A kimeneti paraméterek száma
     
     public:
     ParameterListDeclaration():numInputs(0), numOutputs(0){}
@@ -219,7 +219,18 @@ class ParameterListDeclaration : public TreeNode {
      */
     const Parameter* operator[](size_t idx) const {return parameters[idx];}
 
+    /**
+     * @brief Visszadja a bemeneti paraméterek számát
+     * 
+     * @return int A bemeneti paraméterek száma
+     */
     int getNumInputs() const {return numInputs;}
+
+    /**
+     * @brief Visszaadja a kimeneti paraméterek számát
+     * 
+     * @return int A kimeneti paraméterek száma
+     */
     int getNumOutputs() const {return numOutputs;}
 
     /**
