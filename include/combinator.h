@@ -17,6 +17,8 @@
 
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Kombinátor
  * 
@@ -45,5 +47,7 @@ class Combinator : public Entity {
 
     std::string toBlueprint() const;
 };
+
+} //namespace factolog
 
 #endif //combinator_H

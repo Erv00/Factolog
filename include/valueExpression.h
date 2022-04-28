@@ -16,6 +16,8 @@
 #include <map>
 #include <memtrace.h>
 
+namespace factolog {
+
 class Identifier;
 class Translator;
 class LinkingUnit;
@@ -158,5 +160,7 @@ class ValueExpression : public TreeNode {
      */
     virtual void translate(const Translator& translation) = 0;
 }; 
+
+} //namespace factolog
 
 #endif //valueExpression_H

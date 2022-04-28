@@ -14,6 +14,8 @@
 #include "entity.h"
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Táp
  * A táp szolgál a globális változótérként, és áramforrásként
@@ -31,5 +33,7 @@ class Pole : public Entity{
     std::string getConnectionString() const;
     std::string toBlueprint() const;
 };
+
+} //namespace factolog
 
 #endif //pole_H

@@ -9,6 +9,8 @@
 #include "autoDtor.h"
 #include "dot.h"
 
+using namespace factolog;
+
 Assignment* Assignment::parse(Lexer& lex){
     Assignment *assign = new Assignment();
     AutoDtor<Assignment> dtor(assign);
@@ -25,7 +27,7 @@ Assignment* Assignment::parse(Lexer& lex){
     return assign;
 }
 std::ostream& Assignment::printDot(std::ostream& os) const{
-    dotNode(os, this, "Assign", "");
+    Dot::dotNode(os, this, "Assign", "");
 
     std::string lab;
 
@@ -34,10 +36,10 @@ std::ostream& Assignment::printDot(std::ostream& os) const{
     lab += val->getOutColor(NULL);
 
     to->printDot(os);
-    dotConnection(os, this, to, lab.c_str());
+    Dot::dotConnection(os, this, to, lab.c_str());
 
     val->printDot(os);
-    dotConnection(os, this, val, lab.c_str());
+    Dot::dotConnection(os, this, val, lab.c_str());
 
     return os;
 }

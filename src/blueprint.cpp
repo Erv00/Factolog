@@ -4,6 +4,8 @@
 #include <queue>
 #include <set>
 
+using namespace factolog;
+
 Blueprint::Blueprint(const unsigned int reach, const unsigned int dim, const std::string poleName, const Module* module) : POLE_REACH(reach), POLE_DIM(dim), POLE_NAME(poleName), x(0), y(0) {
     name = module->getIdentifier()->getName();
 
@@ -88,7 +90,7 @@ EID Blueprint::addEntity(Entity *c, float _x, float _y){
     return c->getEID();
 }
 
-std::ostream& operator<<(std::ostream& os, const Blueprint& bp){
+std::ostream& factolog::operator<<(std::ostream& os, const Blueprint& bp){
     os << "{" <<
     esc("blueprint") << ":{" <<
     esc("item") << ":" << esc("blueprint") << "," <<

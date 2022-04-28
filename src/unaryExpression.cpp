@@ -7,6 +7,8 @@
 #include "expression.h"
 #include "arithmeticCombinator.h"
 
+using namespace factolog;
+
 ValueExpression* UnaryExpression::parse(Lexer& lex){
     Token& curr = lex.current();
 
@@ -76,7 +78,7 @@ std::ostream& UnaryExpression::printDot(std::ostream& os) const {
 
     std::string lab;
     lab += getInColor(1);
-    dotConnection(os, this, expr, lab.c_str());
+    Dot::dotConnection(os, this, expr, lab.c_str());
 
     return expr->printDot(os);
 }

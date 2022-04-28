@@ -17,6 +17,8 @@
 
 #include "identifier.h"
 
+namespace factolog {
+
 /**
  * @brief Identifier fordító
  * 
@@ -44,5 +46,7 @@ class Translator {
      */
     Identifier at(const Identifier& id) const;    
 };
+
+} //namespace factolog
 
 #endif //translator_H

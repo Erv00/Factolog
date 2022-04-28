@@ -4,6 +4,8 @@
 #include "factor.h"
 #include "autoDtor.h"
 
+using namespace factolog;
+
 ValueExpression* Term::parse(Lexer& lex){
     Term *res = new Term;
     AutoDtor<Term> dtor(res);
@@ -78,12 +80,12 @@ std::ostream& Term::printDot(std::ostream& os) const {
         left->printDot(os);
         std::string lab;
         lab += getInColor(0);
-        dotConnection(os, this, left, lab.c_str());
+        Dot::dotConnection(os, this, left, lab.c_str());
 
         if(right != NULL){
             right->printDot(os);
             lab = getInColor(1);
-            dotConnection(os, this, right, lab.c_str());
+            Dot::dotConnection(os, this, right, lab.c_str());
         }
     }else if(right != NULL)
         throw "Havbe right but no left";

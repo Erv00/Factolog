@@ -5,6 +5,8 @@
 #include "value.h"
 #include "exceptions.h"
 
+using namespace factolog;
+
 void value_test(){
     TEST(Value, ValidTest){
         std::stringstream in("foo");

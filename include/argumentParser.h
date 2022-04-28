@@ -16,6 +16,8 @@
 #include <getopt.h>
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Adott kapcsolókhoz tartozó konfiguráció
  * 
@@ -100,5 +102,7 @@ class Configuration {
      */
     std::vector<std::string> getSignals() const {return signals;}
 };
+
+} //namespace factolog
 
 #endif //argumentParser_H

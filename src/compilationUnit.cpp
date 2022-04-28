@@ -2,6 +2,8 @@
 
 #include "parameters.h"
 
+using namespace factolog;
+
 bool CompilationUnit::isVariableDefined(const Identifier* id) const {
     return definedVariables.find(*id) != definedVariables.end();
 }

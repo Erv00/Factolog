@@ -16,6 +16,8 @@
 
 #include <memtrace.h>
 
+namespace factolog {
+
 class Identifier;
 
 /**
@@ -90,5 +92,7 @@ class BinaryExpression : public ValueExpression {
     EID addToBlueprint(Blueprint& bp) const;
 };
 
+
+} //namespace factolog
 
 #endif //binaryExpression_H

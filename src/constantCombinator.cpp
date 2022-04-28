@@ -3,6 +3,8 @@
 #include "signals.h"
 #include <sstream>
 
+using namespace factolog;
+
 ConstantCombinator::ConstantCombinator(Color sig, unsigned int val):Combinator("constant-combinator",11){
     signals[sig] = val;
 }

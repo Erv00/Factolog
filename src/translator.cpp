@@ -2,6 +2,8 @@
 
 #include <sstream>
 
+using namespace factolog;
+
 unsigned int Translator::globalTranslationID = 0;
 
 Identifier Translator::at(const Identifier& id) const {

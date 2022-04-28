@@ -6,6 +6,8 @@
 
 #include <cmath>
 
+using namespace factolog;
+
 ValueExpression* Factor::parse(Lexer& lex){
     Factor *res = new Factor;
     AutoDtor<Factor> dtor(res);
@@ -46,12 +48,12 @@ std::ostream& Factor::printDot(std::ostream& os) const {
         left->printDot(os);
         std::string lab;
         lab += getInColor(0);
-        dotConnection(os, this, left, lab.c_str());
+        Dot::dotConnection(os, this, left, lab.c_str());
 
         if(right != NULL){
             right->printDot(os);
             lab = getInColor(1);
-            dotConnection(os, this, right, lab.c_str());
+            Dot::dotConnection(os, this, right, lab.c_str());
         }
     }else if(right != NULL)
         throw "Have right but no left";

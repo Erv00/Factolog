@@ -19,6 +19,8 @@
 
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Factorio tervrajz
  */
@@ -175,5 +177,7 @@ class Blueprint {
  * @return std::ostream& A kimeneti stream
  */
 std::ostream& operator<<(std::ostream& os, const Blueprint& bp);
+
+} //namespace factolog
 
 #endif //blueprint_H

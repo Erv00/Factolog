@@ -7,6 +7,8 @@
 #include "identifier.h"
 #include "exceptions.h"
 
+using namespace factolog;
+
 Value* Value::parse(Lexer& lex){
     Token& curr = lex.current();
     if(isdigit(curr[0]))

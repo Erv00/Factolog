@@ -11,6 +11,8 @@
 #include <string>
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Egy lexikai token
  */
@@ -151,5 +153,7 @@ class Token {
  * @return std::ostream& A megadott stream
  */
 std::ostream& operator<<(std::ostream& os, const Token& t);
+
+} //namespace factolog
 
 #endif //token_H

@@ -4,6 +4,8 @@
 #include "signals.h"
 #include <sstream>
 
+using namespace factolog;
+
 ArithmeticCombinator::ArithmeticCombinator(const ValueExpression& ve): Combinator("arithmetic-combinator", 12){
     outSignal = ve.getOutColor(NULL);
     inSignal[0] = ve.getInColor(LEFT);

@@ -16,6 +16,8 @@
 #include <ostream>
 #include <memtrace.h>
 
+namespace factolog {
+
 class Lexer;
 
 /**
@@ -64,5 +66,7 @@ class Expression : public BinaryExpression {
     int calculate() const;
 };
 
+
+} //namespace factolog
 
 #endif //expression_H

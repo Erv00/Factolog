@@ -14,6 +14,8 @@
 #include <memtrace.h>
 #include "combinator.h"
 
+namespace factolog {
+
 
 class Blueprint;
 class CompilationUnit;
@@ -55,5 +57,7 @@ public:
      */
     virtual EID addToBlueprint(Blueprint& bp) const {(void)bp; return 0;}
 };
+
+} //namespace factolog
 
 #endif //treenode_H

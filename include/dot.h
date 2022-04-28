@@ -14,27 +14,33 @@
 #include <ostream>
 #include <memtrace.h>
 
+namespace factolog {
 
-/**
- * @brief Kapcsolat hoz létre a két objektum között
- * 
- * @param os Kimeneti stream
- * @param from Kapcsolat kiindulása
- * @param to Kapcsolat végpontja
- * @param label A kapcsolat felirata
- * @return std::ostream& Kimeneti stream
- */
-std::ostream& dotConnection(std::ostream& os, const void *from, const void *to, const char *label="");
+class Dot {
+    public:
+    /**
+     * @brief Kapcsolat hoz létre a két objektum között
+     * 
+     * @param os Kimeneti stream
+     * @param from Kapcsolat kiindulása
+     * @param to Kapcsolat végpontja
+     * @param label A kapcsolat felirata
+     * @return std::ostream& Kimeneti stream
+     */
+    static std::ostream& dotConnection(std::ostream& os, const void *from, const void *to, const char *label="");
 
-/**
- * @brief Csomópont létrehozása megadott paraméterekkel
- * 
- * @param os Kimeneti stream
- * @param obj Objektum
- * @param label Csomópont címkéje
- * @param style Csomópont stílusa
- * @return std::ostream& Kimeneti stream
- */
-std::ostream& dotNode(std::ostream& os, const void *obj, const char *label, const char *style);
+    /**
+     * @brief Csomópont létrehozása megadott paraméterekkel
+     * 
+     * @param os Kimeneti stream
+     * @param obj Objektum
+     * @param label Csomópont címkéje
+     * @param style Csomópont stílusa
+     * @return std::ostream& Kimeneti stream
+     */
+    static std::ostream& dotNode(std::ostream& os, const void *obj, const char *label, const char *style);
+};
+
+} //namespace factolog
 
 #endif //lexemes_H

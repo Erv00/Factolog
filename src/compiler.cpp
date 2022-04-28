@@ -4,6 +4,8 @@
 #include "exceptions.h"
 #include "linkingUnit.h"
 
+using namespace factolog;
+
 Compiler::Compiler(std::istream& _is, std::ostream& _os): is(&_is), os(&_os), ifs(NULL), ofs(NULL), doPrintBlueprint(true), doPrintDot(false){
     lexer = new Lexer(*is);
 }

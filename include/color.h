@@ -15,6 +15,8 @@
 #include <ostream>
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Egy kapcsolat színének leírása
  * 
@@ -152,5 +154,7 @@ class Color {
  * @return std::ostream& A kimeneti stream
  */
 std::ostream& operator<<(std::ostream& os, const Color& col);
+
+} //namespace factolog
 
 #endif //color_H

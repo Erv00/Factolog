@@ -17,6 +17,8 @@
 #include "color.h"
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Adat körbevevése "-lel
  * 
@@ -152,5 +154,7 @@ std::ostream& operator<<(std::ostream& os, const Signal<LEN>& s){
     return os;
 
 }
+
+} //namespace factolog
 
 #endif //signals_H

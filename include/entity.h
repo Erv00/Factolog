@@ -20,6 +20,8 @@
 
 #include "position.h"
 
+namespace factolog {
+
 class ValueExpression;
 
 /**
@@ -206,5 +208,7 @@ class Entity {
     int connections() const;
 };
 
+
+} //namespace factolog
 
 #endif //entity_H

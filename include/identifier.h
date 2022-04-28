@@ -15,6 +15,8 @@
 #include <string>
 #include <memtrace.h>
 
+namespace factolog {
+
 class LinkingUnit;
 
 /**
@@ -101,5 +103,7 @@ class Identifier : public Value{
     void translate(const Translator& translation);
 };
 
+
+} //namespace factolog
 
 #endif //identifier_H

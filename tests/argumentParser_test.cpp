@@ -5,6 +5,8 @@
 #include <sstream>
 #include "argumentParser.h"
 
+using namespace factolog;
+
 void argumentParser_test(){
     TEST(ArgumentParser, NoArguments){
         int argc = 1;
@@ -32,10 +34,11 @@ void argumentParser_test(){
         EXPECT_FALSE(c->printDot());
         
         std::vector<std::string> signals = c->getSignals();
-        EXPECT_EQ(0, signals.size());
+        EXPECT_EQ((size_t)0, signals.size());
         delete c;
     }END;
 
+#ifndef CPRORTA
     TEST(argumentParser, Signals){
         int argc = 4;
         char *argv[] = {"./factoTest", "-s", "sig0, sig1, sig2", "-", NULL};
@@ -48,10 +51,11 @@ void argumentParser_test(){
         EXPECT_FALSE(c->printDot());
         
         std::vector<std::string> signals = c->getSignals();
-        EXPECT_EQ(3, signals.size());
+        EXPECT_EQ((size_t)3, signals.size());
         EXPECT_STREQ("sig0", signals[0].c_str());
         EXPECT_STREQ("sig1", signals[1].c_str());
         EXPECT_STREQ("sig2", signals[2].c_str());
         delete c;
     }END;
+#endif
 }

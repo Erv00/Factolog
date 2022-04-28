@@ -15,6 +15,8 @@
 #include "lexer.h"
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Unáris operátor
  */
@@ -86,5 +88,7 @@ class UnaryExpression : public ValueExpression {
     EID addToBlueprint(Blueprint& bp) const;
 };
 
+
+} //namespace factolog
 
 #endif //unaryExpression_H

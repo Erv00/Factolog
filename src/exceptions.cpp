@@ -5,6 +5,8 @@
 #include <string.h>
 #include <memtrace.h>
 
+using namespace factolog;
+
 TokenExpectedError::TokenExpectedError(Token expected, Token got){
     whatData = new char[17+10+expected.getContent().size()+got.getContent().size()+1];
 

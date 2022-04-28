@@ -16,6 +16,8 @@
 #include <vector>
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Változó(k) deklarálása
  */
@@ -81,5 +83,7 @@ class VariableDeclaration : public AsyncExpression {
     void translate(const Translator& translation);
 };
 
+
+} //namespace factolog
 
 #endif //variableDeclaration_H

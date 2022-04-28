@@ -13,6 +13,8 @@
 
 #include "combinator.h"
 
+namespace factolog {
+
 /**
  * @brief Konstans kombinátor
  * A Factorioban lévo Constant Combinatornak megefelelő osztály.
@@ -32,5 +34,7 @@ class ConstantCombinator : public Combinator {
     std::string getConnectionString() const;
     std::string getControlString() const;
 };
+
+} //namespace factolog
 
 #endif //constantCombinator_H

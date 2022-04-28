@@ -15,6 +15,8 @@
 #include "lexer.h"
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Hármas precedenciaszintű művelet
  * 
@@ -58,5 +60,7 @@ class Factor : public BinaryExpression {
     int calculate() const;
 };
 
+
+} //namespace factolog
 
 #endif //factor_H

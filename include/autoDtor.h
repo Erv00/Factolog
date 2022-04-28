@@ -14,6 +14,8 @@
 #include <iostream>
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Automatikusan törli a megadott dinamikus memóriát ha nem hívódik meg előbb az AutoDtor::success() 
  * 
@@ -55,5 +57,7 @@ class AutoDtor{
         toDelete = t;
     }
 };
+
+} //namespace factolog
 
 #endif //autoDtor_H

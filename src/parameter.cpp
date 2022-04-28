@@ -4,6 +4,8 @@
 #include "autoDtor.h"
 #include "exceptions.h"
 
+using namespace factolog;
+
 Parameter* Parameter::parse(Lexer& lex){
     Parameter *p = new Parameter();
     AutoDtor<Parameter> dtor(p);
@@ -25,9 +27,9 @@ Parameter* Parameter::parse(Lexer& lex){
 
 std::ostream& Parameter::printDot(std::ostream& os) const{
     if(direction == IN)
-        dotNode(os, this, ("In: "+identifier->getName()).c_str(), "");
+        Dot::dotNode(os, this, ("In: "+identifier->getName()).c_str(), "");
     else
-        dotNode(os, this, ("Out: "+identifier->getName()).c_str(), "");
+        Dot::dotNode(os, this, ("Out: "+identifier->getName()).c_str(), "");
     
     return os;
 }

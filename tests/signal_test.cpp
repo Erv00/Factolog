@@ -3,6 +3,8 @@
 #include <gtest_lite.h>
 #include <sstream>
 
+using namespace factolog;
+
 void signal_test(){
     TEST(Signal, Out){
         unsigned int sig = 1;

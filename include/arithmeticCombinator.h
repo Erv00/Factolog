@@ -13,6 +13,8 @@
 
 #include "combinator.h"
 
+namespace factolog {
+
 /**
  * @brief Aritmetikai kombinátor
  * 
@@ -63,5 +65,7 @@ class ArithmeticCombinator : public Combinator {
      */
     std::string getOperationString() const;
 };
+
+} //namespace factolog
 
 #endif //arithmeticCombinator_H

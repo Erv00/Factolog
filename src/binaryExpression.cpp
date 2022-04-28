@@ -5,6 +5,8 @@
 #include "blueprint.h"
 #include "arithmeticCombinator.h"
 
+using namespace factolog;
+
 BinaryExpression::BinaryExpression(const BinaryExpression& b){
     left = b.left->clone();
     right = b.right->clone();

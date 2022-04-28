@@ -20,6 +20,8 @@
 #include <sstream>
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Base64 enkódolást végez
  */
@@ -77,5 +79,7 @@ class Base64 {
  * @return std::ostream& A kimeneti stream 
  */
 std::ostream& operator<<(std::ostream& os, Base64& b64);
+
+} //namespace factolog
 
 #endif //base64_H

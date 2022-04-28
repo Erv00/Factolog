@@ -17,6 +17,8 @@
 
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Értékadás
  */
@@ -91,5 +93,7 @@ class Assignment : public AsyncExpression {
     EID addToBlueprint(Blueprint& bp) const;
 };
 
+
+} //namespace factolog
 
 #endif //assignment_H

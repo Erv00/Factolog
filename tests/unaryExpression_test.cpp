@@ -5,6 +5,8 @@
 #include "exceptions.h"
 #include "unaryExpression.h"
 
+using namespace factolog;
+
 void unaryExpression_test(){
     TEST(UnaryExpression, NormalConst){
         std::stringstream ss("5");

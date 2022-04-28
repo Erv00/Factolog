@@ -15,6 +15,8 @@
 
 #include <memtrace.h>
 
+namespace factolog {
+
 class Identifier;
 class Translator;
 
@@ -62,5 +64,7 @@ class AsyncExpression : public TreeNode {
     virtual void translate(const Translator& translation) = 0;
 };
 
+
+} //namespace factolog
 
 #endif //asyncExpression_H

@@ -5,6 +5,8 @@
 #include "exceptions.h"
 #include "number.h"
 
+using namespace factolog;
+
 void number_test(){
     TEST(Number, ValidTest){
         std::stringstream in("69");

@@ -13,6 +13,8 @@
 #include "lexer.h"
 #include <sstream>
 
+using namespace factolog;
+
 void lexer_test(){
     TEST(Lexer, BasicRead){
         std::ifstream in("tests/basicLexer.fl");

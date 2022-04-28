@@ -14,6 +14,8 @@
 #include "identifier.h"
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Base class feldolgozás közbeni hibáknak
  */
@@ -192,4 +194,6 @@ class VariableAlreadyDefinedError : public ProgrammingError{
      */
     VariableAlreadyDefinedError(const Identifier* var);
 };
+} //namespace factolog
+
 #endif //exceptions_H

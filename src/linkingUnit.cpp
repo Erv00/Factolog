@@ -1,5 +1,7 @@
 #include "linkingUnit.h"
 
+using namespace factolog;
+
 Color LinkingUnit::getVariableColor(const Identifier& id) const {
     Color a = variableColors.at(id);
     return a;

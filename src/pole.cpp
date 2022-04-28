@@ -2,6 +2,8 @@
 #include "signals.h"
 #include <sstream>
 
+using namespace factolog;
+
 Pole::Pole(std::string pName, int reach):Entity(pName, reach){}
 
 std::string Pole::getConnectionString() const{

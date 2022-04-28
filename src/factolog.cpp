@@ -5,6 +5,8 @@
 #include "exceptions.h"
 #include "argumentParser.h"
 
+using namespace factolog;
+
 int main(int argc, char* argv[]){
     try{
         Configuration conf(argc, argv);

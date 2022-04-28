@@ -5,6 +5,8 @@
 #include "exceptions.h"
 #include "compilationUnit.h"
 
+using namespace factolog;
+
 ModuleConnection::ModuleConnection(const ModuleConnection& mc){
     identifier = new Identifier(*mc.identifier);
     parameters = new ParameterList(*mc.parameters);
@@ -27,11 +29,11 @@ ModuleConnection* ModuleConnection::parse(Lexer& lex){
 }
 
 std::ostream& ModuleConnection::printDot(std::ostream& os) const{
-    dotNode(os, this, identifier->getName().c_str(), "shape=Msquare");
+    Dot::dotNode(os, this, identifier->getName().c_str(), "shape=Msquare");
 
     parameters->printDot(os);
 
-    dotConnection(os, this, parameters);
+    Dot::dotConnection(os, this, parameters);
 
     return os;    
 }

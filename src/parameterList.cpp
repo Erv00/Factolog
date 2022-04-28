@@ -5,6 +5,8 @@
 #include "expression.h"
 #include "exceptions.h"
 
+using namespace factolog;
+
 ParameterList* ParameterList::parse(Lexer& lex){
     ParameterList  *plist = new ParameterList();
     AutoDtor<ParameterList> dtor(plist);
@@ -26,11 +28,11 @@ ParameterList* ParameterList::parse(Lexer& lex){
 }
 
 std::ostream& ParameterList::printDot(std::ostream& os) const{
-    dotNode(os, this, "Params","");
+    Dot::dotNode(os, this, "Params","");
 
     for(size_t i=0; i<parameters.size(); i++){
         parameters[i]->printDot(os);
-        dotConnection(os, this, parameters[i]);
+        Dot::dotConnection(os, this, parameters[i]);
     }
 
     return os;

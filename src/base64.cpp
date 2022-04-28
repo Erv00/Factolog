@@ -1,5 +1,7 @@
 #include "base64.h"
 
+using namespace factolog;
+
 const char Base64::ALPHABET[] = {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
         'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -59,7 +61,7 @@ void Base64::addPadding(){
     }
 }
 
-std::ostream& operator<<(std::ostream& os, Base64& b64){
+std::ostream& factolog::operator<<(std::ostream& os, Base64& b64){
     //Add padding
     b64.addPadding();
 

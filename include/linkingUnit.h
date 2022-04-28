@@ -17,6 +17,8 @@
 #include "identifier.h"
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Linkelési (színezési) egység
  * 
@@ -84,5 +86,7 @@ class LinkingUnit{
      */
     void printVariableColorAssociation(std::ostream& os) const;
 };
+
+} //namespace factolog
 
 #endif //linkingUnit_H

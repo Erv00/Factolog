@@ -1,6 +1,8 @@
 #include "color.h"
 #include <sstream>
 
+using namespace factolog;
+
 Color::Color(std::string str):constantValue(0){
     size_t sepPos = str.find(':');
     if(sepPos == str.npos)
@@ -67,6 +69,6 @@ unsigned int Color::toConst() const {
     return constantValue;
 }
 
-std::ostream& operator<<(std::ostream& os, const Color& col){
+std::ostream& factolog::operator<<(std::ostream& os, const Color& col){
     return os << (std::string)col;
 }

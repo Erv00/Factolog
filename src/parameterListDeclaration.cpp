@@ -5,6 +5,8 @@
 #include "exceptions.h"
 #include "compilationUnit.h"
 
+using namespace factolog;
+
 ParameterListDeclaration* ParameterListDeclaration::parse(Lexer& lex){
     
     ParameterListDeclaration *plistd = new ParameterListDeclaration();
@@ -27,11 +29,11 @@ ParameterListDeclaration* ParameterListDeclaration::parse(Lexer& lex){
 }
 
 std::ostream& ParameterListDeclaration::printDot(std::ostream& os) const{
-    dotNode(os, this, "Parameters", "");
+    Dot::dotNode(os, this, "Parameters", "");
 
     for(size_t i=0; i<parameters.size(); i++){
         parameters[i]->printDot(os);
-        dotConnection(os, this, parameters[i]);
+        Dot::dotConnection(os, this, parameters[i]);
     }
 
     return os;

@@ -2,6 +2,8 @@
 
 #include "entity.h"
 
+using namespace factolog;
+
 class EntityDummy : public Entity {
     public:
     EntityDummy():Entity("DUMMY",12){}

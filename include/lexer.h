@@ -17,6 +17,8 @@
 #include "token.h"
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Lexikai értelmező
  */
@@ -130,4 +132,6 @@ public:
  * @return std::ostream& A kimeneti stream
  */
 std::ostream& operator<<(std::ostream& os, const Lexer& l);
+} //namespace factolog
+
 #endif

@@ -6,6 +6,8 @@
 #include "translator.h"
 #include "compilationUnit.h"
 
+using namespace factolog;
+
 VariableDeclaration* VariableDeclaration::parse(Lexer& lex){
     lex.except("var");
 
@@ -34,11 +36,11 @@ VariableDeclaration::VariableDeclaration(const VariableDeclaration& vd){
 }
 
 std::ostream& VariableDeclaration::printDot(std::ostream& os) const{
-    dotNode(os, this, "New vars", "");
+    Dot::dotNode(os, this, "New vars", "");
 
     for(size_t i=0; i<varsDeclared.size(); i++){
         varsDeclared[i]->printDot(os);
-        dotConnection(os, this, varsDeclared[i]);
+        Dot::dotConnection(os, this, varsDeclared[i]);
     }
 
     return os;

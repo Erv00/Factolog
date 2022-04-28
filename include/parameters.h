@@ -17,6 +17,8 @@
 #include "identifier.h"
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Modul paraméter
  */
@@ -259,5 +261,7 @@ class ParameterListDeclaration : public TreeNode {
     void translate(const Translator& translation);
 };
 
+
+} //namespace factolog
 
 #endif //parameters_H

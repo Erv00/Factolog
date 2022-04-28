@@ -18,6 +18,8 @@
 #include <vector>
 #include <memtrace.h>
 
+namespace factolog {
+
 class CompilationUnit;
 class LinkingUnit;
 
@@ -214,5 +216,7 @@ class ModuleConnection : public AsyncExpression {
 
     void translate(const Translator& translation);
 };
+
+} //namespace factolog
 
 #endif //modules_H

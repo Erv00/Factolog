@@ -4,6 +4,8 @@
 #include <map>
 #include "signals.h"
 
+using namespace factolog;
+
 unsigned int Entity::GLOBAL_ENTITY_ID = 1;
 
 Entity::Entity(std::string pName, int reach, float x, float y) :

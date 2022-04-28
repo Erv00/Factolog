@@ -5,6 +5,8 @@
 #include "linkingUnit.h"
 #include "translator.h"
 
+using namespace factolog;
+
 Identifier* Identifier::parse(Lexer& lex){
     Token tok = lex.current();
 

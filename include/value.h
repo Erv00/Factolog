@@ -15,6 +15,8 @@
 #include "lexer.h"
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Érték
  */
@@ -35,5 +37,7 @@ class Value : public ValueExpression {
     static Value* parse(Lexer& lex);
 };
 
+
+} //namespace factolog
 
 #endif //value_H

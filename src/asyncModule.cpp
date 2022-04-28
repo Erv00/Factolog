@@ -8,6 +8,8 @@
 #include "compilationUnit.h"
 #include "variableDeclaration.h"
 
+using namespace factolog;
+
 Module::~Module(){
     delete identifier;
     delete parameters;
@@ -42,16 +44,16 @@ AsyncModule* AsyncModule::parse(Lexer& lex){
 
 std::ostream& AsyncModule::printDot(std::ostream& os) const {
     os << "subgraph cluster_" << this << "{\nlabel=\"" << identifier->getName() << "\";\n";
-    dotNode(os, this, identifier->getName().c_str(),"shape=box");
+    Dot::dotNode(os, this, identifier->getName().c_str(),"shape=box");
 
     if(parameters){
         parameters->printDot(os);
-        dotConnection(os, this, parameters);
+        Dot::dotConnection(os, this, parameters);
     }
 
     for(size_t i=0;i<expressions.size();i++){
         expressions[i]->printDot(os);
-        dotConnection(os, this, expressions[i]);
+        Dot::dotConnection(os, this, expressions[i]);
     }
 
     os << "};\n";

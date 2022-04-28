@@ -7,6 +7,8 @@
 #include "expression.h"
 #include "modules.h"
 
+using namespace factolog;
+
 void dot_test(){
     TEST(Dot, Basic){
         std::stringstream ss("-b+(b**2-4*a*c)**(1/2)");

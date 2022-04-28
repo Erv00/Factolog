@@ -5,18 +5,9 @@
 #include "blueprint.h"
 #include "autoDtor.h"
 #include "term.h"
+#include "dot.h"
 
-std::ostream& dotConnection(std::ostream& os, const void *from, const void *to, const char *label=""){
-    return os << "\"" << from << "\" -> \"" << to << "\" [label=\"" << label << "\"];\n"; 
-}
-
-std::ostream& dotNode(std::ostream& os, const void *obj, const char *label, const char *style){
-    os << "\"" << obj << "\" [label=\"" << label << "\"";
-    if(style != NULL)
-        os << "," << style;
-    
-    return os << "];\n";
-}
+using namespace factolog;
 
 Expression::Expression(const Expression& e): BinaryExpression(e) {}
 
@@ -97,12 +88,12 @@ std::ostream& Expression::printDot(std::ostream& os) const {
         left->printDot(os);
         std::string lab;
         lab += getInColor(0);
-        dotConnection(os, this, left, lab.c_str());
+        Dot::dotConnection(os, this, left, lab.c_str());
 
         if(right != NULL){
             right->printDot(os);
             lab = getInColor(1);
-            dotConnection(os, this, right, lab.c_str());
+            Dot::dotConnection(os, this, right, lab.c_str());
         }
     }else if(right != NULL)
         throw "Havbe right but no left";

@@ -20,6 +20,8 @@
 
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Egy fordítási egység
  * 
@@ -96,5 +98,7 @@ class CompilationUnit{
      */
     const std::set<Identifier>& getDefinedVariables() const {return definedVariables;}
 };
+
+} //namespace factolog
 
 #endif //compilationUnit_H

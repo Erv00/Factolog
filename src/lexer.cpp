@@ -5,6 +5,8 @@
 
 #include <limits>
 
+using namespace factolog;
+
 Lexer::Lexer(std::istream& _is): is(_is){}
 
 Lexer::Lexer(std::ifstream& _is): is(_is){
@@ -116,7 +118,7 @@ bool Lexer::eof() const {
     return currentToken == tokens.end();
 }
 
-std::ostream& operator<<(std::ostream& os, const Lexer& l){
+std::ostream& factolog::operator<<(std::ostream& os, const Lexer& l){
     for(unsigned int i=0;i<l.getTokens().size(); i++){
         os << l.getTokens()[i] << "#";
     }

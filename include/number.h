@@ -14,6 +14,8 @@
 #include "value.h"
 #include <memtrace.h>
 
+namespace factolog {
+
 class LinkingUnit;
 
 /**
@@ -56,5 +58,7 @@ class Number : public Value {
     void translate(const Translator& translation){(void)translation;}
 };
 
+
+} //namespace factolog
 
 #endif //number_H

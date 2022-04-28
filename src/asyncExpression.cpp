@@ -4,6 +4,8 @@
 #include "assignment.h"
 #include "modules.h"
 
+using namespace factolog;
+
 AsyncExpression* AsyncExpression::parse(Lexer& lex){
     //Determine what kind of expression follows
     if(lex.current() == "var")

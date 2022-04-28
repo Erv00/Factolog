@@ -4,6 +4,8 @@
 
 #include <sstream>
 
+using namespace factolog;
+
 Number* Number::parse(Lexer& lex){
     Token& curr = lex.current();
     std::stringstream ss(curr);

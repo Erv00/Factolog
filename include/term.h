@@ -15,6 +15,8 @@
 #include "lexer.h"
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Kettes precedenciaszintű művelet
  * @sa Precedence
@@ -60,5 +62,7 @@ class Term : public BinaryExpression {
     int calculate() const;
 };
 
+
+} //namespace factolog
 
 #endif //term_H

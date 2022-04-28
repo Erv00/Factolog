@@ -4,6 +4,8 @@
 
 #include <sstream>
 
+using namespace factolog;
+
 void identifier_test(){
     TEST(Identifier, ValidTest){
         std::stringstream in("foo");

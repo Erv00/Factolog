@@ -3,6 +3,8 @@
 #include <sstream>
 #include "signals.h"
 
+using namespace factolog;
+
 
 std::string Combinator::toBlueprint() const {
     std::stringstream res;

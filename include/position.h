@@ -13,6 +13,8 @@
 
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Pozíció
  */
@@ -88,5 +90,7 @@ class Position {
      */
     float distanceTo(const Position& p2) const;
 };
+
+} //namespace factolog
 
 #endif //position_H

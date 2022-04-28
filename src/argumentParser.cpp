@@ -5,6 +5,8 @@
 #include <iomanip>
 #include <string.h>
 
+using namespace factolog;
+
 Configuration::Configuration(int argc, char *argv[]){
     //Set defaults
     _printDot = false;

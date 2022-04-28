@@ -2,6 +2,8 @@
 
 #include <memtrace.h>
 
+using namespace factolog;
+
 Token::Token(std::string cont): content(cont){}
 Token::Token(const char* cont): content(cont){}
 Token::Token(char c){
@@ -62,7 +64,7 @@ bool Token::isEOF() const {
     return content == "";
 }
 
-std::ostream& operator<<(std::ostream& os, const Token& t){
+std::ostream& factolog::operator<<(std::ostream& os, const Token& t){
     os << t.getContent();
     return os;
 }

@@ -25,6 +25,8 @@
 
 #include <memtrace.h>
 
+namespace factolog {
+
 /**
  * @brief Egy fordítási folyamat reprezentálása
  * 
@@ -135,5 +137,7 @@ class Compiler {
     void compile();
 
 };
+
+} //namespace factolog
 
 #endif //compiler_H

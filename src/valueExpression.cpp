@@ -1,5 +1,7 @@
 #include "valueExpression.h"
 
+using namespace factolog;
+
 
 Color ValueExpression::getInColor(size_t index) const{
     return inColors[index];

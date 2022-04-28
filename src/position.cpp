@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+using namespace factolog;
+
 Position Position::operator+(const Position& delta) const {
     return Position(x+delta.x,y+delta.y);
 }
