@@ -31,7 +31,9 @@ bool Color::operator==(unsigned int i) const {
 }
 
 bool Color::operator==(const Color& col) const {
-    return (*this == (std::string)col.signal);
+    if((isNumeric() ^ col.isNumeric()) != 0) return false;
+    if(!isNumeric()) return signalType == col.signalType && signal == col.signal;
+    else return constantValue == col.constantValue;
 }
 
 bool Color::operator!=(unsigned int i) const {
@@ -65,6 +67,10 @@ Color::operator std::string() const {
 
 unsigned int Color::toConst() const {
     return constantValue;
+}
+
+bool Color::isValid() const {
+    return signal.length() > 0 && (signalType != "virtual" || signal.at(signal.length()-1) != '@');
 }
 
 std::ostream& operator<<(std::ostream& os, const Color& col){
