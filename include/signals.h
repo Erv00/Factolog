@@ -106,7 +106,7 @@ class Signal<1>{
      * @param idx Index
      * @return Color A jel színe/értéke
      */
-    Color getSig(int idx) const {return sig;}
+    Color getSig(int idx) const {(void)idx; return sig;}
 
     /**
      * @brief Visszaadja, hogy az idx. jel konstans-e
@@ -115,7 +115,7 @@ class Signal<1>{
      * @return true Ha a jel konstans
      * @return false Egyébként
      */
-    bool getConst(int idx) const {return isConst;}
+    bool getConst(int idx) const {(void)idx; return isConst;}
 };
 
 /**

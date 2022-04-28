@@ -53,7 +53,7 @@ class Number : public Value {
     int calculate() const {return value;}
 
     void calculateColorTree(LinkingUnit* lu, Color expected) {(void)lu;setOutColor(expected);}
-    void translate(const Translator& translation){}
+    void translate(const Translator& translation){(void)translation;}
 };
 
 
