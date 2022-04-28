@@ -23,7 +23,7 @@ Color::Color(unsigned int col){
 }
 
 bool Color::isNumeric() const {
-    return signal.substr(0,8) != "signal-";
+    return signal.substr(0,8) == "signal-";
 }
 
 bool Color::operator==(unsigned int i) const {
