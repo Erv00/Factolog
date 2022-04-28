@@ -16,6 +16,10 @@
 
 namespace factolog {
 
+/**
+ * @brief Dot formátumba kiírós függvényeket tartalmazó osztály
+ * 
+ */
 class Dot {
     public:
     /**

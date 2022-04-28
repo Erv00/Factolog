@@ -33,7 +33,7 @@ class ArithmeticCombinator : public Combinator {
     /**
      * @brief Új ArithmeticCombinator létrehozása
      */
-    ArithmeticCombinator();
+    ArithmeticCombinator():Combinator("arithmetic-combinator",12){};
 
     /**
      * @brief Új ArithmeticCombinator létrehozása

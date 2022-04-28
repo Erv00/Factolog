@@ -42,6 +42,20 @@ class Assignment : public AsyncExpression {
     static Assignment* parse(Lexer& lex);
 
     /**
+     * @brief Visszaadja az értékadás célját
+     * 
+     * @return const Identifier* Az értékadás célja
+     */
+    Identifier* getIdentifier() const {return to;}
+
+    /**
+     * @brief Visszaadja az értékadás értékét
+     * 
+     * @return const ValueExpression* Az értékadás értéke
+     */
+    ValueExpression* getValue() const {return val;}
+
+    /**
      * @brief Részfa kiírása dot formátumban
      * 
      * @param os Célstream
