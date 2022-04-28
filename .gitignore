@@ -3,6 +3,7 @@ obj
 doc/html
 doc/latex
 doc/dotfiles
+build
 factolog
 factoTest
 include/gtest_lite*
