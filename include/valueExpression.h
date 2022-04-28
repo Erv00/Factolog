@@ -109,7 +109,7 @@ class ValueExpression : public TreeNode {
      * @return true Ha van színe
      * @return false Egyébként
      */
-    virtual bool hasOutColor(LinkingUnit* lu) const {return getOutColor(lu) != 0;}
+    virtual bool hasOutColor(LinkingUnit* lu) const {return getOutColor(lu).isValid();}
 
     /**
      * @brief Beállítja a kimeneti színt

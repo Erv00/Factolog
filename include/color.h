@@ -144,6 +144,14 @@ class Color {
      */
     operator std::string() const;
 
+    /**
+     * @brief Megadja, hogy az adott szín érvényes-e
+     * 
+     * @return true Ha a szín érvényes
+     * @return false Egyébként
+     */
+    bool isValid() const;
+
 };
 
 /**

@@ -156,7 +156,7 @@ void Compiler::compile(){
 
     Color c = 3;
     for(; i<ids.size(); i++)
-        colors.push_back(c);
+        colors.push_back(c++);
 
     LinkingUnit lu(ids.begin(), ids.end(), colors.begin(), colors.end());
     main->calcualteColorTree(&lu);
