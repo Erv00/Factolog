@@ -19,11 +19,11 @@ Factolog.zip: doc
 
 # Folder for object files
 obj:
-	mkdir obj
+	mkdir -p obj
 
 # Folder for dependency files
 deps:
-	mkdir deps
+	mkdir -p deps
 
 # Clean artifacts
 .PHONY: clean
@@ -33,6 +33,7 @@ clean:
 	-rm -rf doc/html doc/latex
 	-rm factolog
 	-rm factoTest
+	-rm tests/testMain.cc
 
 # Rules for object files
 obj/%.o: src/%.cpp deps/%.d | obj

@@ -30,7 +30,10 @@ class Lexer {
 
     /**
      * @brief Eldönti egy addot karakterről, hogy Single Character Token (SCT)-e
-     * @sa SCT
+     * 
+     * Egy karakter akkor SCT, ha nem DCT, és önmagában lexáma.
+     * Ezek jelenleg a strukturális elemek, és a műveletek a DCTk kivételével.
+     * 
      * @param c A vizsgált karakter
      * @return true Ha a karekter SCT
      * @return false Egyébként
@@ -39,7 +42,10 @@ class Lexer {
 
     /**
      * @brief Eldönti a stringben következő 2 karakterről, hogy Double Character Token (DCT)-e 
-     * @sa DCT
+     *
+     * A következő 2 karakter akkor DCT, ha együtt egy lexémát alkotnak.
+     * Ez jelenleg csak a <<, a >>, és a ** lexémák
+     * 
      * @param it A következő karakterre mutató string iterátor
      * @return true Ha a karakterek DCTk
      * @return false Egyébként
