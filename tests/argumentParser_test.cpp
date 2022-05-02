@@ -6,6 +6,10 @@
 #include "argumentParser.h"
 
 void argumentParser_test(){
+//Due to a mismatch in the way the C function getopts_long expects
+//its arguments, it cannot be tested without some warnings, or a lot of
+//otherwise unnecessary code
+#ifndef CPRORTA
     TEST(ArgumentParser, NoArguments){
         int argc = 1;
         char *argv[] = {"./factoTest", NULL};
@@ -54,4 +58,5 @@ void argumentParser_test(){
         EXPECT_STREQ("sig2", signals[2].c_str());
         delete c;
     }END;
+    #endif
 }
