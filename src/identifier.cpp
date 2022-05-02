@@ -34,13 +34,13 @@ void Identifier::calculateColorTree(LinkingUnit* lu, Color expected){
 }
 
 bool Identifier::hasOutColor(LinkingUnit* lu) const{
-    if(getOutColor(lu) != 0)
+    if(getOutColor(lu).isValid())
         return true;
     return lu->variableHasColor(*this);
 }
 
 Color Identifier::getOutColor(LinkingUnit* lu) const {
-    if(outColor != 0)
+    if(outColor.isValid())
         return outColor;
     return lu->getVariableColor(*this);
 }
