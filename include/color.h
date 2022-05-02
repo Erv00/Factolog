@@ -13,7 +13,7 @@
 
 #include <string>
 #include <ostream>
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

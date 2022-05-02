@@ -15,7 +15,7 @@
 #include "lexer.h"
 #include "valueExpression.h"
 #include "identifier.h"
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

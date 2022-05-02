@@ -1,6 +1,6 @@
 #include "token.h"
 
-#include <memtrace.h>
+#include "memtrace.h"
 
 using namespace factolog;
 

@@ -15,7 +15,7 @@
 #include <fstream>
 
 #include "token.h"
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

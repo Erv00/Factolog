@@ -11,7 +11,7 @@
 #ifndef position_H
 #define position_H
 
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

@@ -11,7 +11,7 @@
 #define treenode_H
 
 #include <iostream>
-#include <memtrace.h>
+#include "memtrace.h"
 #include "combinator.h"
 
 namespace factolog {

@@ -12,7 +12,7 @@
 #define lexemes_H
 
 #include <ostream>
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

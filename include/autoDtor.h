@@ -12,7 +12,7 @@
 #define autoDtor_H
 
 #include <iostream>
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

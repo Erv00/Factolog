@@ -14,7 +14,7 @@
 #include "treenode.h"
 #include <vector>
 #include <map>
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

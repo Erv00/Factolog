@@ -13,7 +13,7 @@
 #include "treenode.h"
 #include "lexer.h"
 
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

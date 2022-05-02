@@ -1,6 +1,6 @@
 #include "signals.h"
 
-#include <gtest_lite.h>
+#include "gtest_lite.h"
 #include <sstream>
 
 using namespace factolog;

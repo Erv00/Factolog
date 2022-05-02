@@ -15,7 +15,7 @@
 #include "identifier.h"
 #include "number.h"
 
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

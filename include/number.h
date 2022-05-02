@@ -12,7 +12,7 @@
 #define number_H
 
 #include "value.h"
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

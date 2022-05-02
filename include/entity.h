@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 #include "color.h"
-#include <memtrace.h>
+#include "memtrace.h"
 
 #include "position.h"
 

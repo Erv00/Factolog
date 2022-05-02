@@ -16,7 +16,7 @@
 #include "parameters.h"
 #include "identifier.h"
 #include <vector>
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

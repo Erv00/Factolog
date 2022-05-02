@@ -1,5 +1,5 @@
-#include <gtest_lite.h>
-#include <memtrace.h>
+#include "gtest_lite.h"
+#include "memtrace.h"
 
 #include "variableDeclaration.h"
 #include "lexer.h"

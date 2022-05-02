@@ -3,7 +3,7 @@
 #include "token.h"
 
 #include <string.h>
-#include <memtrace.h>
+#include "memtrace.h"
 
 using namespace factolog;
 

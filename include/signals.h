@@ -15,7 +15,7 @@
 
 #include <ostream>
 #include "color.h"
-#include <memtrace.h>
+#include "memtrace.h"
 
 namespace factolog {
 

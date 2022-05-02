@@ -1,4 +1,4 @@
-#include <gtest_lite.h>
+#include "gtest_lite.h"
 
 #include <sstream>
 #include <iostream>

@@ -1,4 +1,4 @@
-#include <gtest_lite.h>
+#include "gtest_lite.h"
 
 #include "assignment.h"
 #include "number.h"
