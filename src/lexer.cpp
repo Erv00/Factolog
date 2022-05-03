@@ -19,7 +19,16 @@ void Lexer::operator()(){
     while(std::getline(is, line)){
         //Remove comment
         size_t commentBegin = line.find_first_of("//");
-        line = line.erase(commentBegin);
+        if(commentBegin != line.npos){
+            //Found a /
+            if(commentBegin != line.size()-1){
+                // / is not the last
+                if(line[commentBegin+1] == '/'){
+                    //Next is also /, found comment
+                    line = line.erase(commentBegin);
+                }
+            }
+        }
 
         //Remove indentation
         size_t start = line.find_first_not_of(' ');
