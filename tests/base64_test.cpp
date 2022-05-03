@@ -45,6 +45,6 @@ void base64_test(){
         std::stringstream ss;
         ss << b64;
 
-        EXPECT_EQ(0, b64.getBuf().size());
+        EXPECT_EQ((size_t)0, b64.getBuf().size());
     }END;
 }
