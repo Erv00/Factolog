@@ -163,7 +163,7 @@ void Compiler::compile(){
 
     if(doPrintBlueprint){
         std::string blueprintString = compileBlueprint();
-        *os << blueprintString;
+        *os << blueprintString << std::endl;
         lu.printVariableColorAssociation(std::cerr);
     }
     if(doPrintDot) definedModules.at(Identifier("main"))->printDot(*os);

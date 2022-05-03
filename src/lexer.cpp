@@ -19,6 +19,19 @@ void Lexer::operator()(){
     std::string line;
 
     while(std::getline(is, line)){
+        //Remove comment
+        size_t commentBegin = line.find_first_of("//");
+        if(commentBegin != line.npos){
+            //Found a /
+            if(commentBegin != line.size()-1){
+                // / is not the last
+                if(line[commentBegin+1] == '/'){
+                    //Next is also /, found comment
+                    line = line.erase(commentBegin);
+                }
+            }
+        }
+
         //Remove indentation
         size_t start = line.find_first_not_of(' ');
         if(start != line.npos && start != 0)
@@ -36,11 +49,6 @@ void Lexer::operator()(){
         //Line is empty
         if(line.empty()) continue;
         
-        //Remove comment
-        if(line.length() >= 2 && line[0] == '/' && line[1] == '/'){
-            //Starts with comment, disregard
-            continue;
-        }
         lexLine(line);
     }
 
@@ -75,7 +83,7 @@ void Lexer::lexLine(std::string line){
 
             //Also save SCT
             tokens.push_back(std::string(1,*it));
-        }else if(*it != ' '){
+        }else if(*it != ' ' && *it != '\t'){
             //Char is not a SCT, and not a space => add to current token
             current += *it;
         }else{
