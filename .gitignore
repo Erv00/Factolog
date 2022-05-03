@@ -12,3 +12,6 @@ src/memtrace*
 *.cc
 .vscode
 *.pdf
+pkg
+*.pkg.*
+*.gz
