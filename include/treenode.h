@@ -53,7 +53,7 @@ public:
      * @param bp A tervrajz
      * @return EID A hozááadott elem azonosítója, vagy 0
      */
-    virtual EID addToBlueprint(Blueprint& bp) const {return 0;}
+    virtual EID addToBlueprint(Blueprint& bp) const {(void)bp; return 0;}
 };
 
 #endif //treenode_H
