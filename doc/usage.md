@@ -98,7 +98,7 @@ A Factolog nyelvben jelenleg a következő műveletek elérhetők:
 
 A műveletek között [precedencia](#Precedence) van, és zárójelezhetőek.
 
-## Pédaprogramok
+## Példaprogramok
 
 ### NAND kapu
 
