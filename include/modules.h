@@ -69,6 +69,16 @@ class Module : public TreeNode {
      * @return std::vector<Identifier> A definiált változók
      */
     virtual std::vector<Identifier> recalculateDefinedVariables() = 0;
+
+    /**
+     * @brief Feloldja a modul csatlakozás parancsait
+     * 
+     * A függvény után a modul nem tartalmaz csatlakozás parancsokat
+     * 
+     * @param modules Az összes definiált modul
+     * @return Module* A modul
+     */
+    virtual Module* link(std::map<const Identifier, Module*>& modules) = 0;
 };
 
 /**
@@ -128,15 +138,7 @@ class AsyncModule : public Module {
      */
     std::vector<AsyncExpression*> linkModule(const Translator& translation) const;
     
-    /**
-     * @brief Feloldja a modul csatlakozás parancsait
-     * 
-     * A függvény után a modul nem tartalmaz csatlakozás parancsokat
-     * 
-     * @param modules Az összes definiált modul
-     * @return AsyncModule* A modul
-     */
-    AsyncModule* link(std::map<const Identifier, Module*>& modules);
+    Module* link(std::map<const Identifier, Module*>& modules);
 
     EID addToBlueprint(Blueprint& bp) const;
 

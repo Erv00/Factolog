@@ -75,11 +75,7 @@ void AsyncModule::optimize(){
 
 void AsyncModule::calcualteColorTree(LinkingUnit* lu){
     for(size_t i=0; i<expressions.size(); i++){
-        //Only calculate color tree for assignment, as the oders make no sense
-        Assignment *a = dynamic_cast<Assignment *>(expressions[i]);
-        if(a != NULL){
-            a->calculateColorTree(lu);
-        }
+        expressions[i]->calculateColorTree(lu);
     }
 }
 
@@ -97,7 +93,7 @@ std::vector<AsyncExpression*> AsyncModule::linkModule(const Translator& translat
     return res;
 }
 
-AsyncModule* AsyncModule::link(std::map<const Identifier, Module*>& modules) {
+Module* AsyncModule::link(std::map<const Identifier, Module*>& modules) {
     for(size_t i=0; i<expressions.size(); i++){
         ModuleConnection *mc = dynamic_cast<ModuleConnection*>(expressions[i]);
 
@@ -114,12 +110,12 @@ AsyncModule* AsyncModule::link(std::map<const Identifier, Module*>& modules) {
             }
 
             ParameterList* list = mc->getParameters();
-            ParameterListDeclaration* expected = mod->parameters;
+            const ParameterListDeclaration* expected = m->getParameters();
 
             std::map<Identifier, Identifier> trans;
 
             for(size_t ii=0; ii<expected->length(); ii++){
-                Parameter* p = expected->operator[](ii);
+                const Parameter* p = expected->operator[](ii);
                 const Identifier* id = dynamic_cast<const Identifier*>(list->operator[](ii));
 
                 if(id == NULL){
@@ -147,9 +143,9 @@ EID AsyncModule::addToBlueprint(Blueprint& bp) const{
 }
 
 std::vector<Identifier> AsyncModule::recalculateDefinedVariables(){
-    //TODO: Should do this while linking
     std::vector<Identifier> res;
     for(size_t i=0; i<expressions.size(); i++){
+        //Use a cast, or write a stupendous ammount of noop functions
         VariableDeclaration *vars = dynamic_cast<VariableDeclaration*>(expressions[i]);
         if(vars != NULL){
             std::vector<Identifier*> ids = vars->getDeclaredVariables();

@@ -17,6 +17,7 @@
 
 class Identifier;
 class Translator;
+class LinkingUnit;
 
 /**
  * @brief Aszinkron kifejezés
@@ -60,6 +61,17 @@ class AsyncExpression : public TreeNode {
      * @param translation Régi-új változónév összerendelések
      */
     virtual void translate(const Translator& translation) = 0;
+
+    /**
+     * @brief Elkészíti a szín-fát
+     * 
+     * Minen kombinátornak meghatározza a bemeneti és kimeneti színeit
+     * Csak az Assignment osztálynak van rá szüksége, de az OOP miatt minden leszármaztatottnak kell.
+     * Az alapértelmezett implementáció nem csinál semmit
+     * 
+     * @param lu Linkelési egység
+     */
+    virtual void calculateColorTree(LinkingUnit* lu){(void)lu;}
 };
 
 

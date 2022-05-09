@@ -71,15 +71,6 @@ class Assignment : public AsyncExpression {
             val->optimize();
     }
 
-    /**
-     * @brief Elkészíti a szín-fát
-     * 
-     * Minen kombinátornak meghatározza a bemeneti és kimeneti színeit
-     * 
-     * @param lu Linkelési egység
-     */
-    void calculateColorTree(LinkingUnit* lu);
-
     AsyncExpression* clone() const;
 
     /**
@@ -89,6 +80,7 @@ class Assignment : public AsyncExpression {
      */
     void translate(const Translator& translation);
     EID addToBlueprint(Blueprint& bp) const;
+    void calculateColorTree(LinkingUnit* lu);
 };
 
 
