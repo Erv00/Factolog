@@ -74,6 +74,15 @@ void Assignment::translate(const Translator& translation){
 
 EID Assignment::addToBlueprint(Blueprint& bp) const{
     if(!val->isConst()){
+        EID fromID = val->addToBlueprint(bp);
+        if(fromID == 0){
+            //Value requested to be connected to sysbus, but assignment connects to sysbus
+            //Therefore, val must be an identifier
+            //TODO: Use variable renaming
+            std::cerr << "This program currently does not support variable renaming at " << to->getName() << std::endl <<
+            "Please use '" << to->getName() << " = identifier+0;" << std::endl;
+            throw "Variable renaming";            
+        }
         bp.connect(val->addToBlueprint(bp), 0);
         bp.openColumn();
         return 0;
