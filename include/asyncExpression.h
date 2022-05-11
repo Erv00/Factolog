@@ -15,9 +15,11 @@
 
 #include <memtrace.h>
 
+class Module;
 class Identifier;
 class Translator;
 class LinkingUnit;
+class AsyncModule;
 
 /**
  * @brief Aszinkron kifejezés
@@ -72,6 +74,15 @@ class AsyncExpression : public TreeNode {
      * @param lu Linkelési egység
      */
     virtual void calculateColorTree(LinkingUnit* lu){(void)lu;}
+
+    /**
+     * @brief Visszadja a modul linkelésekor keletkező kifejezéseket, fordítással
+     * 
+     * @param modules A definiált modulok
+     * @param doDelete Referencia, igazra állítódik ha a meghívó listájában törölni kell az lemet, azaz kibontás történt
+     * @return std::vector<AsyncExpression*> A linkeléskor keletkezett kifejezések listája
+     */
+    virtual std::vector<AsyncExpression*> linkExpression(const std::map<const Identifier, Module*>& modules, bool& doDelete){(void)modules; (void)doDelete; return std::vector<AsyncExpression*>();}
 };
 
 

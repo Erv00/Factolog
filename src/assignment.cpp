@@ -83,7 +83,7 @@ EID Assignment::addToBlueprint(Blueprint& bp) const{
             "Please use '" << to->getName() << " = identifier+0;" << std::endl;
             throw "Variable renaming";            
         }
-        bp.connect(val->addToBlueprint(bp), 0);
+        bp.connect(fromID, 0);
         bp.openColumn();
         return 0;
     }else{

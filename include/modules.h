@@ -215,6 +215,7 @@ class ModuleConnection : public AsyncExpression {
     ParameterList* getParameters() {return parameters;}
 
     void translate(const Translator& translation);
+    std::vector<AsyncExpression*> linkExpression(const std::map<const Identifier, Module*>& modules, bool& doDelete);
 };
 
 #endif //modules_H

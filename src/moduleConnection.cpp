@@ -2,6 +2,7 @@
 
 #include "dot.h"
 #include "autoDtor.h"
+#include "translator.h"
 #include "exceptions.h"
 #include "compilationUnit.h"
 
@@ -54,6 +55,8 @@ void ModuleConnection::checkSemantics(CompilationUnit& cu) const {
 
             case Parameter::OUT:
                 //Must be non assigned identifier
+                //Parameter direction is OUT, this means it must be an identifier
+                //Due to stroing also expression we need this check
                 const Identifier* id = dynamic_cast<const Identifier*>((*parameters)[i]);
                 if(id == NULL)
                     //Not an identifier, invalid
@@ -75,7 +78,8 @@ void ModuleConnection::checkSemantics(CompilationUnit& cu) const {
     //Mark OUT variables as assigned
     for(size_t i=0; i<expectedParams->length(); i++)
         if((*expectedParams)[i]->getDirection() == Parameter::OUT){
-            const Identifier *id = dynamic_cast<const Identifier*>((*parameters)[i]);
+            //We have already checked and given reasons for this casts existence
+            const Identifier *id = static_cast<const Identifier*>((*parameters)[i]);
             //Check not needed, was already checked before
             cu.assignVariable(id);
         }
@@ -83,4 +87,32 @@ void ModuleConnection::checkSemantics(CompilationUnit& cu) const {
 
 void ModuleConnection::translate(const Translator& translation){
     parameters->translate(translation);
+}
+
+std::vector<AsyncExpression*> ModuleConnection::linkExpression(const std::map<const Identifier, Module*>& modules, bool& doDelete){
+    doDelete = true;
+    Module *mod = modules.at(*this->identifier);
+
+    ParameterList* list = this->getParameters();
+    const ParameterListDeclaration* expected = mod->getParameters();
+
+    std::map<Identifier, Identifier> trans;
+
+    for(size_t ii=0; ii<expected->length(); ii++){
+        const Parameter* p = expected->operator[](ii);
+        //Need to cast to identifier, as we need to check that it is in fact an ID, and not an expression
+        const Identifier* id = dynamic_cast<const Identifier*>(list->operator[](ii));
+
+        if(id == NULL){
+            std::cerr << "Cannot cast" << std::endl;
+            continue;
+        }
+
+        trans[*p->getIdentifier()] = *id;
+    }
+
+    //This cast is needed, because we cannot assume it's type
+    //We only have asnyc stuff now, so this is enough
+    std::vector<AsyncExpression*> newExpressions = static_cast<AsyncModule*>(mod)->linkModule(Translator(trans));
+    return newExpressions;
 }
