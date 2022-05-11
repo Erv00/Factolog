@@ -11,3 +11,4 @@ src/memtrace*
 *.cc
 .vscode
 *.pdf
+sub
