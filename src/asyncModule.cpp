@@ -77,11 +77,7 @@ void AsyncModule::optimize(){
 
 void AsyncModule::calcualteColorTree(LinkingUnit* lu){
     for(size_t i=0; i<expressions.size(); i++){
-        //Only calculate color tree for assignment, as the oders make no sense
-        Assignment *a = dynamic_cast<Assignment *>(expressions[i]);
-        if(a != NULL){
-            a->calculateColorTree(lu);
-        }
+        expressions[i]->calculateColorTree(lu);
     }
 }
 
@@ -99,45 +95,18 @@ std::vector<AsyncExpression*> AsyncModule::linkModule(const Translator& translat
     return res;
 }
 
-AsyncModule* AsyncModule::link(std::map<const Identifier, Module*>& modules) {
+Module* AsyncModule::link(std::map<const Identifier, Module*>& modules) {
     for(size_t i=0; i<expressions.size(); i++){
-        ModuleConnection *mc = dynamic_cast<ModuleConnection*>(expressions[i]);
-
-        if(mc != NULL){
-            //Found module connection
-            expressions.erase(expressions.begin() + i);
+        bool doDelete = false;
+        std::vector<AsyncExpression*> newExpressions = expressions[i]->linkExpression(modules, doDelete);
+        expressions.insert(expressions.end(),newExpressions.begin(), newExpressions.end());
+        if(doDelete){
+            delete expressions[i];
+            expressions.erase(expressions.begin()+i);
             i--;
-
-            Module *m = modules.at(*mc->getIdentifier());
-            AsyncModule *mod = dynamic_cast<AsyncModule*>(m);
-            if(mod == NULL){
-                std::cout << "Module not async?" << std::endl;
-                continue;
-            }
-
-            ParameterList* list = mc->getParameters();
-            ParameterListDeclaration* expected = mod->parameters;
-
-            std::map<Identifier, Identifier> trans;
-
-            for(size_t ii=0; ii<expected->length(); ii++){
-                Parameter* p = expected->operator[](ii);
-                const Identifier* id = dynamic_cast<const Identifier*>(list->operator[](ii));
-
-                if(id == NULL){
-                    std::cerr << "Cannot cast" << std::endl;
-                    continue;
-                }
-
-                trans[*p->getIdentifier()] = *id;
-            }
-
-            std::vector<AsyncExpression*> newExpressions = mod->linkModule(Translator(trans));
-
-            expressions.insert(expressions.end(),newExpressions.begin(), newExpressions.end());
-            delete mc;
         }
     }
+
 
     return this;
 }
@@ -149,9 +118,9 @@ EID AsyncModule::addToBlueprint(Blueprint& bp) const{
 }
 
 std::vector<Identifier> AsyncModule::recalculateDefinedVariables(){
-    //TODO: Should do this while linking
     std::vector<Identifier> res;
     for(size_t i=0; i<expressions.size(); i++){
+        //Use a cast, or write a stupendous ammount of noop functions
         VariableDeclaration *vars = dynamic_cast<VariableDeclaration*>(expressions[i]);
         if(vars != NULL){
             std::vector<Identifier*> ids = vars->getDeclaredVariables();

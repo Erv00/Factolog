@@ -147,6 +147,7 @@ void Compiler::compile(){
     //Calculate colors
     Module *main = definedModules[Identifier("main")];
     if(main == NULL) throw "No main module defined";
+    main->link(definedModules);
     std::vector<Identifier> ids =  main->recalculateDefinedVariables();
     std::vector<Color> colors;
 

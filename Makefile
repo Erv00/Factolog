@@ -12,10 +12,17 @@ MAKEDEPEND = g++ -MM -MT "$@" -MF deps/$*.d -I include $<
 MAKEDEPEND_TEST = g++ -MM -MT "$@" -MF deps/$*_test.d -I include $<
 
 # Package for submission
-.PHONY: package
-package: Factolog.zip
+.PHONY: submission
+submission: $(SRCS) $(TEST_SRCS) tests/testMain.cc doc/latex/refman.pdf include/* | sub 
+	echo $? | xargs cp -t sub
+	-rm sub/memtrace.*
+	-rm sub/gtest_lite.h
+	mv sub/testMain.cc sub/testMain.cpp
+	mv sub/refman.pdf sub/factolog.pdf
+	zip sub/sub.zip sub/* -j -x *.pdf
 
-Factolog.zip: doc
+sub:
+	mkdir -p sub
 
 # Folder for object files
 obj:
@@ -34,6 +41,7 @@ clean:
 	-rm factolog
 	-rm factoTest
 	-rm tests/testMain.cc
+	-rm -rf sub/
 
 # Rules for object files
 obj/%.o: src/%.cpp deps/%.d | obj

@@ -11,7 +11,7 @@ void argumentParser_test(){
 //Due to a mismatch in the way the C function getopts_long expects
 //its arguments, it cannot be tested without some warnings, or a lot of
 //otherwise unnecessary code
-#ifndef CPRORTA
+#ifndef CPORTA
     TEST(ArgumentParser, NoArguments){
         int argc = 1;
         char *argv[] = {"./factoTest", NULL};
