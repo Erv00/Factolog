@@ -1,8 +1,6 @@
 #include "expression.h"
 
-#include "combinator.h"
 #include "exceptions.h"
-#include "blueprint.h"
 #include "autoDtor.h"
 #include "term.h"
 #include "dot.h"

@@ -12,7 +12,6 @@
 
 #include <iostream>
 #include "memtrace.h"
-#include "combinator.h"
 
 namespace factolog {
 
@@ -48,14 +47,6 @@ public:
      * @brief TreeNode felszabadítása
      */
     virtual ~TreeNode(){};
-
-    /**
-     * @brief TreeNode hozzáadása blueprinthez
-     * 
-     * @param bp A tervrajz
-     * @return EID A hozááadott elem azonosítója, vagy 0
-     */
-    virtual EID addToBlueprint(Blueprint& bp) const {(void)bp; return 0;}
 };
 
 } //namespace factolog

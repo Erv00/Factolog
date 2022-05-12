@@ -3,9 +3,7 @@
 #include "dot.h"
 #include "value.h"
 #include "autoDtor.h"
-#include "blueprint.h"
 #include "expression.h"
-#include "arithmeticCombinator.h"
 
 using namespace factolog;
 
@@ -124,30 +122,4 @@ void UnaryExpression::calculateColorTree(LinkingUnit* lu, Color expected){
 
 void UnaryExpression::translate(const Translator& translation){
     expr->translate(translation);
-}
-
-EID UnaryExpression::addToBlueprint(Blueprint& bp) const{
-    ArithmeticCombinator *ac = new ArithmeticCombinator(*this);
-
-    switch(op){
-        case PLUS:  ac->op = ArithmeticCombinator::PLUS;  break;
-        case MINUS: ac->op = ArithmeticCombinator::MINUS; break;
-        case NOT:   ac->op = ArithmeticCombinator::XOR;   break;
-    }
-
-    if(op != NOT)
-        //Normal operation
-        ac->setConst(LEFT, 0);
-    else
-        //Not <=> XOR
-        ac->setConst(LEFT, /*2147483647u*/1);
-
-    EID eid = bp.addEntity(ac);
-
-    EID exprComb = expr->addToBlueprint(bp);
-
-    //We added another combinator while adding left
-    bp.connect(exprComb, eid);
-    
-    return eid;
 }

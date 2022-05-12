@@ -111,12 +111,6 @@ Module* AsyncModule::link(std::map<const Identifier, Module*>& modules) {
     return this;
 }
 
-EID AsyncModule::addToBlueprint(Blueprint& bp) const{
-    for(size_t i=0; i<expressions.size(); i++)
-        expressions[i]->addToBlueprint(bp);
-    return 0;
-}
-
 std::vector<Identifier> AsyncModule::recalculateDefinedVariables(){
     std::vector<Identifier> res;
     for(size_t i=0; i<expressions.size(); i++){

@@ -12,6 +12,7 @@
 
 #include "treenode.h"
 #include "lexer.h"
+#include <map>
 
 #include "memtrace.h"
 

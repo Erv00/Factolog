@@ -12,6 +12,7 @@
 #define valueExpression_H
 
 #include "treenode.h"
+#include "color.h"
 #include <vector>
 #include <map>
 #include "memtrace.h"

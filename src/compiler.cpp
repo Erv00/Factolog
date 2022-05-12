@@ -1,6 +1,5 @@
 #include "compiler.h"
 
-#include "blueprint.h"
 #include "exceptions.h"
 #include "linkingUnit.h"
 
@@ -127,17 +126,6 @@ void Compiler::optimize(){
         it->second->optimize();
 }
 
-std::string Compiler::compileBlueprint() {
-    Module *main = definedModules.at(Identifier("main"));
-    Blueprint bp(18, 2, "substation", main);
-
-    main->addToBlueprint(bp);
-
-    std::stringstream ss;
-    ss << bp;
-    return ss.str();
-}
-
 void Compiler::compile(){
     lex();
     parse();
@@ -163,9 +151,7 @@ void Compiler::compile(){
     main->calcualteColorTree(&lu);
 
     if(doPrintBlueprint){
-        std::string blueprintString = compileBlueprint();
-        *os << blueprintString << std::endl;
-        lu.printVariableColorAssociation(std::cerr);
+        throw "Thanos removed this";
     }
     if(doPrintDot) definedModules.at(Identifier("main"))->printDot(*os);
 

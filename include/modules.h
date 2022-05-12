@@ -142,8 +142,6 @@ class AsyncModule : public Module {
     
     Module* link(std::map<const Identifier, Module*>& modules);
 
-    EID addToBlueprint(Blueprint& bp) const;
-
     std::vector<Identifier> recalculateDefinedVariables();
 };
 

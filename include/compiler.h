@@ -74,12 +74,6 @@ class Compiler {
     void optimize();
 
     /**
-     * @brief Átalakítja az @ref AST -t egy blueprint sztringgé
-     * @return std::string A tervrajz JSON alakban
-     */
-    std::string compileBlueprint();
-
-    /**
      * @brief Base64 enkódolja a blueprint sztringet
      */
     void encode();

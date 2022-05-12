@@ -89,7 +89,6 @@ class BinaryExpression : public ValueExpression {
 
     void calculateColorTree(LinkingUnit* lu, Color expectedOut);
     void translate(const Translator& translation);
-    EID addToBlueprint(Blueprint& bp) const;
 };
 
 

@@ -85,7 +85,6 @@ class UnaryExpression : public ValueExpression {
 
     void calculateColorTree(LinkingUnit* lu, Color expected);
     void translate(const Translator& translation);
-    EID addToBlueprint(Blueprint& bp) const;
 };
 
 
