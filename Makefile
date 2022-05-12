@@ -17,9 +17,13 @@ submission: $(SRCS) $(TEST_SRCS) tests/testMain.cc doc/latex/refman.pdf include/
 	echo $? | xargs cp -t sub
 	-rm sub/memtrace.*
 	-rm sub/gtest_lite.h
+	-rm sub/factolog.cpp
 	mv sub/testMain.cc sub/testMain.cpp
 	mv sub/refman.pdf sub/factolog.pdf
+	mkdir -p sub/tests
+	cp tests/*.fl sub/tests/
 	zip sub/sub.zip sub/* -j -x *.pdf
+	cd sub && zip datafiles.zip tests/*
 
 sub:
 	mkdir -p sub
