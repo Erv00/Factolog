@@ -25,6 +25,7 @@ class Lexer {
     std::vector<Token> tokens;                  ///<A stream összes tokenje
     std::vector<Token>::iterator currentToken;  ///<A jelenlegi tokenre mutató iterator
     std::vector<Token>::iterator nextToken;     ///<A következő tokenre mutató iterator
+    static Token END_TOKEN;                     ///<A streamot lezáró token
 
     /**
      * @brief Eldönti egy addot karakterről, hogy Single Character Token (SCT)-e
