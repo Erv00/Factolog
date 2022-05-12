@@ -7,6 +7,8 @@
 
 using namespace factolog;
 
+Token Lexer::END_TOKEN("");
+
 Lexer::Lexer(std::istream& _is): is(_is){}
 
 Lexer::Lexer(std::ifstream& _is): is(_is){
@@ -101,10 +103,12 @@ void Lexer::lexLine(std::string line){
 }
 
 Token& Lexer::current() const {
+    if(currentToken == tokens.end()) return END_TOKEN;
     return *currentToken;
 }
 
 Token& Lexer::next() const {
+    if(nextToken == tokens.end()) return END_TOKEN;
     return *nextToken;
 }
 
