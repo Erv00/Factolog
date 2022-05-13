@@ -28,7 +28,7 @@ Configuration::Configuration(int argc, char *argv[]){
     int c;
     int optionIndex=0;
     std::string shortOpt = longOptionsToShort(long_options);
-    optind = 1;
+    optind = 0;
     while(true){
         c = getopt_long(argc, argv, shortOpt.c_str(), long_options, &optionIndex);
 

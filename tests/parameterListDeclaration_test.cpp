@@ -16,6 +16,7 @@ void parameterListDeclaration_test(){
     
         EXPECT_EQ(2, pl->getNumInputs());
         EXPECT_EQ(1, pl->getNumOutputs());
+        delete pl;
     }END;
 
     TEST(ParameterListDeclaration, NoConnection){
