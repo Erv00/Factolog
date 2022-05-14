@@ -6,6 +6,8 @@
 #include <sstream>
 #include <string>
 
+using namespace factolog;
+
 void parameterListDeclaration_test(){
     TEST(ParameterListDeclaration, Basic){
         std::stringstream ss("in a, in b, out c");
