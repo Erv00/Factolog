@@ -78,7 +78,7 @@ doc/latex/refman.pdf: doc/html $(wildcard include/*)
 tests : factoTest
 
 factoTest: $(TEST_OBJS) $(OBJS) tests/testMain.cc
-	$(CXX) $(LDFLAGS) $(TEST_OBJS) $(filter-out obj/factolog.o, $(OBJS)) tests/testMain.cc -o factoTest $(LIBS)
+	$(CXX) $(LDFLAGS) $(CMD) $(TEST_OBJS) $(filter-out obj/factolog.o, $(OBJS)) tests/testMain.cc -o factoTest $(LIBS)
 
 # Using .cc extention to not be included in TEST_SRCS
 tests/testMain.cc: $(TEST_SRCS)

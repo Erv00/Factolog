@@ -130,6 +130,13 @@ class Compiler {
      */
     void compile();
 
+    bool& printDotFlag() { return doPrintDot; }
+    const bool& printDotFlag() const { return doPrintDot; }
+
+    bool& printBlueprintFlag() { return doPrintBlueprint; }
+    const bool& printBlueprintFlag() const { return doPrintBlueprint
+        ; }
+
 };
 
 } //namespace factolog
