@@ -136,12 +136,37 @@ class Compiler {
      */
     void compile();
 
+    /**
+     * @brief Dot kimenet kiíratási szükség
+     * 
+     * @return true Ha a dot kimenet ki lesz írva
+     * @return false Egyébként
+     */
     bool& printDotFlag() { return doPrintDot; }
+    
+    /**
+     * @brief Dot kimenet kiíratási szükség
+     * 
+     * @return true Ha a dot kimenet ki lesz írva
+     * @return false Egyébként
+     */
     const bool& printDotFlag() const { return doPrintDot; }
 
+    /**
+     * @brief Blueprint kimenet kiíratási szükség
+     * 
+     * @return true Ha a tervrajz kimenet ki lesz írva
+     * @return false Egyébként
+     */
     bool& printBlueprintFlag() { return doPrintBlueprint; }
-    const bool& printBlueprintFlag() const { return doPrintBlueprint
-        ; }
+
+    /**
+     * @brief Blueprint kimenet kiíratási szükség
+     * 
+     * @return true Ha a tervrajz kimenet ki lesz írva
+     * @return false Egyébként
+     */
+    const bool& printBlueprintFlag() const { return doPrintBlueprint; }
 
 };
 
