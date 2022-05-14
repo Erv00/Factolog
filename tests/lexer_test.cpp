@@ -11,6 +11,7 @@
 
 #include "gtest_lite.h"
 #include "lexer.h"
+#include "exceptions.h"
 #include <sstream>
 
 using namespace factolog;
@@ -64,5 +65,27 @@ void lexer_test(){
         out << l;
 
         EXPECT_STREQ("async#module#Foo#(#)#{#x#=#-#b#+#(#b#**#2#-#4#*#a#*#c#)#**#(#1#/#2#)#;#}#", out.str().c_str());
+    }END;
+
+    TEST(Lexer, Expect){
+        std::stringstream ss("a");
+        Lexer l(ss);
+
+        EXPECT_NO_THROW(l());
+        EXPECT_THROW(l.except("b"), TokenExpectedError&);
+        EXPECT_NO_THROW(l.except("a"));
+        EXPECT_THROW(l.except("a"), TokenExpectedError&);
+    }END;
+
+    TEST(Lexer, DCT){
+        std::stringstream ss("<< >> **");
+        Lexer l(ss);
+
+        EXPECT_NO_THROW(l());
+        EXPECT_EQ((size_t)3, l.getTokens().size());
+        EXPECT_NO_THROW(l.except("<<"));
+        EXPECT_NO_THROW(l.except(">>"));
+        EXPECT_NO_THROW(l.except("**"));
+        EXPECT_TRUE(l.eof());
     }END;
 }
