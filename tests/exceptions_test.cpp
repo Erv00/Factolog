@@ -43,6 +43,16 @@ void exceptions_test(){
         EXPECT_THROW(AsyncModule::parse(l), EmptyParameterListError&);
     }END;
 
+    TEST(Exceptions, EmptyParameterListError2){
+        std::stringstream ss("async module foo(in a) {} async module main(in a){foo();}");
+        std::stringstream out;
+        Compiler c(ss,out);
+        c.printBlueprintFlag() = false;
+        c.printDotFlag() = true;
+
+        EXPECT_THROW(c.compile(), EmptyParameterListError&);
+    }END;
+
     TEST(Exceptions, MismatchedParametersError){
         std::stringstream ss("async module foo(in a, in b){} async module main(in a){foo(a);}");
         std::stringstream out;
