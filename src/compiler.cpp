@@ -151,7 +151,7 @@ void Compiler::compile(){
     main->calcualteColorTree(&lu);
 
     if(doPrintBlueprint){
-        throw "Thanos removed this";
+        std::cerr << "Thanos removed this feature. Please rerun with either -n or --no-blueprint option\nDon't forget to add either -d or --dot" << std::endl;
     }
     if(doPrintDot) definedModules.at(Identifier("main"))->printDot(*os);
 
