@@ -157,7 +157,7 @@ class ModuleConnection : public AsyncExpression {
     /**
      * @brief Új ModuleConnection létrehozása
      */
-    ModuleConnection(){}
+    ModuleConnection():identifier(NULL), parameters(NULL){}
     
     public:
     /**
