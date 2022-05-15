@@ -17,7 +17,6 @@ ParameterList* ParameterList::parse(Lexer& lex){
     }
 
     if(plist->parameters.size() == 0){
-        delete plist;
         throw EmptyParameterListError(lex.current());
     }
 
